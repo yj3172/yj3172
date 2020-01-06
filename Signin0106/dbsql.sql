@@ -1,6 +1,6 @@
-create database userinfo;
+create database userinfo2;
 use userinfo;
-CREATE TABLE Persons (
+CREATE TABLE persons2 (
     id varchar(20),
     pw varchar(50),
     name varchar(50),
