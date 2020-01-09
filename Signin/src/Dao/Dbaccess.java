@@ -1,6 +1,7 @@
 package Dao;
 
 import java.sql.Connection;
+<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,19 +12,38 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
+=======
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import java.util.ArrayList;
+
+import org.apache.ibatis.session.SqlSession;
+import org.omg.CORBA.Request;
+>>>>>>> c1c9bfc5df958588f6e52ceb3b0272d659e7c954
 
 import Dto.Dto;
 
 public class Dbaccess {
 
 	private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+<<<<<<< HEAD
 	private final String DB_URL = "jdbc:mysql://localhost/userinfo?useSSL=false&useUnicode=true&characterEncoding=utf8";
+=======
+	private final String DB_URL = "jdbc:mysql://localhost/userinfo";
+>>>>>>> c1c9bfc5df958588f6e52ceb3b0272d659e7c954
 	private final String USER_NAME = "root";
 	private final String PASSWORD = "317272";
 	
 	Connection conn= null;
 	Statement state = null;
+<<<<<<< HEAD
 	PreparedStatement pstmt =null;
+=======
+
+>>>>>>> c1c9bfc5df958588f6e52ceb3b0272d659e7c954
 	
 	public Dbaccess(){
 		try {
@@ -85,6 +105,7 @@ public class Dbaccess {
 		}
 		return dtolist;
 	}
+<<<<<<< HEAD
 	
 	public void insert(ArrayList<Dto> dto) {
 		String query="insert into board values(?,?,?,?,?);";
@@ -102,6 +123,16 @@ public class Dbaccess {
 		
 		
 			rs = pstmt.executeQuery();
+=======
+	public void insert() {
+		
+		
+		ResultSet rs;
+		try {
+			conn();
+			state = conn.createStatement();
+			rs = state.executeQuery("select * from board;");
+>>>>>>> c1c9bfc5df958588f6e52ceb3b0272d659e7c954
 			
 			rs.close();
 		} catch (SQLException e) {
