@@ -71,6 +71,9 @@
 	#subtitletext{
 		font-size:15pt;
 	}
+	#linktext{
+		color:black;
+	}
 </style>
  <body>
  	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
@@ -92,16 +95,16 @@
  		
  		<%
 		ArrayList<Dto> li = data.selectall();
- 		int k=li.size();
+ 		
 		for(int i=0;i<li.size();i++){
-			
-			%><tr><td><%out.println(k);%></td>
+			String url= "action.jsp?class=boardin&num="+Integer.toString(li.get(i).getNum());
+			%><tr><td><%out.println(li.get(i).getNum());%></td>
 			<td><%out.println(li.get(i).getMoviename());%></td>
-			<td><%out.println(li.get(i).getTitle());%></td>	
+			<td><a id=linktext href=<%out.print(url); %>><%out.println(li.get(i).getTitle());%></a></td>	
 			<td><%out.println(li.get(i).getWritename());%></td>
 			<td><%out.println(li.get(i).getDay()+"<br>");%></td>
 			<%
-			k--;
+			
 		}
 	
 	%>

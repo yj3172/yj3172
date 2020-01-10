@@ -3,8 +3,6 @@
 <%@ page import="Dto.Dto" %>
 <%@ page import="Dao.Dbaccess" %>
 
-
-
 <!doctype html>
 <html lang="en">
  <head>
@@ -16,7 +14,7 @@
   <title>Document</title>
  </head>
  <style>
-
+ 	
  	#mypage{
  		clear:both;
 		width:1300px;
@@ -31,7 +29,8 @@
 		display:inline-block;
 	}
 	#tablewrap{
-		display:inline-block;
+		width:1200px;
+		margin:0 auto;
 	}
 	#mainwraper{
 		text-align:center;
@@ -46,14 +45,33 @@
 	#subtitletext{
 		font-size:15pt;
 	}
-	ul{
-	 list-style:none;
-	 text-align:left;
+	#boardtitle{
+		width:1100px;
+		margin-top:20pt;
+		margin-bottom:20pt;
+		font-weight:bold;
+		font-size:20pt;
 	}
-	textarea{
-	width:600px;
-	height:700px;
-	resize:none;
+	#boardday{
+	
+		margin-left:30px;
+	}
+	#boardmain{
+	margin:0 auto;
+	width:90%;
+	min-height:600px;
+	text-align:left;
+	}
+	#subcolor{
+		opacity:0.5;
+	}
+	#boardcontents{
+		list-style:none;
+		text-align:right;
+	}
+	#boardli{
+	display:inline;
+	margin:10px 10px;
 	}
 </style>
  <body>
@@ -64,28 +82,30 @@
  	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span></div>
  	<hr style="width:90%;color:#bdbdbd;">
  	<div id=tablewrap>
- 	<form method="post" action="action.jsp?class=insert">
- 		<ul>글 작성하기
- 		<li>작성자<input type="text" name="writename" size="10" value=${id} readonly></li>
- 		<li>영화<select name="moviename">
- 		<option value="해리포터">해리포터</option>
- 		<option value="1917">1917</option>
- 		<option value="미드웨이">미드웨이</option>
- 		<option value="슈렉">슈렉</option>
- 		<option value="짱구는못맗려">짱구는못말려</option>
- 		<option value="아무튼영화">아무튼영화</option>
- 		</select></li>
- 		<li>제목<input type="text" name="title" size="30"></li>
- 		<li>본문<textarea id= contents name="contents"></textarea></li> 		
- 		
+ 
+ 		<div id =boardtitle>[${moviename}]${title}</div>
+ 		<div id =boardsub><ul id=boardcontents>
+ 		<li id=boardli>작성자:${writename}</li>
+ 		<li id=boardli>|</li>
+ 		<li id=boardli><span id =subcolor>${day}</span></li>
  		</ul>
- 		
  		</div>
- 		<input type="submit" onclick="location.href='#'" value="등록하기"/>
- 		</form>
+ 		<hr style="width:100%;opacity:0.5;">
+ 		<div id =boardmain>${contents}</div>
+ 		<hr style="width:100%;opacity:0.5;">
+ 		<div>댓글:<span>${comments}</span></div>
+ 	
+ 	
+ 		</div>
+ 		<% if(session.getAttribute("id").equals((String)request.getAttribute("writename"))){ %>
+ 			<input type="button" onclick="location.href='#'" value="수정"/>
+ 			<input type="button" onclick="location.href='#'" value="삭제"/>
+ 		<%} %>
+ 		
+ 		
  	</div>
  	</div>
-	
+
 	<%@ include file="footer.jsp" %>
  </body>
 </html>
