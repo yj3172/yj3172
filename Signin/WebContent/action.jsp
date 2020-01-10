@@ -1,13 +1,22 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="Dto.Dto" %>
 <%@ page import="Dao.Dbaccess" %>
 <% request.setCharacterEncoding("utf-8");%>
+=======
+<%@ page language="java" contentType="text/html; charset=euc-kr"
+    pageEncoding="euc-kr"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="Dto.Dto" %>
+<%@ page import="Dao.Dbaccess" %>
+>>>>>>> 6d0fd15ecbc736a655c537a0ef3539dd10d6690c
 <jsp:useBean id="Dao" class="Dao.Dbaccess"></jsp:useBean>
 <%
 	
 	String cl =request.getParameter("class");
+<<<<<<< HEAD
 
 	
 	if(cl.equals("insert")){
@@ -16,6 +25,15 @@
 		String title=request.getParameter("title");
 		String contents=request.getParameter("contents");
 		
+=======
+	String writename=request.getParameter("writename");
+	String moviename=request.getParameter("moviename");
+	String title=request.getParameter("title");
+	String contents=request.getParameter("contents");
+	
+	
+	if(cl.equals("insert")){
+>>>>>>> 6d0fd15ecbc736a655c537a0ef3539dd10d6690c
 		ArrayList<Dto> dto = new ArrayList<Dto>();
 		Dto board = new Dto();
 		board.setWritename(writename);
@@ -25,6 +43,7 @@
 		dto.add(board);
 		Dao.insert(dto);
 	
+<<<<<<< HEAD
 		response.sendRedirect("G_board.jsp");
 	}
 	else if (cl.equals("boardin")){
@@ -46,6 +65,9 @@
 
         }
 		RequestDispatcher dispatcher = request.getRequestDispatcher("G_boardin.jsp");
+=======
+		RequestDispatcher dispatcher=request.getRequestDispatcher("G_board.jsp");
+>>>>>>> 6d0fd15ecbc736a655c537a0ef3539dd10d6690c
 		dispatcher.forward(request,response);
 	}
 %>
