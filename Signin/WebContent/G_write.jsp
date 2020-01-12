@@ -74,11 +74,42 @@
  		<option value="슈렉">슈렉</option>
  		<option value="짱구는못맗려">짱구는못말려</option>
  		<option value="아무튼영화">아무튼영화</option>
+<<<<<<< HEAD
+=======
+=======
+<<<<<<< HEAD
+ 	<form method="post" action="action.jsp?class=insert">
+ 		<ul>글 작성하기
+ 		<li>작성자<input type="text" name="writename" size="10" value=${id} readonly></li>
+ 		<li>영화<select name="moviename">
+ 		<option value="해리포터">해리포터</option>
+ 		<option value="1917">1917</option>
+ 		<option value="미드웨이">미드웨이</option>
+ 		<option value="슈렉">슈렉</option>
+ 		<option value="짱구는못맗려">짱구는못말려</option>
+ 		<option value="아무튼영화">아무튼영화</option>
+=======
+ 	<form>
+ 		<ul>글 작성하기
+ 		<li>작성자<input type="text" name="writename" size="10" value=${id} readonly></li>
+ 		<li>영화<select name="moviename">
+ 		<option>해리포터</option>
+ 		<option>1917</option>
+ 		<option>미드웨이</option>
+ 		<option>슈렉</option>
+ 		<option>짱구는못말려</option>
+ 		<option>아무튼영화</option>
+>>>>>>> c1c9bfc5df958588f6e52ceb3b0272d659e7c954
+>>>>>>> 6d0fd15ecbc736a655c537a0ef3539dd10d6690c
+>>>>>>> 6f0af14b0e59773349a7f5a7310e702c39b9d694
  		</select></li>
  		<li>제목<input type="text" name="title" size="30"></li>
  		<li>본문<textarea id= contents name="contents"></textarea></li> 		
  		
  		</ul>
+ 		
+=======
+<<<<<<< HEAD
  		
  		</div>
  		<input type="submit" onclick="location.href='#'" value="등록하기"/>
@@ -86,6 +117,22 @@
  	</div>
  	</div>
 	
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 6d0fd15ecbc736a655c537a0ef3539dd10d6690c
+ 		</div>
+ 		<input type="submit" onclick="location.href='#'" value="등록하기"/>
+ 		</form>
+ 	</div>
+ 	</div>
+<<<<<<< HEAD
+	
+=======
+	</form>
+>>>>>>> c1c9bfc5df958588f6e52ceb3b0272d659e7c954
+>>>>>>> 6d0fd15ecbc736a655c537a0ef3539dd10d6690c
+>>>>>>> 6f0af14b0e59773349a7f5a7310e702c39b9d694
 	<%@ include file="footer.jsp" %>
  </body>
 </html>
