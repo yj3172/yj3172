@@ -8,7 +8,14 @@ public class Dto {
 	String title;
 	String day;
 	String comment;
+	int num;
 	
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public String getWritename() {
 		return writename;
 	}

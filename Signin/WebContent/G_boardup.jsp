@@ -2,7 +2,10 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="Dto.Dto" %>
 <%@ page import="Dao.Dbaccess" %>
-
+<%
+	String num = request.getParameter("num");
+	String actionlink = "action.jsp?class=updatevalue&num="+num;
+%>
 
 
 <!doctype html>
@@ -64,7 +67,7 @@
  	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span></div>
  	<hr style="width:90%;color:#bdbdbd;">
  	<div id=tablewrap>
- 	<form method="post" action="action.jsp?class=insert">
+ 	<form method="post" action=<%= actionlink %>>
  		<ul>글 작성하기
  		<li>작성자<input type="text" name="writename" size="10" value=${id} readonly></li>
  		<li>영화<select name="moviename">
@@ -75,13 +78,13 @@
  		<option value="짱구는못맗려">짱구는못말려</option>
  		<option value="아무튼영화">아무튼영화</option>
  		</select></li>
- 		<li>제목<input type="text" name="title" size="30"></li>
- 		<li>본문<textarea id= contents name="contents"></textarea></li> 		
+ 		<li>제목<input type="text" name="title" size="30" value= ${title}></li>
+ 		<li>본문<textarea id= contents name="contents"><%=request.getAttribute("contents") %>></textarea></li> 		
  		
  		</ul>
  		
  		</div>
- 		<input type="submit" onclick="location.href='#'" value="등록하기"/>
+ 		<input type="submit" value="수정하기"/>
  		</form>
  	</div>
  	</div>
