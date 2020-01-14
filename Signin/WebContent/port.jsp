@@ -24,7 +24,34 @@
 	top:805px;
 	}
 	</style>
+<script>
+var today = new Date();
+var dd = today.getDate()-1;
+var mm = today.getMonth()+1; //January is 0!
+var yyyy = today.getFullYear();
+if(dd<10) {
+    dd='0'+dd
+} 
 
+if(mm<10) {
+    mm='0'+mm
+} 
+
+today = yyyy+mm+dd;
+alert(today);
+
+	$.ajax({
+	
+		type:"GET",
+		url:"http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?",
+		data:{targetDt:today,key:"9c54a229f03f55f7f29e381b3eb14177",itemPerPage:"10"}
+	}).done(function(msg){
+		console.log(msg);
+		document.getElementById("todaylist").innerHTML =msg.boxOfficeResult.boxofficeType;
+		document.getElementById("firsttitle").innerHTML =msg.boxOfficeResult.dailyBoxOfficeList[0].movieNm;
+	});
+
+</script>
 
   
  </head>
@@ -41,6 +68,8 @@
 
 		<div id=boxoffice>
 		<h1 class=maintitle>BOX OFFICE</h1>
+		<div id =todaylist></div>
+		<div id =firsttitle></div>
 		</div>
 	<div id=eventbox>
 		<h1 class=maintitle>EVENT</h1>
