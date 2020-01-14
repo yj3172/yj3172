@@ -48,10 +48,10 @@
 		height:100%;
 		border:solid black 1px;
 		display:inline-block;
-		margin:250px 60px auto auto;
 		background-color:#f9f6f7;
 		border-radius:10px;
-		margin-top:250px;
+		margin:250px auto 60px auto;
+		padding:0 30px 60px 30px;
 		text-align:center;
 		display:inline-block;
 	}
@@ -74,43 +74,130 @@
 	#linktext{
 		color:black;
 	}
+	#contentswrap{
+		width:1260px;
+		height:100%;
+	}
+	#contents{
+		float:left;
+		width:400px;
+		height:360px;
+		margin:10px;
+		top:50%;
+		box-shadow: 
+		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
+		0 0 200px 1px rgba(255, 255, 255, 0.5);
+	}
+	#ctext{
+		position:relative;
+		width:90%;
+		height:200px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:20px;
+	}
+	#cmovie{
+	float:left;
+	font-size:15pt;
+	font-weight:bold;
+	}
+	#ctitle{
+	float:left;
+	font-size:15pt;
+	font-weight:bold;
+	
+	}
+	#wddiv{
+		width:100%;
+		clear:both;
+		float:left;
+		margin-top:20px;
+	}
+	#cwrite{
+
+	float:left;
+	
+	}
+	#cday{
+	float:right;
+	}
+	img{
+		width:400px;
+		height:600px;
+	}
+	#img{
+	width:400px;
+	height:250px;
+	position:relative;
+	overflow:hidden;
+	}
+	#wbtn{
+		float:right;
+		margin-right:100px;
+		width:80px;
+		height:35px;
+		background:#f45905;
+		color:white;
+		border:none;
+		cursor:pointer;
+		font-size:10pt;
+	}
+
 </style>
  <body>
  	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
  	<%@ include file="header.jsp" %>
 	<div id =mainwraper>
  	<div id = mypage>
- 	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span></div>
+ 	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span>
+ 	<input id=wbtn type="button" onclick="location.href='G_write.jsp'" value="글쓰기"/></div>
+ 	
  	<hr style="width:90%;color:#bdbdbd;">
  	<div id=tablewrap>
  	
- 		<table>
- 		<tr>
- 		<td id=title>번호</td>
- 		<td id=title>영화</td>
- 		<td id=title>제목</td>
- 		<td id=title>작성자</td>
- 		<td id=title>작성일</td>
- 		</tr>
+ 	
  		
  		<%
 		ArrayList<Dto> li = data.selectall();
- 		
+ 		String img="";
 		for(int i=0;i<li.size();i++){
 			String url= "action.jsp?class=boardin&num="+Integer.toString(li.get(i).getNum());
-			%><tr><td><%out.println(li.get(i).getNum());%></td>
-			<td><%out.println(li.get(i).getMoviename());%></td>
-			<td><a id=linktext href=<%out.print(url); %>><%out.println(li.get(i).getTitle());%></a></td>	
-			<td><%out.println(li.get(i).getWritename());%></td>
-			<td><%out.println(li.get(i).getDay()+"<br>");%></td>
+			if(li.get(i).getMoviename().equals("1917")){
+				img = "1917.jpg";
+			}
+			else if(li.get(i).getMoviename().equals("미드웨이")){
+				img = "midway.jpg";
+			}
+			else if(li.get(i).getMoviename().equals("슈렉")){
+				img = "shurek.jpg";
+			}
+			else if(li.get(i).getMoviename().equals("해리포터")){
+				img = "harrypoter.jpg";
+			}
+			else if(li.get(i).getMoviename().equals("짱구는못말려")){
+				img = "jjanggu.jpg";
+			}
+			else
+				img = "none.png";
+			String imglink="img/"+img;
+			
+			%><a id=linktext href=<%out.print(url); %>><div id =contentswrap><div id = contents>
+			<div id =img><img src=<%= imglink %> ></div><div id =ctext>
+			<div id ="cmovie">[ <%out.println(li.get(i).getMoviename());%>]</div>
+			<div id ="ctitle"><%out.println(li.get(i).getTitle());%></div>	
+			<div id =wddiv><div id ="cwrite"><%out.println(li.get(i).getWritename());%></div>
+			<div id ="cday"><%out.println(li.get(i).getDay()+"<br>");%></div></div>
+			</div>
+			</div>
+			</div></a>
 			<%
 			
 		}
 	
-	%>
- 		</table>
+	%></div>
+ 	
  		</div>
- 		<input type="button" onclick="location.href='G_write.jsp'" value="글쓰기"/>
+ 		
  	</div>
  	</div>
 

@@ -63,6 +63,8 @@ ul.bxslider {
   font-weight: bold;
   color: #666;
   padding-top: 20px;
+  position:absolute;
+  top:820px;
 }
 
 .bx-wrapper .bx-pager.bx-default-pager a {

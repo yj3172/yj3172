@@ -21,7 +21,7 @@
 		height:100%;
 		border:solid black 1px;
 		display:inline-block;
-		margin:250px 60px auto auto;
+		margin:250px auto 60px auto;
 		background-color:#f9f6f7;
 		border-radius:10px;
 		margin-top:250px;
@@ -73,13 +73,43 @@
 	display:inline;
 	margin:10px 10px;
 	}
+	#btn{
+		
+		margin-right:20px;
+		width:80px;
+		height:35px;
+		background:#f45905;
+		color:white;
+		border:none;
+		cursor:pointer;
+		font-size:10pt;
+	}
 </style>
+<script>
+	function delcheck(){
+		var check = confirm("정말 삭제하시겠습니까");
+		if(check){
+			location.href='action.jsp?class=delete&num='+<%=request.getAttribute("num") %>
+		}
+	}
+</script>
  <body>
  	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
  	<%@ include file="header.jsp" %>
 	<div id =mainwraper>
  	<div id = mypage>
- 	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span></div>
+ 	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span><% 
+		if(session.getAttribute("id")==null){	
+		}
+ 		else if (session.getAttribute("id").equals((String)request.getAttribute("writename"))){ 
+ 			String uplink ="location.href='action.jsp?class=update&num="+request.getAttribute("num")+"'";
+ 		%>	<div style="float:right;margin-right:100px;margin-top:-10px;">
+ 			
+ 			<input id =btn type="button" onclick=<%= uplink %> value="수정"/>
+ 			<input id= btn type="button" onclick=delcheck() value="삭제"/>
+ 			</div>
+ 			
+ 		<%} %></div>
  	<hr style="width:90%;color:#bdbdbd;">
  	<div id=tablewrap>
  
@@ -91,25 +121,13 @@
  		</ul>
  		</div>
  		<hr style="width:100%;opacity:0.5;">
- 		<div id =boardmain>${contents}</div>
+ 		<div id =boardmain><pre>${contents}</pre></div>
  		<hr style="width:100%;opacity:0.5;">
  		<div>댓글:<span>${comments}</span></div>
  	
  	
  		</div>
-<<<<<<< HEAD
- 		<% if(session.getAttribute("id").equals((String)request.getAttribute("writename"))){ 
- 			String uplink ="location.href='action.jsp?class=update&num="+request.getAttribute("num")+"'";
- 			String delink ="location.href='action.jsp?class=delete&num="+request.getAttribute("num")+"'";
- 		%>
- 			<input type="button" onclick=<%= uplink %> value="수정"/>
- 			<input type="button" onclick=<%= delink %> value="삭제"/>
-=======
- 		<% if(session.getAttribute("id").equals((String)request.getAttribute("writename"))){ %>
- 			<input type="button" onclick="location.href='#'" value="수정"/>
- 			<input type="button" onclick="location.href='#'" value="삭제"/>
->>>>>>> 6f0af14b0e59773349a7f5a7310e702c39b9d694
- 		<%} %>
+ 		
  		
  		
  	</div>

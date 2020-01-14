@@ -26,7 +26,8 @@
 		height:100%;
 		border:solid black 1px;
 		display:inline-block;
-		margin:250px 60px auto auto;
+		margin:250px auto 60px auto;
+		padding:0 30px 60px 30px;
 		background-color:#f9f6f7;
 		border-radius:10px;
 		margin-top:250px;
@@ -49,7 +50,8 @@
 	#subtitletext{
 		font-size:15pt;
 	}
-	ul{
+	#write{
+	float:left;
 	 list-style:none;
 	 text-align:left;
 	}
@@ -57,6 +59,22 @@
 	width:600px;
 	height:700px;
 	resize:none;
+	}
+		#write li{
+		padding:10px 0 10px 0;
+		width:100%;
+		
+	}
+	#btn{
+		position:relative;
+		left:45%;
+		width:80px;
+		height:35px;
+		background:#f45905;
+		color:white;
+		border:none;
+		cursor:pointer;
+		font-size:10pt;
 	}
 </style>
  <body>
@@ -68,23 +86,32 @@
  	<hr style="width:90%;color:#bdbdbd;">
  	<div id=tablewrap>
  	<form method="post" action=<%= actionlink %>>
- 		<ul>글 작성하기
- 		<li>작성자<input type="text" name="writename" size="10" value=${id} readonly></li>
- 		<li>영화<select name="moviename">
+ 		<ul id=write>
+ 		<li>작성자</li>
+ 		<li>영화선택</li>
+ 		<li>글 제목</li>
+ 		
+ 		</ul>
+ 		
+ 		<ul id=write>
+ 		<li><input type="text" name="writename" size="10" value=${id} readonly style="background:#bdbdbd;"></li>
+ 		<li><select name="moviename">
  		<option value="해리포터">해리포터</option>
  		<option value="1917">1917</option>
  		<option value="미드웨이">미드웨이</option>
  		<option value="슈렉">슈렉</option>
- 		<option value="짱구는못맗려">짱구는못말려</option>
+ 		<option value="짱구는못말려">짱구는못말려</option>
  		<option value="아무튼영화">아무튼영화</option>
  		</select></li>
- 		<li>제목<input type="text" name="title" size="30" value= ${title}></li>
- 		<li>본문<textarea id= contents name="contents"><%=request.getAttribute("contents") %>></textarea></li> 		
  		
+ 		<li><input type="text" name="title" size="80"></li>
+ 		<hr style="color:#bdbdbd;width:130%;position:relative;right:20%;">
+ 		<li><textarea id= contents name="contents"></textarea></li> 		
+ 		<li><input id=btn type="submit" onclick="location.href='#'" value="수정하기"/></li>
  		</ul>
  		
  		</div>
- 		<input type="submit" value="수정하기"/>
+ 		
  		</form>
  	</div>
  	</div>

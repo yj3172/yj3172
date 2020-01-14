@@ -18,7 +18,12 @@
 	<link href="bxslider-4-master\bxslider-4-master\dist/jquery.bxslider.css" rel="stylesheet" />
 	<link href="css/cssindex.css" rel="stylesheet">
 	<script src="js/scriptindex.js"></script>
-	
+	<style>
+	.bx-wrapper .bx-pager {
+	position:absolute;
+	top:805px;
+	}
+	</style>
 
 
   
