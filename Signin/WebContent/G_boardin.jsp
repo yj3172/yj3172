@@ -97,9 +97,18 @@
  	
  	
  		</div>
+<<<<<<< HEAD
+ 		<% if(session.getAttribute("id").equals((String)request.getAttribute("writename"))){ 
+ 			String uplink ="location.href='action.jsp?class=update&num="+request.getAttribute("num")+"'";
+ 			String delink ="location.href='action.jsp?class=delete&num="+request.getAttribute("num")+"'";
+ 		%>
+ 			<input type="button" onclick=<%= uplink %> value="수정"/>
+ 			<input type="button" onclick=<%= delink %> value="삭제"/>
+=======
  		<% if(session.getAttribute("id").equals((String)request.getAttribute("writename"))){ %>
  			<input type="button" onclick="location.href='#'" value="수정"/>
  			<input type="button" onclick="location.href='#'" value="삭제"/>
+>>>>>>> 6f0af14b0e59773349a7f5a7310e702c39b9d694
  		<%} %>
  		
  		
