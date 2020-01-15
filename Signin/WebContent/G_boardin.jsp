@@ -22,6 +22,7 @@
 		border:solid black 1px;
 		display:inline-block;
 		margin:250px auto 60px auto;
+		padding:0 30px 60px 30px;
 		background-color:#f9f6f7;
 		border-radius:10px;
 		margin-top:250px;
@@ -84,6 +85,31 @@
 		cursor:pointer;
 		font-size:10pt;
 	}
+	#comment{
+		resize:none;
+		padding:30px;
+		height:60px;
+		width:1000px;
+		
+	}
+	#cmtbtn{
+		float:right;
+		width:120px;
+		height:120px;
+		background:#f45905;
+		color:white;
+		border:none;
+		cursor:pointer;
+		font-size:17pt;
+	}
+	#commenttitle{
+		float:left;
+		margin: 20px 0 20px 30px;
+		font-size:18pt;		
+	}
+	pre{
+	white-space: pre-wrap;
+	}
 </style>
 <script>
 	function delcheck(){
@@ -121,9 +147,14 @@
  		</ul>
  		</div>
  		<hr style="width:100%;opacity:0.5;">
- 		<div id =boardmain><pre>${contents}</pre></div>
+ 		<% String imgurl ="upload/"+(String)request.getAttribute("imgurl"); 
+ 		out.print("{ㄴㅁㅇ:ㅁㄴㅇ}");
+ 		%>
+ 		<div id =boardmain><div style="text-align:center; width:100%;"><img src="<%=imgurl %>" style="width:350px; height:100%;"/></div><pre>${contents}</pre></div>
  		<hr style="width:100%;opacity:0.5;">
- 		<div>댓글:<span>${comments}</span></div>
+ 		<div id =commenttitle style="float:left;">댓글()</div>
+ 		<div style="clear:both;float:left;"><textarea id=comment placeholder="악성 및 비방댓글은 경고없이 삭제됩니다"></textarea><input id=cmtbtn type="button" value="등록"/></div>
+ 		
  	
  	
  		</div>

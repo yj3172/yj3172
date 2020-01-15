@@ -38,7 +38,6 @@ if(mm<10) {
 } 
 
 today = yyyy+mm+dd;
-alert(today);
 
 	$.ajax({
 	

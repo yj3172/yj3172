@@ -95,7 +95,7 @@
  		
  		<ul id=write>
  		<li><input type="text" name="writename" size="10" value=${id} readonly style="background:#bdbdbd;"></li>
- 		<li><select name="moviename">
+ 		<li><select name="moviename" value=${moviename}>
  		<option value="해리포터">해리포터</option>
  		<option value="1917">1917</option>
  		<option value="미드웨이">미드웨이</option>
@@ -104,9 +104,9 @@
  		<option value="아무튼영화">아무튼영화</option>
  		</select></li>
  		
- 		<li><input type="text" name="title" size="80"></li>
+ 		<li><input type="text" name="title" size="80" value=${title}></li>
  		<hr style="color:#bdbdbd;width:130%;position:relative;right:20%;">
- 		<li><textarea id= contents name="contents"></textarea></li> 		
+ 		<li><textarea id= contents name="contents">${contents}</textarea></li> 		
  		<li><input id=btn type="submit" onclick="location.href='#'" value="수정하기"/></li>
  		</ul>
  		

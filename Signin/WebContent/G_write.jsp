@@ -62,6 +62,7 @@
 	width:600px;
 	height:700px;
 	resize:none;
+	
 	}
 	#write li{
 		padding:10px 0 10px 0;
@@ -88,12 +89,12 @@
  	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span></div>
  	<hr style="width:90%;color:#bdbdbd;">
  	<div id=tablewrap>
- 	<form method="post" action="action.jsp?class=insert">
+ 	<form method="post" action="action.jsp?class=insert" enctype="multipart/form-data">
  		<ul id=write>
  		<li>작성자</li>
  		<li>영화선택</li>
  		<li>글 제목</li>
- 		
+ 		<li>이미지파일</li>
  		</ul>
  		
  		<ul id=write>
@@ -108,6 +109,7 @@
  		</select></li>
  		
  		<li><input type="text" name="title" size="80"></li>
+ 		<li><input type="file" name="fileName1" id = "fileName1" accept=".gif, .jpg, .png"></li>
  		<hr style="color:#bdbdbd;width:130%;position:relative;right:20%;">
  		<li><textarea id= contents name="contents"></textarea></li> 		
  		<li><input id=btn type="submit" onclick="location.href='#'" value="등록하기"/></li>

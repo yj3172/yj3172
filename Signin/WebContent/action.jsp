@@ -5,6 +5,7 @@
 <%@ page import="Dao.Dbaccess" %>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@ page import="java.util.*" %>
 <% request.setCharacterEncoding("utf-8");%>
 
 <jsp:useBean id="Dao" class="Dao.Dbaccess"></jsp:useBean>
@@ -14,20 +15,48 @@
 	ArrayList<Dto> dto = new ArrayList<Dto>();
 	
 	if(cl.equals("insert")){
-		String writename=request.getParameter("writename");
-		String moviename=request.getParameter("moviename");
-		String title=request.getParameter("title");
-		String contents=request.getParameter("contents");
-		String fileName1 = "";
-		String fileName2 = "";
-		String orgfileName1 = "";
-		String orgfileName2 = "";
+		String writename="";
+		String moviename="";
+		String title="";
+		String contents="";
+		String uploadPath=request.getRealPath("/upload");
 		
+		
+		int size = 10*1024*1024;
+
+		String filename="";
+		String origfilename="";
+
+		try{
+			
+			
+			MultipartRequest multi=new MultipartRequest(request,
+								uploadPath,
+								size, 
+								"UTF-8",
+					new DefaultFileRenamePolicy());
+			writename=multi.getParameter("writename");
+			moviename=multi.getParameter("moviename");
+			title=multi.getParameter("title");
+			contents=multi.getParameter("contents");
+
+			
+			Enumeration files=multi.getFileNames();
+			
+			String file =(String)files.nextElement();
+			filename=multi.getFilesystemName(file);
+			origfilename= multi.getOriginalFileName(file);
+			
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		Dto board = new Dto();
 		board.setWritename(writename);
 		board.setMoviename(moviename);
 		board.setTitle(title);
 		board.setContents(contents);
+		board.setFilename(filename);
 		dto.add(board);
 		Dao.insert(dto);
 	
@@ -46,10 +75,12 @@
 		request.setAttribute("contents",dto.get(i).getContents());
 		request.setAttribute("day",dto.get(i).getDay());
 		request.setAttribute("num",dto.get(i).getNum());
+		request.setAttribute("imgurl", dto.get(i).getFilename());
+
 		if(dto.get(0).getComment()!=null){
 		request.setAttribute("comments",dto.get(i).getComment());
 		}
-
+		
         }
 		RequestDispatcher dispatcher = request.getRequestDispatcher("G_boardin.jsp");
 		dispatcher.forward(request,response);

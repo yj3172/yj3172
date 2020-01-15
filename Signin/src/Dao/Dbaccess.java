@@ -88,7 +88,7 @@ public class Dbaccess {
 	
 	public void insert(ArrayList<Dto> dto) {
 		
-		String query="insert into board (`writename`, `moviename`, `title`, `contents`, `comment`, `day`) values(?,?,?,?,?,?);";
+		String query="insert into board (writename,moviename,title,contents,comment,day,filename) values(?,?,?,?,?,?,?);";
 		Date date=new Date();
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 		String comments="";
@@ -102,6 +102,7 @@ public class Dbaccess {
 			pstmt.setString(4, dto.get(0).getContents());
 			pstmt.setString(5, comments);
 			pstmt.setDate(6, sqlDate);
+			pstmt.setString(7, dto.get(0).getFilename());
 		
 		
 			pstmt.executeUpdate();
@@ -132,6 +133,7 @@ public class Dbaccess {
 				dto.setContents(rs.getString("contents"));
 				dto.setComment(rs.getString("comment"));
 				dto.setDay(rs.getString("day"));
+				dto.setFilename(rs.getString("filename"));
 				dtolist.add(dto);
 			}
 			rs.close();

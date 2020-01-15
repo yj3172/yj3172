@@ -80,9 +80,9 @@
 	}
 	#contents{
 		float:left;
-		width:400px;
+		width:380px;
 		height:360px;
-		margin:10px;
+		margin:20px;
 		top:50%;
 		box-shadow: 
 		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
@@ -122,11 +122,11 @@
 	float:right;
 	}
 	img{
-		width:400px;
+		width:380px;
 		height:600px;
 	}
 	#img{
-	width:400px;
+	width:380px;
 	height:250px;
 	position:relative;
 	overflow:hidden;
