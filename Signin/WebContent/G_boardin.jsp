@@ -147,8 +147,7 @@
  		</ul>
  		</div>
  		<hr style="width:100%;opacity:0.5;">
- 		<% String imgurl ="upload/"+(String)request.getAttribute("imgurl"); 
- 		out.print("{ㄴㅁㅇ:ㅁㄴㅇ}");
+ 		<% String imgurl ="upload/"+(String)request.getAttribute("filename"); 
  		%>
  		<div id =boardmain><div style="text-align:center; width:100%;"><img src="<%=imgurl %>" style="width:350px; height:100%;"/></div><pre>${contents}</pre></div>
  		<hr style="width:100%;opacity:0.5;">

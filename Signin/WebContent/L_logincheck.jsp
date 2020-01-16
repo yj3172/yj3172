@@ -47,7 +47,7 @@
 	
 	}
 	if(b==false){
-		response.sendRedirect("port.jsp?log="+log);
+		response.sendRedirect("index.jsp?log="+log);
 	}
 	else if(b==true){
 		

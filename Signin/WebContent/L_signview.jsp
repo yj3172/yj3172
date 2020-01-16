@@ -71,7 +71,7 @@
 	</div>
 	<hr width=80% color="#EAEAEA"><br>
 	<input type="button" value="로그인" id="login" onclick="location.href='L_login.jsp'">
-	<input type="button" value="메인으로" id="main"onclick="location.href='port.jsp'" >
+	<input type="button" value="메인으로" id="main"onclick="location.href='index.jsp'" >
 
   </div>
   	<div class=notice>Note : It is our responsibillity to protect your privacy and we 

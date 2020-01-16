@@ -19,7 +19,7 @@
 
  </head>
 	
-<script src="js/info_delete.js"></script>
+<script src="js/signout.js"></script>
 <style>
 
 #mypage{
@@ -175,16 +175,13 @@ margin-bottom:30px;
 		<hr style="width:95%;color:white;">
 		</div>
 		<ul>
-		<form name="delete_form" method="post" action="I_delete_search.jsp">
+		<form name="delete_form" method="post" action="action.jsp?class=signdel">
 		<li><div id=label>아이디</div><input type="text" name="input_id" size="30" readonly style="background:#bdbdbd;" value=<%= session.getAttribute("id") %>></li>
-		<li><div id=label>비밀번호</div> <input type="password" name="input_password" size="30"></li>
-		<li><div id=label>비밀번호 재확인</div><input type="password" name="input_repassword" size="30"></li>
+		<li><div id=label>비밀번호</div> <input type="password" id="pass" name="pass" size="30"></li>
+		<input type="hidden" id="hidden" name="hidden" value=<%=request.getAttribute("password") %>>
 		</ul>
 		</form>
 		<input type="button" id=out name="go" onclick=delete_function() value="탈퇴">
-		
-	 
-		
 		</div></li>
 	</li>
 	</ul>

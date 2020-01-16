@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%
-	String y ="";
-	y=request.getParameter("fail");
-	if(y==null){
-	y="";
-	}
 
-%>
+
 <!doctype html>
 <html lang="en">
  <head>
@@ -109,20 +103,20 @@ float:left;
 }
 </style>
 
-
  <body bgcolor="#364f6b">
 	 <%@ include file="header.jsp" %>
 	 <%@ include file="I_mypage_submenu.jsp" %>
+	<form name="delete_form" method="post" action="I_update_info.jsp">
 	 <div id=cm>
 	<div id = mypage>
 	<span id=maintitle>마이페이지</span><span id =subtitle>|  마이페이지에 오신것을 환영합니다</span><br>
 	<div id=infobox>
-	<ul>1 . 나의정보 <input id =changebt type="button" value="수정" onclick="location.href='I_infochange.jsp'">
-		<li>이름 :</li>
-		<li>아이디 :</li>
-		<li>비밀번호 :</li>
-		<li>주소 :</li>
-		<li>이메일 :</li>
+	<ul>1 . 나의정보</a> <input id =changebt type="button" value="수정" onclick="location.href='I_infochange_dbjoin.jsp'">
+		<li>이름 :<%=request.getAttribute("name") %></li>
+		<li>아이디 :<%=session.getAttribute("id") %></li>
+		<li>비밀번호 :<%=request.getAttribute("pw") %></li>
+		<li>주소 :<%=request.getAttribute("adr") %></li>
+		<li>이메일 :<%=request.getAttribute("email") %></li>
 	</li>
   </ul>
   </div>
@@ -132,18 +126,17 @@ float:left;
 		<img id="poster" src="img/poster1.jpg"/>
 		<ul>
 		<li>겨울왕국2</li>
-		
 		<li>날짜:1223</li>
 		<li>장소:머시기머시기</li>
 		<li>시간:머시기머시기</li>
 		</ul>
-		
 		</div></li>
 	</li>
 	</ul>
   </div>
   </div>
   </div>
+  </form>
 	<%@ include file="footer.jsp" %>
  </body>
 </html>

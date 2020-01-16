@@ -5,8 +5,12 @@
 	if(y==null){
 	y="";
 	}
-
 %>
+<!-- 이건jsp문장 -->
+
+
+
+
 <!doctype html>
 <html lang="en">
  <head>
@@ -17,10 +21,11 @@
   <meta name="Description" content="">
   <title>Document</title>
  <link rel="stylesheet" type="text/css" href="css/css2.css"/>
-
+<script src="js/adr.js"></script>
  </head>
-	
-<script src="js/idmail.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>	
+<script src="js/I_infochange.js"></script>
+
 <style>
 
 #infobox{
@@ -48,9 +53,6 @@ padding-top:20px;
 	color:black;
 }
 
-
-
-
 </style>
 
 
@@ -58,14 +60,13 @@ padding-top:20px;
 	 <%@ include file="header.jsp" %>
 	 <%@ include file="I_mypage_submenu.jsp" %>
 	 
-	<form name=signupform method ="post" action="I_idmailcheck.jsp" >
+	<form name=signupform method ="post" action="I_update_update.jsp" >
 	<h1 style="margin-top:200px;">3.회원정보 수정</h1>
 	<center><div id=infobox><div id=box1 align="center">
   <table cellpadding=5 cellspacing=0 align="center">
   	<tr>
 		<td><font color="red">*</font>아이디 </td><td></td>
-		
-		
+	
 	</tr>
 
 	<tr>
@@ -89,35 +90,34 @@ padding-top:20px;
 		<td colspan="3"><font color="red">*</font>이름 </td>
 	</tr>
 	<tr>
-		<td colspan="3"> <input type = "text" name = "name" size="60" maxlength="10"></td>
+		<td colspan="3"> <input type = "text" name = "name" size="60" maxlength="10" value=<%=request.getAttribute("name")%>></td>
 	</tr>
 	<tr>
 		<td colspan="3"><font color="red">*</font>주소</td>
 	</tr>
 	<tr>
-		<td> <input type = "text" name="adr" size="10" maxlength="20" id="sample6_postcode" readonly></td>
+		<td> <input type = "text" name="adr" size="10" maxlength="20" id="sample6_postcode" value=<%=request.getAttribute("adrnum")%> readonly="readonly"></td>
 		<td> <input type = "button"  name ="adrfind" onclick="sample6_execDaumPostcode()" style="width:100px;height:30;" value="주소검색" ></td>
 	</tr>
 	<tr>
-		<td colspan="3"> <input type = "text" name = "adr1" size="60"  id="sample6_address" maxlength="10" readonly></td>
+		<td colspan="3"> <input type = "text" name = "adr1" size="60"  id="sample6_address" maxlength="10" value="<%=request.getAttribute("adr1")%>" readonly></td>
 	</tr>
 	<tr>
-		<td colspan="3"> <input type = "text" name = "adr2" size="60" id="sample6_detailAddress" maxlength="10"></td>
+		<td colspan="3"> <input type = "text" name = "adr2" size="60" id="sample6_detailAddress" value=<%=request.getAttribute("adr2")%> maxlength="10" ></td>
 	</tr>
-	
 	<tr>
 		<td><font color="red">*</font>이메일 </td>
 	</tr>
 	<tr>
-		<td colspan ="1"> <input type = "text" name = "email" size="20" maxlength="20" value=${email}  readonly  style = "background:#BDBDBD;"> @</td>
-		<td colspan ="2"> <input type = "text" name = "mail" size="20" maxlength="20" value=${mail}  readonly  style = "background:#BDBDBD;"></td>
+		<td colspan ="1"> <input type = "text" name = "email" size="20" maxlength="20" value=<%=request.getAttribute("email1")%>    > @</td>
+		<td colspan ="2"> <input type = "text" name = "mail" size="20" maxlength="20" value=<%=request.getAttribute("email2")%>    ></td>
 	
 		</td>
 	</tr>
 	<tr>
 		<td><font color="red">*</font>생년월일 </td>
 		<td align = "left"><select name = "birthy">
-		<option value="2000">2000</option>
+		<option value="2000">2000</option>  <!-- 셀레트박스 동적옵션 -->
 		<option value="1999">1999</option>
 		<option value="1998">1998</option>
 		<option value="1997">1997</option>
@@ -126,30 +126,30 @@ padding-top:20px;
 		</select>
 		년
 		<select name = "birthm" size="1">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-		<option value="9">9</option>
+		<option value="01">01</option>
+		<option value="02">02</option>
+		<option value="03">03</option>
+		<option value="04">04</option>
+		<option value="05">05</option>
+		<option value="06">06</option>
+		<option value="07">07</option>
+		<option value="08">08</option>
+		<option value="09">09</option>
 		<option value="10">10</option>
 		<option value="11">11</option>
 		<option value="12">12</option>
 		</select>
 		월
 		<select name = "birthd" size="1">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
+				<option value="01">01</option>
+				<option value="02">02</option>
+				<option value="03">03</option>
+				<option value="04">04</option>
+				<option value="05">05</option>
+				<option value="06">06</option>
+				<option value="07">07</option>
+				<option value="08">08</option>
+				<option value="09">09</option>
 				<option value="10">10</option>
 				<option value="11">11</option>
 				<option value="12">12</option>
@@ -185,8 +185,8 @@ padding-top:20px;
 		<option value="017">017</option>
 		</select>
 		-
-		<input type="text" name="phone2" size="4" maxlength=4> -
-		<input type="text" name="phone3" size="4" maxlength=4></td>
+		<input type="text" name="phone2" size="4" maxlength=4 value=<%=request.getAttribute("phone1")%>> -
+		<input type="text" name="phone3" size="4" maxlength=4 value=<%=request.getAttribute("phone2")%>></td>
 	</tr>
 	</table>
 	<hr width=80% color="#EAEAEA">

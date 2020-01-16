@@ -9,7 +9,7 @@
 	String adrnum = request.getParameter("adr");
 	String adr1 = request.getParameter("adr1");
 	String adr2 = request.getParameter("adr2");
-	String adr = adr1+adr2;
+	String adr = adr1+"@"+adr2;
 	String mail1 = request.getParameter("email");
 	String mail2 = request.getParameter("mail");
 	String email = mail1+"@"+mail2;

@@ -45,10 +45,11 @@ text-decoration: none;
 	<div id = submenu>
 	<div id = infosubbox>
 	<ul>
-	<li><a href="I_mypage.jsp">1.나의정보</a></li>
+	<li><a href="I_mypage_info.jsp">1.나의정보</a></li>
 	<li><a href="I_myticket.jsp">2.내예매내역</a></li>
-	<li><a href="I_infochange.jsp">3.내정보수정</a></li>
-	<li><a href="I_signout.jsp">4.회원탈퇴</a></li>
+	<li><a href="I_infochange_dbjoin.jsp">3.내정보수정</a></li>
+	<%String url="action.jsp?class=passwordsearch";%>
+	<li><a href=<%= url%>>4.회원탈퇴</a></li>
 	</ul>
 	</div>
 	</div>

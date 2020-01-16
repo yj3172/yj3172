@@ -188,5 +188,70 @@ public class Dbaccess {
 		}
 
 	}
+	////////////////////////////////////////////////////////////////////////////////////
+	public ArrayList<Dto> search(String numb) {
+		ArrayList<Dto> dtolist = new ArrayList<Dto>();
+		ResultSet rs;
+		try {
+			conn();
+			state = conn.createStatement();
+			rs = state.executeQuery("select * from board where moviename='"+numb+"';");
+			while(rs.next()) {
+				Dto dto = new Dto();
+				dto.setNum(rs.getInt("num"));
+				dto.setWritename(rs.getString("writename"));
+				dto.setMoviename(rs.getString("moviename"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContents(rs.getString("contents"));
+				dto.setComment(rs.getString("comment"));
+				dto.setDay(rs.getString("day"));
+				dtolist.add(dto);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return dtolist;
+	}
+	
+	public String searchpassword(String id) {
+		ResultSet rs;
+		String pw=null;
+		try {
+			conn();
+			state = conn.createStatement();
+			rs = state.executeQuery("select pw from persons where id='"+id+"';");
+			if(rs.next()) {
+
+				pw=rs.getString("pw");
+				
+
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return pw;
+	}
+	public void signout(String id) {
+		Statement stmt=null;
+		try {
+			conn();
+			stmt=conn.createStatement();
+			String delete="delete from persons where id='"+id+"';";
+			stmt.executeUpdate(delete);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+	}
 	
 }

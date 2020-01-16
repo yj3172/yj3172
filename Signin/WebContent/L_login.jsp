@@ -79,7 +79,7 @@ margin:0 5px;
 		<td><font color="red">*</font>비밀번호 </td>
 	</tr>
 	<tr>
-		<td colspan ="3"> <input type = "text" name ="pw" size="40" maxlength="20""> 
+		<td colspan ="3"> <input type = "password" name ="pw" size="40" maxlength="20""> 
 		</td>
 	</tr>
 	</table>

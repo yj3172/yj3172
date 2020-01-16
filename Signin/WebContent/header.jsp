@@ -7,6 +7,8 @@
 	}
 
 %>
+
+
 <!doctype html>
 <html lang="en">
  <head>
@@ -19,19 +21,18 @@
   <title>영화비교</title>
 
 	<link href="css/header.css" rel="stylesheet">
-	
-  
+
  </head>
  <body>
  	<header>
-	<span id = menulogo><a id=logo href="port.jsp">GETFLEX</a></span>
+	<span id = menulogo><a id=logo href="index.jsp">GETFLEX</a></span>
 	
 	<div id =headermenuright>
 	<% if (s.equals("ok")) {%>
 	<ul>
 		<li class = menuright><a href="L_logout.jsp">로그아웃</a></li>|
 		<li class = menuright>${id}님 환영합니다</li>|
-		<li class = menuright><a href="I_mypage.jsp?log="+${log}>마이페이지</a></li>
+		<li class = menuright><a href="I_mypage_info.jsp?id="+${id}>마이페이지</a></li><!--여기수정-->
 	</ul>
 	<%} else if(s.equals("")) { %>
 	<ul>
@@ -79,9 +80,9 @@
 			   	</div>
 			</ul>
 			</li>
-		<li class = menuleft><a href="">스토어</a></li>
+		<li class = menuleft><a href="S_store.jsp">스토어</a></li>
 		<li class = menuleft><a href="E_event.jsp">이벤트</a></li>
-		<li class = menuleft><a href="G_board.jsp">영화매거진</a></li>
+		<li class = menuleft><a href="action.jsp?class=search">영화매거진</a></li>
 	</ul>
 	</div>
 	

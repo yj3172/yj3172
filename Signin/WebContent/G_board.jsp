@@ -158,7 +158,7 @@
  	
  		
  		<%
-		ArrayList<Dto> li = data.selectall();
+ 		ArrayList<Dto> li=(ArrayList<Dto>)request.getAttribute("group");
  		String img="";
 		for(int i=0;i<li.size();i++){
 			String url= "action.jsp?class=boardin&num="+Integer.toString(li.get(i).getNum());
@@ -195,7 +195,16 @@
 		}
 	
 	%></div>
- 	
+ 	<div>
+ 		<form method="post" action="action.jsp?class=search">
+ 		 	<select size="1">
+ 			<option values="영화제목으로검색" selected>영화제목으로검색</option>
+ 			<option values="작성자명으로검색" >작성자명으로검색</option>
+ 			<option values="작성일로검색" >작성일로검색</option>
+ 			<input type="text" style="margin-top:200px;" id="ser" name="ser" placeholder="영화제목검색창" size="40"><input type=submit value="검색">
+ 			</select>
+ 		</form>
+ 		</div>
  		</div>
  		
  	</div>
