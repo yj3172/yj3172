@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
-
+<%@ page import="Apicon.Navermovie" %>
+<%@ page import="Apicon.Boxoffice" %>
+<%@ page import="Dto.BoxOfficeDto" %>
+<%@ page import="java.util.ArrayList" %>
 <!doctype html>
 <html lang="en">
 <header>
@@ -27,51 +30,31 @@
 	}
 	#rankingbox{
 	float:left;
-	width:300px;
-	height:500px;
+	width:200px;
+	height:300px;
+	background:#333333;
+	color:white;
+	margin:20px;
+	}
+	#rank{
+	width:100%;
+	height:40px;
+
+	background: #064461;
+	background: linear-gradient(#003040, #002535);
+	}
+	#rankingwrap{
+	height:100%;
+	width:1200px;
+	margin: 0 auto 0 auto;
+	}
+	#movieNm{
+	text-align:left;
+	padding-left:10px;
+	
 	}
 	</style>
-<script>
-var today = new Date();
-var dd = today.getDate()-1;
-var mm = today.getMonth()+1; //January is 0!
-var yyyy = today.getFullYear();
-if(dd<10) {
-    dd='0'+dd
-} 
 
-if(mm<10) {
-    mm='0'+mm
-} 
-
-today = yyyy+mm+dd;
-
-	$.ajax({
-	
-		type:"GET",
-		url:"http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?",
-		data:{targetDt:today,key:"9c54a229f03f55f7f29e381b3eb14177",itemPerPage:"10"}
-	}).done(function(msg){
-		console.log(msg);
-	    for(i = 0;i<5;i++){
-	    	var title = "title"+i;
-	    	var openday = "openday"+i;
-	    	var totalperson = "totalperson"+i;
-		document.getElementById(title).innerHTML =msg.boxOfficeResult.dailyBoxOfficeList[i].movieNm;
-		document.getElementById(openday).innerHTML =msg.boxOfficeResult.dailyBoxOfficeList[i].openDt;
-		document.getElementById(totalperson).innerHTML =msg.boxOfficeResult.dailyBoxOfficeList[i].audiAcc;
-	    }
-	});
-	$.ajax({
-		type:"GET",
-		url:"https://openapi.naver.com/v1/search/movie.json?",
-		data:{query:"닥터두리틀"},
-		headers : {"Client Id" : "u6K2kBDy180EDXXdml56", "Client Secret" : "aMrE8TymR8"}
-	}).done(function(msg){
-		console.log(msg);
-	});
-
-</script>
 
   
  </head>
@@ -85,26 +68,45 @@ today = yyyy+mm+dd;
 		  <li><img src="img/slide4.jpg" /></li>
 		</ul>
 		</div>
-
+		
+	<form action="" method="get" id=movieform>
 		<div id=boxoffice>
 		<h1 class=maintitle>BOX OFFICE</h1>
-		<% for(int i = 0;i<5;i++){
+		<div id =rankingwrap>
+		<%  
+			Boxoffice movieboxoffice = new Boxoffice();
+			ArrayList<BoxOfficeDto> movieinfo= movieboxoffice.boxofficelist();
+			for(int i = 0;i<10;i++){
 			String rank = i+1+"위";
 			String title = "title"+i;
 	    	String openday = "openday"+i;
 	    	String totalperson = "totalperson"+i;
+
+	    	Navermovie poster = new Navermovie();
+	    	
+
+	    	String movieposter = poster.movieposter(movieinfo.get(i).getMovieNm());
+	    	
 		%>
+		
 		<div id =rankingbox>
-		<%=rank %>
-		<div id =<%=title %>></div>
-		<div id =<%=openday %>></div>
-		<div id =<%=totalperson %>></div>
+		<div id = rank><div style="padding-top:10px;"><%=rank %></div></div>
+		<img src=<%=movieposter %> id =<%=poster%> style="width:120px;height:auto;margin-top:20px;"/>
+
+		<div id=movieNm><%= movieinfo.get(i).getMovieNm() %></div>
+		<div >개봉일 : <%= movieinfo.get(i).getOpenDt() %></div>
+		<div >누적 관람객 : <%= movieinfo.get(i).getAudiAcc() %></div>
 		
 		</div>
 		<%
 		}
 		%>
+	
 		</div>
+		</div>
+		</form>
+	
+	
 	<div id=eventbox>
 		<h1 class=maintitle>EVENT</h1>
 		<div id =eventcontentbox>
