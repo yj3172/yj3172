@@ -2,7 +2,10 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="Dto.Dto" %>
 <%@ page import="Dao.Dbaccess" %>
-
+<%
+String s11 = (String)request.getAttribute("try");
+System.out.println(s11);
+		%>
 <!doctype html>
 <html lang="en">
  <head>

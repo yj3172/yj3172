@@ -81,7 +81,7 @@
 			</ul>
 			</li>
 		<li class = menuleft><a href="S_store.jsp">스토어</a></li>
-		<li class = menuleft><a href="E_event.jsp">이벤트</a></li>
+		<li class = menuleft><a href="EventlistPro.bo">이벤트</a></li>
 		<li class = menuleft><a href="action.jsp?class=search">영화매거진</a></li>
 	</ul>
 	</div>

@@ -6,16 +6,7 @@
 		
 	}
 
-  
-
-		#eventbox{
-		background-color:#f9f7f7;
-		width:100%;
-		height:100%;
-	
-		text-align:center;
-		padding-bottom:30px;
-	}
+ 
 	#eventcontentbox{
 		width:880px;
 		height:100%;
@@ -32,17 +23,17 @@
 		right:70px;
 	}
 	#boxoffice{
-		border-top:;
 		margin-top:50px;
 		text-align:center;
 		width:100%;
-		height:600px;
+		height:800px;
 		background-color:hsla(120, 0%, 50%, 0.1);
 	}
 	.submenu{
 		text-align:center;
 		}
-		#eventbox{
+		
+	#eventbox{
 		background-color:#f9f7f7;
 		width:100%;
 		height:100%;

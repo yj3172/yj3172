@@ -39,7 +39,7 @@ var sign = document.getElementById('sign');
 	}
 	function idSuccess(resdata){
 		$("#return").html(resdata);
-		if(resdata.length==59){
+		if(resdata.length==59 || resdata.length==50){
 			$("#return").css("color","green");
 			idcheck="ok"
 		}
@@ -47,7 +47,7 @@ var sign = document.getElementById('sign');
 			$("#return").css("color","red");
 			idcheck="no"
 		}
-	
+
 		 allok()
 	}
 	//이메일체크
@@ -72,7 +72,8 @@ var sign = document.getElementById('sign');
 		}
 		function mailSuccess(resdata){
 			$("#returnmail").html(resdata);
-			if(resdata.length==54){
+			if(resdata.length==54 || resdata.length==47){
+		
 				$("#returnmail").css("color","green");
 				mailcheck="ok";
 			}
@@ -80,7 +81,7 @@ var sign = document.getElementById('sign');
 				$("#returnmail").css("color","red");
 				mailcheck="no";
 			}
-			
+	
 			 allok()
 		}
 		//유효성검사

@@ -1,506 +1,357 @@
+<%@page import="Eventaction.Event_list_Action"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="Dto.Dto" %>
+<%@ page import="Dao.Dbaccess" %>
+<%@ page import="Dto.Event_list_dto" %>
+<%@ page import="Dto.Event_list_pagination_vo" %>
+
+<%
+ArrayList<Event_list_dto> list = (ArrayList<Event_list_dto>)request.getAttribute("articleList");
+ArrayList<Event_list_pagination_vo> paging =(ArrayList<Event_list_pagination_vo>)request.getAttribute("paging");
+ 		%>
 <!doctype html>
 <html lang="en">
  <head>
- <link rel="stylesheet" href="top_button.css">
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  	<!-- Bpopup -->
+	   <script src="js/jquery.bpopup-0.10.0.min.js"></script>
  </head>
  <style>
- 	body{
-		width:1900px;
-		margin: 0 auto;
-		
-	}
-
-  	header{
-		position:fixed;
-		left:0px;
-		top:0px;
-		width:100%;
-		height:90px;
-		background:white;
-		color:;
-		z-index:200;
-	}
-	nav{
-		position:fixed;
-		left:0px;
-		top:90px;
-		width:100%;
-		height:60px;
-		background:#374955;
-		vertical-align:middle;
-		z-index:200;
-	}
-	footer{
-		position:relative;
-		left:0px;
-		width:100%;
-		height:150px;
-		background:#d0d0d0;
-		font-family:"arlal";
-		color:#999999;
-	}
-	a{
-		color:white;
-		text-decoration:none;
-	}
-	#headermenu{
-		width:1000px;
-		position:absolute;
-		left:30%;
-		
-	}
-	#headermenuright{
-		position:absolute;
-		right:10%;
-		top:20px;
-	}
-	#menulogo{
-		position:absolute;
-		left:47%;
-		top:30px;
-	}
-	.menuleft{
-		
+ 	#title{
+ 		background:#bdbdbd;
+ 		border-bottom:1px solid black;
+ 		
+ 	}
+ 	table{
+ 		border-collapse:collapse;
+ 		text-align:center;
+ 	}
+ 	tr{
+ 		border-bottom:1px solid black;
+ 	}
+ 	td:first-child{
+ 		text-align:center;
+ 	}
+ 	tr:nth-child(2){
+ 		width:600px;
+ 	}
+ 	tr:nth-child(3){
+ 		width:600px;
+ 	}
+ 	tr:nth-child(4){
+ 		width:600px;
+ 	}
+ 	tr:nth-child(n+2){
+ 		height:200px;
+ 	}
+ 	
+ 	#mypage{
+ 		clear:both;
+		width:1300px;
+		height:100%;
+		border:solid black 1px;
 		display:inline-block;
-		position:relative;
-	
-	}	
-	.menuright{
+		background-color:#f9f6f7;
+		border-radius:10px;
+		margin:250px auto 60px auto;
+		padding:0 30px 60px 30px;
+		text-align:center;
 		display:inline-block;
-		position:relative;
-		margin-left:10px;
-		margin-right:10px;
 	}
-	.headermenu{
-		
+	#tablewrap{
+		width:1160px;
+		display:inline-block;
 	}
-	#menumovie{
-	}
-	#menutheater{
-	}
-	#menustore{
-	}
-	#menuevent{
-	}
-	#menumagazine{
-	}
-	#menulogin{
-	}
-	#menusignup{
-	}
-	#menumypage{
-	}
-	#mainwrapper{
-		position:relative;
-		z-index:1;
-		width:1200px;
-		height:1200px;
-		margin-left:auto;
-		margin-right:auto;
-		background:#f4efd3;
-		margin-top:150px;
-		}
-		ul{
-		margin:0;
-		}
-
-	ul.headermenu li.menuleft ul.submenu {
-		display:none;
-		height:55px;
-		padding:0px;
-		margin:0px;
-		border:0px;
-		position:relative;
-		width:600px;
-		z-index:200;
-		top:60px;
-		left:-200px;
+	#mainwraper{
 		text-align:center;
 	}
-	ul.headermenu li.menuleft ul.submenu li{
-		float:left;
-		padding-right:10px;
-		padding-left:10px;
-		z-index:200;
-		padding-top:20px;
-		padding-bottom:20px;
+	#titletext{
+		font-size:20pt;
+		text-align:left;
+		margin-left:50pt;
 		
-	
-		
+		margin-top:30pt;
 	}
-		ul.headermenu li.menuleft ul.submenu li a{
-		color:black;	
+	#subtitletext{
+		font-size:15pt;
 	}
-	ul.headermenu li.menuleft {
-		background:#374955;
-		padding-top:19.5px;
-		padding-bottom:19.5px;
-		width:100px;
-		z-index:200;
-		font-family: 'monospace';
-		text-align:center;
-		vertical-align:middle;
-		
-		
-	}
-	ul.headermenu li.menuleft:hover {
-		background:#5c5757;
-	}
-	ul.headermenu li.menuleft:hover ul.submenu {
-		position:absolute;
-		
-		display:block;
-		
-	}
-	span a {
-		color:red;
-		font-size:30px;
-		font-weight:bold;
-	}
-	li.menuright a{
+	#linktext{
 		color:black;
 	}
-		
-	ul.headermenu li.menuleft ul.submenu li:hover {
-		background:#5c5757;
-		
+	#contentswrap{
+		width:1120px;
+		height:100%;
 	}
-	.menuleft li{
-		
-		list-style:none;
-	}
-	
-	.maintitle{
-		padding:20px 0;
-		margin:0;
-		color:red;
-	}
-	.submenu{
-		text-align:center;
-	}
-	#footerleft{
-		position:relative;
-		left:300px;	
-		top:10px;
-		
-	}
-	#footerleft ul{
+	#contents{
 		float:left;
-		margin-left:50px;
-		
+		width:250px;
+		height:440px;
+		margin:20px;
+		top:50%;
+		box-shadow: 
+		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
+		0 0 200px 1px rgba(255, 255, 255, 0.5);
+		cursor:pointer;
 	}
-
-	#footerleft ul li{
-		padding:4px 0;
-		font-size:9pt;
-		list-style:none;
-		
-	}
-	#footerright{
+	#ctext{
 		position:relative;
-		left:500px;	
-		top:10px;
-		
+		width:90%;
+		height:200px;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top:20px;
 	}
-	#footerright ul{
-		float:left;
-		margin-left:50px;
-		
-	}
-
-	#footerright ul li{
-		padding:1px 0;
-		font-size:9pt;
-		list-style:none;	
-	}
-	#footerright ul li:first-child{
-		padding:2px 0;
-		font-size:18pt;
-		list-style:none;	
-	}
-	#footerright ul li:nth-child(2){
-		padding:2px 0;
-		font-size:18pt;
-		list-style:none;	
-	}
-/*================================================기본================================================================*/
-	#mainwrapper2{
-	position:relative;
-	z-index:1;
-	width:1200px;
-	height:150px;
-	margin-left:auto;
-	margin-right:auto;
-	background:orange;
-	}
-	
-	.event_box_write{
-	position:absolute;
-	background:green;
-	width:300px;
-	height:100px;
-	font-size:30pt;
-	font-weight:bold;
-	top:20px;
-	}
-	.event_box_button{
-	position:absolute;
-	width:300px;
-	height:100px;
-	top:20px;
-	right:0px;
-	}
-
-	.event_box_button_button1{
-	position:absolute;
-
-	width:150px;
-	height:100px;
-	left:0px;
-	padding-left:28px;
-	padding-top:40px;
-	}
-
-	.event_box_button_button2{
-	position:absolute;
-	width:150px;
-	height:100px;
-	right:0px;
-	padding-top:40px;
-	}
-
-	.event_hr{
-	position:absolute;
-	width:1200px;
-	height:3px;
-	background-color:red;
-	top:120px;
-	}
-	#mainwrapper3{
-	position:relative;
-	width:1200px;
-	height:600px;
-	margin-left:auto;
-	margin-right:auto;
-	background:yellow;
-	}
-	.mainwrapper3_box{
-	position:relative;
-	width:350px;
-	height:400px;
-	background:green;
-	top:50px;
-	left:50px;
-	}
-	.mainwrapper3_box_picture{
-	position:relative;
-	width:350px;
-	height:300px;
-	background-color:red;
-	}
-	.mainwrapper3_box_write{
-	position:relative;
-	width:350px;
-	height:100px;
-	background-color:red;
-	}
-	.mainwrapper3_box_write_up{
-	position:absolute;
-	width:350px;
-	height:30px;
-	background-color:blue;
-	margin-top:10px;
+	#cmovie{
+	float:left;
 	font-size:15pt;
-	color:white;
+	font-weight:bold;
 	}
-	.mainwrapper3_box_write_center{
-	position:absolute;
-	width:350px;
-	height:60px;
-	background-color:green;
+	#ctitle{
+	float:left;
+	font-size:15pt;
+	font-weight:bold;
+	
+	}
+	#wddiv{
+		width:100%;
+		clear:both;
+		float:left;
+		margin-top:20px;
+	}
+	#cwrite{
+
+	float:left;
+	
+	}
+	#cday{
+	float:right;
+	}
+	img{
+		width:250px;
+		height:auto;
+	}
+	#img{
+	width:250px;
+	height:auto;
+	position:relative;
+	overflow:hidden;
+	}
+	#wbtn{
+		float:right;
+		margin-right:100px;
+		width:80px;
+		height:35px;
+		background:#f45905;
+		color:white;
+		border:none;
+		cursor:pointer;
+		font-size:10pt;
+	}
+	#eventview{
+	width:800px;
+	height:auto;
+	}
+	#eventviewtitle{
+	clear:both;
+	font-size:20px;
+	float:left;
+	}
+	#evhr{
+	both:clear;
+	float:left;
+	width:100%;
+	}
+	#nowarticle{
+	width:800px;
+	height:100%;
+	padding:50px;
+	padding-top:30px;
+	}
+	#eventduty{
+	float:right;
 	margin-top:10px;
-	font-size:10pt;
-	top:30px;
 	}
-
-
-
-	#mainwrapper3 ul{
-	list-style:none;
-	margin-left:-100px;
+	#moreinfo{
+	width:86%;
+	height:50px;
+	background:#bdbdbd;
+	margin:auto;
+	margin-top:30px;
+	opacity:0.7;
+	cursor:pointer;
+	border:none;
 	}
-
-	#mainwrapper3 li{
-	display:inline-block;
-	margin-left:40px;
+	#eventmaintitle{
+ 	float:left;
+	color:red;
+	font-size:25pt;
+	font-weight:bold;
+	margin-bottom:20px;
 	}
-
-
-
-
- </style>
- <body>
- 	<header>
-	<span id = menulogo><a id=logo href="">GETFLEX</a></span>
-	
-	<div id =headermenuright>
-	<ul>
-		<li class = menuright><a href="">Login</a></li>
-		<li class = menuright><a href="">Signup</a></li>
-		<li class = menuright><a href="">Mypage</a></li>
-	</ul>
-	</div>
-	
-	</header>
-	<nav>
-		<div id=headermenu>
-	<ul class = headermenu>
-		<li class = menuleft><a href="">예매</a>
-			<ul class = submenu>
-				<div style="display:inline-block">
-			   <li><a href="#">영화먼저검색</a></li>
-			   <li><a href="#">날짜먼저검색</a></li>
-			   <li><a href="#">극장먼저검색</a></li>
-			   </div>
-			</ul>
-			</li>
-		<li class = menuleft><a href="">영화</a>
-			<ul class = submenu>
-				<div style="display:inline-block">
-			   <li><a href="now_movie.jsp">현재상영작</a></li>
-			   <li><a href="#">상영예정작</a></li>
-			   <li><a href="#">무비파인더</a></li>
-			   	</div>
-			</ul>
-			</li>
-		<li class = menuleft><a href="">영화관</a>
-		<ul class = submenu>
-				<div style="display:inline-block">
-			   <li><a href="#">서울/경기</a></li>
-			   <li><a href="#">충청</a></li>
-			   <li><a href="#">인천</a></li>
-			   <li><a href="#">강원</a></li>
-			   <li><a href="#">경북</a></li>
-			   <li><a href="#">경남</a></li>
-			   <li><a href="#">전남</a></li>
-			   <li><a href="#">전북</a></li>
-			   <li><a href="#">제주</a></li>
-			   	</div>
-			</ul>
-			</li>
-		<li class = menuleft><a href="store.jsp">스토어</a></li>
-		<li class = menuleft><a href="event.jsp">이벤트</a></li>
-		<li class = menuleft><a href="">영화매거진</a></li>
-	</ul>
-	</div>
-	</nav>
-	<div id =mainwrapper>
-		<div id =mainwrapper2>
-			<div class="event_box_write">EVENT</div>	
-			<span class="event_box_button">
-				<div class="event_box_button_button1"> 
-					<button type="button" class="btn btn-danger">당첨자발표</button>
-				</div>
-				<div class="event_box_button_button2">
-					<button type="button" class="btn btn-warning">종료된 이벤트</button>
-				</div>	
-			</span>
-			<hr class="event_hr">
-		</div><!--mainwrapper2끝-->
-		<div id="mainwrapper3">
-			<ul>
-				<li>
-					<div class="mainwrapper3_box">
-						<div class="mainwrapper3_box_picture">
-							<img src="image/banner_1.jpg" width="350px" height="300px">
-						</div>
-						<div class="mainwrapper3_box_write">
-							<div class="mainwrapper3_box_write_up">
-								스페셜이벤트
-							</div>
-							<div class="mainwrapper3_box_write_center">
-								[cgv송파]spherex관 신규오픈!<br>
-								기간:2019.12.24~2020.01.12
-							</div>
-						</div>		
-					</div>
-				</li>
-				<li>
-					<div class="mainwrapper3_box">
-						<div class="mainwrapper3_box_picture">
-							<img src="image/banner_1.jpg" width="350px" height="300px">
-						</div>
-						<div class="mainwrapper3_box_write">
-							<div class="mainwrapper3_box_write_up">
-								스페셜이벤트
-							</div>
-							<div class="mainwrapper3_box_write_center">
-								[cgv송파]spherex관 신규오픈!<br>
-								기간:2019.12.24~2020.01.12
-							</div>
-						</div>		
-					</div>
-				</li>
-				<li>
-					<div class="mainwrapper3_box">
-						<div class="mainwrapper3_box_picture">
-							<img src="image/banner_1.jpg" width="350px" height="300px">
-						</div>
-						<div class="mainwrapper3_box_write">
-							<div class="mainwrapper3_box_write_up">
-								스페셜이벤트
-							</div>
-							<div class="mainwrapper3_box_write_center">
-								[cgv송파]spherex관 신규오픈!<br>
-								기간:2019.12.24~2020.01.12
-							</div>
-						</div>		
-					</div>
-				</li>
-			<ul>
-		</div><!--mainwrapper3끝-->
-	</div><!--mainwrapper끝-->
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	<footer>
-	<div id =footerhead>
-		<img src="img/logo.jpg" style="height:150px;width:auto;float:left;"/>
-		<div id =footerleft>
+	#listtitle{
+	float:left;
+	font-size:11pt;
+	font-weight:bold;
+	padding-left:10pt;
+	padding-right:10pt;
+	padding-top:10pt;
+	opacity:0.7;
+	text-align:left;
+	width:220px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+	}
+	#listdays{
+	float:right;
+	padding:10pt;
+	font-size:11pt;
+	opacity:0.7;
+	}
+</style>
+<script>
+	var BPOPUP='';
+	(function($) {
+	    $(function() {
+	          $(document).on('click',"#contents", function(e) {
+	        	  var eventnum=$(this).attr('class');
+	        	  console.log(this);
+	        	  $.ajax({
+	        		  type:"post",
+	      				url:"EventviewPro.bo",
+	      				datatype:"json",
+	      				data:{
+	      				"eventnum" : eventnum
+	      			},
+	      			
+	      			success:nowevent,
+	        		 
+	        		  
+	        	  });function nowevent(resdata){
+	        		 var obj = $.parseJSON(resdata);
+	      		 	var html="";
+	      		 	var k=9;
+	      		 	for(var i=0;i<obj.length;i++){
+	      		 	
+	      		 	html+="<div id =nowarticle class="+obj[i].eventnum+">"		 
+	      			html+="<div id =eventmaintitle>GETFLEX EVENT</div>"
+	      		 	html+="<div id= eventviewtitle>"+obj[i].title+"</div>"    		
+	    		 	html+="<div id=eventduty>"+obj[i].startday+"~"+obj[i].finishday+"</div>"
+	      		 	html+="<hr id=evhr />"
+	      		 	html+="<img id =eventview src = img/eventview/event"+obj[i].eventnum+".jpg>"
+	      		 	html+="<input type=text />"
+	      		
+	      
+	      		 	html+="</div>"
+	      				k++;
+	      				
+	      			
+	        	  }
+	        	  
+	      		 $("#bpopup1").html(html);
+	        	  
+	              e.preventDefault();
+	              BPOPUP =  $('#bpopup1').bPopup({
+	                   modalClose : true,
+	                   follow:true,
+	                   appending:false
+	                   
+	                   
+	             	 });
+	         	 };    
+	     		});
+	    });
+	})(jQuery);
+	function getmore(){
 		
-		<ul>
-			<li>서울 강남구 강남대로96길 16 그린컴퓨터 아카데미 206호</li>
-			<li>호스팅 서비스사업자 : 겟플릭스(주)</li>
-			<li>조원: 이기남 이용준 개인정보보호책임자 : 홍길동 getflex23needhelp@getflex.com</li>
-			<li>사업자등록번호 : 123-45-6789 통신판매업신고 : 제 2019-00001호 </li>
-			<li>Copyright ⓒ ??? Corp. All Rights Reserved</li>
-			</ul>
-		</div>
-		<div id=footerright>
-			<ul>
-				<li>고객센터</li>
-				<li>1588-5959</li>
-				<li>이메일문의</li>
-				<li>yj3172@naver.com</li>  
-				<li>lgn2000@naver.com</li>
-			</ul>
-		</div>
-	</footer>
+		var lastnum = $("#lastnum").val()
+		
+	
+		$.ajax({
+			type:"post",
+			url:"EventlistPro.bo",
+			datatype:"json",
+			data:{
+				lastnum : $('#lastnum').val()
+			},
+					
+			success:nextlist,
+		
+		});function nextlist(resdata){
+			var obj = $.parseJSON(resdata);
+		 	var html="";
+		 	var k=9;
+		 	for(var i=0;i<obj.length;i++){
+		 	html+="<div id =contents class="+obj[i].eventnum+">"
+		 	html+="<img src = img/event/event"+obj[i].eventnum+".jpg>"
+		 	html+="<div id=listtitle>"+obj[i].title+"</div>"
+		 	html+="<div id=listdays>"+obj[i].startday+"~"+obj[i].finishday+"</div>"
+		 	html+="</div>"
+				k++
+		 	
+	
+		 	}
+		 	var nowarticle= $("#contents img").length+8
+		 	if(nowarticle>=<%=paging.get(0).getTotalnum()%>){
+		 		document.getElementById("moreinfo").style.display = "none";
+		 	}
+
+		 	$("#lastnum").val(obj[7].eventnum)
+		 	$("#tablewrap").append(html)
+		}
+	
+	}
+
+</script>
+ <body>
+ 	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
+ 	<%@ include file="header.jsp" %>
+ 	
+	<div id =mainwraper>
+ 	<div id = mypage>
+ 	<div id =titletext>이벤트<span id=subtitletext>| 경품 한가득 이벤트에 참여해보세요</span>
+ 	</div>
+ 	
+ 	<hr style="width:90%;color:#bdbdbd;">
+ 	<div id=tablewrap>
+ 	
+ 	<input type="hidden" id =lastnum value="8"/>
+ 	<%
+ 		
+ 
+ 		
+ 		for(int i=0;i<paging.get(0).getNownum();i++){ 
+ 	  String imglink = "img/event/event"+(i+1)+".jpg";
+ 	
+ 	%>
+ 		<div id = contents class=<%=list.get(i).getEventnum() %>>
+ 			<img src = <%=imglink %>>
+ 			<div id =listtitle><%=list.get(i).getTitle() %></div>
+ 			<div id=listdays ><%=list.get(i).getEventstart() %> ~ <%=list.get(i).getEventfinal() %></div>
+ 		</div>
+ 	<% } %>
+ 		
+ 		</div>
+	 		<div>
+	 		<input id=moreinfo type="button" onclick="getmore()" value="더보기"/>
+	 		</div>
+ 		</div>
+ 		
+ 	</div>
+
+	<div id="bpopup1" style="display: none; background-color: white;">
+   <p>
+     이벤트
+     <input type="text">
+   </p>
+	</div>
+	<%@ include file="footer.jsp" %>
  </body>
 </html>

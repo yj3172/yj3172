@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%
+String s11 = (String)request.getAttribute("try");
+System.out.println(s11);
+%>
 <!doctype html>
 <html lang="en">
  <head>
