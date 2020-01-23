@@ -91,7 +91,11 @@
 		
 		<div id =rankingbox>
 		<div id = rank><div style="padding-top:10px;"><%=rank %></div></div>
+<<<<<<< HEAD
 		<img src=<%=movieposter %> id =<%=poster%> style="width:auto;height:auto;margin-top:20px;"/>
+=======
+		<img src=<%=movieposter %> id =<%=poster%> style="width:120px;height:auto;margin-top:20px;"/>
+>>>>>>> ad703298aa9d30a7329ccfc3c5d65b293fad768a
 
 		<div id=movieNm><%= movieinfo.get(i).getMovieNm() %></div>
 		<div >개봉일 : <%= movieinfo.get(i).getOpenDt() %></div>

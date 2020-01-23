@@ -6,7 +6,19 @@
 		
 	}
 
+<<<<<<< HEAD
  
+=======
+  
+
+		#eventbox{
+		background-color:#f9f7f7;
+		width:1900px;
+		height:100%;
+	
+		text-align:center;
+		padding-bottom:30px;
+	}
 	#eventcontentbox{
 		width:880px;
 		height:100%;
