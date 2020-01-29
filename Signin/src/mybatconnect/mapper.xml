@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="abc">
+
+
+	<select id="selectcomment" resultType="dto">select * from boardcomment where boardnum = #{num};</select>
+	<insert id="insert" parameterType="dto">insert into batis (title,tool) values( #{title}, #{tool});</insert>
+	<update id="update" parameterType="dto">update batis set title=#{title}, tool=#{tool} where num=#{num}; </update>
+	<delete id="delete" parameterType="dto">delete from batis where num=#{num};</delete>
+</mapper>

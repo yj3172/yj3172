@@ -22,4 +22,4 @@ public class BoxOfficeDto {
 	public void setAudiAcc(String audiAcc) {
 		this.audiAcc = audiAcc;
 	}
-}
+} 

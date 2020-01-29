@@ -16,6 +16,7 @@ public class Navermovie {
         String clientId = "u6K2kBDy180EDXXdml56";
         String clientSecret = "aMrE8TymR8";
         String movie="" ;
+        Crawling api = new Crawling();
 
         try {
         	
@@ -50,8 +51,17 @@ public class Navermovie {
             JSONObject jsonobj2 = (JSONObject) jsonParse.parse(jsonArray.get(0).toString());
             movie= jsonobj2.get("image").toString();
             System.out.println(movie);
-            
-          
+            System.out.println("길이:"+movie.length());
+            String code = "";
+            if(movie.length()==70){
+            code = movie.substring(49,55);
+            }
+            else if(movie.length()==69){
+            code= movie.substring(49,54);
+            }
+            System.out.println("코드:"+code);
+            String urlbig = "https://movie.naver.com/movie/bi/mi/photoViewPopup.nhn?movieCode="+code;
+            movie = api.naverPoster(urlbig);
         } catch (Exception e) {
             System.out.println(e);
         }

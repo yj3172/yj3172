@@ -5,6 +5,7 @@ import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class Dbaccess {
 		try {
 			Class.forName(JDBC_DRIVER);
 		}catch(Exception e) {
-			
+			 
 		}
 	}
 	
@@ -64,7 +65,7 @@ public class Dbaccess {
 		try {
 			conn();
 			state = conn.createStatement();
-			rs = state.executeQuery("select * from board ORDER BY num desc;");
+			rs = state.executeQuery("select * from board ORDER BY num desc limit 9;");
 			while(rs.next()) {
 				Dto dto = new Dto();
 				dto.setNum(rs.getInt("num"));
@@ -84,6 +85,25 @@ public class Dbaccess {
 			close();
 		}
 		return dtolist;
+	}
+	public int boardcount() {
+		int k =0;
+		ResultSet rs;
+		try {
+			conn();
+			state = conn.createStatement();
+			rs = state.executeQuery("select count(num) from board;");
+			rs.last();
+			k=rs.getInt(1);
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		System.out.print("¾ÆÆ¼Å¬:"+k);
+		return k;
 	}
 	
 	public void insert(ArrayList<Dto> dto) {
@@ -252,6 +272,66 @@ public class Dbaccess {
 		}finally {
 			close();
 		}
+	}
+	public ArrayList<Dto> Board(){
+		ResultSet rs;
+		ArrayList<Dto> dtolist = new ArrayList<Dto>();
+		Statement stmt=null;
+		try {
+			conn();
+			stmt=conn.createStatement();
+			String query="select * from board order by num desc limit 9 ;";
+			rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				Dto dto = new Dto();
+				dto.setNum(rs.getInt("num"));
+				dto.setWritename(rs.getString("writename"));
+				dto.setMoviename(rs.getString("moviename"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContents(rs.getString("contents"));
+				dto.setComment(rs.getString("comment"));
+				dto.setDay(rs.getString("day"));
+				dtolist.add(dto);
+				System.out.println(rs.getString("moviename"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return dtolist;
+		
+	}
+	public ArrayList<Dto> Board(int fir){
+		ResultSet rs;
+		ArrayList<Dto> dtolist = new ArrayList<Dto>();
+		Statement stmt=null;
+		try {
+			conn();
+			stmt=conn.createStatement();
+			String query="select * from board order by num desc limit "+fir+",9 ;";
+			rs = stmt.executeQuery(query);
+			while(rs.next()) {
+				Dto dto = new Dto();
+				dto.setNum(rs.getInt("num"));
+				dto.setWritename(rs.getString("writename"));
+				dto.setMoviename(rs.getString("moviename"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContents(rs.getString("contents"));
+				dto.setComment(rs.getString("comment"));
+				dto.setDay(rs.getString("day"));
+				dtolist.add(dto);
+				System.out.println(rs.getString("moviename"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return dtolist;
+		
 	}
 	
 }

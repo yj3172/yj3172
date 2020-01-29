@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@ page import="Dto.Dto" %>
 <%@ page import="Dao.Dbaccess" %>
+<%@ page import ="mybatmodel.commentdto" %>
+<%@ page import ="mybatmodel.action1" %>
 
 <!doctype html>
 <html lang="en">
@@ -110,6 +113,17 @@
 	pre{
 	white-space: pre-wrap;
 	}
+	#reply{
+	background:white;
+	width:1200px;
+	height:80px;
+	
+	margin-left:40px;
+	margin-right:40px;
+	margin-top:20px;
+	
+	}
+	
 </style>
 <script>
 	function delcheck(){
@@ -151,14 +165,25 @@
  		%>
  		<div id =boardmain><div style="text-align:center; width:100%;"><img src="<%=imgurl %>" style="width:350px; height:100%;"/></div><pre>${contents}</pre></div>
  		<hr style="width:100%;opacity:0.5;">
- 		<div id =commenttitle style="float:left;">댓글()</div>
- 		<div style="clear:both;float:left;"><textarea id=comment placeholder="악성 및 비방댓글은 경고없이 삭제됩니다"></textarea><input id=cmtbtn type="button" value="등록"/></div>
+ 		<%	
+ 			int num = (int)request.getAttribute("num");
+ 			String nums = ""+num;
+ 			action1 cmtdata = new action1();
+ 			System.out.print("아티클넘버:"+num);
+ 			List<commentdto> comment = cmtdata.selectcomment(nums);
+ 			System.out.print("리스트사이즈:"+comment.size());
+ 		%>
+ 		<div id =commenttitle style="float:left;">댓글(<%=comment.size() %>)</div>
+ 		<div style="clear:both;float:left;"><input type=text id=comment placeholder="악성 및 비방댓글은 경고없이 삭제됩니다"><input id=cmtbtn type="button"  value="등록"/></div>
  		
- 	
+ 		
  	
  		</div>
  		
- 		
+ 		<%for (int i=0;i<comment.size();i++){%>
+ 			<div id="reply" style="clear:both;float:left;"><%=comment.get(i).getComment() %></div>
+ 			
+ 		<%}%>
  		
  	</div>
  	</div>

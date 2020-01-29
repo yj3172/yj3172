@@ -3,6 +3,8 @@
 <%@ page import="Apicon.Boxoffice" %>
 <%@ page import="Dto.BoxOfficeDto" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Apicon.Crawling" %>
+<%@ page import="Dto.megaboxdata" %>
 <!doctype html>
 <html lang="en">
 <header>
@@ -30,42 +32,140 @@
 	}
 	#rankingbox{
 	float:left;
-	width:200px;
-	height:300px;
-	background:#333333;
-	color:white;
-	margin:20px;
+	width:250px;
+	height:410px;
+	background:white;
+	color:black;
+	margin:5px;
+	border: 1px solid #bdbdbd;
+
 	}
 	#rank{
-	width:100%;
-	height:40px;
-
-	background: #064461;
-	background: linear-gradient(#003040, #002535);
+		position:absolute;
+		text-align:left;
+		color:white;
+		font-size:20pt;
+		padding:10px;
+		z-index:10;
 	}
 	#rankingwrap{
 	height:100%;
-	width:1200px;
+	width:1350px;
 	margin: 0 auto 0 auto;
 	}
 	#movieNm{
-	text-align:left;
-	padding-left:10px;
+	text-align:center;
+	padding-top:5px;
+	width:180px;
+	overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin-left:auto;
+    margin-right:auto;
 	
 	}
+	#openday{
+	font-size:8pt;
+	opacity:0.7;
+	text-align:center;
+	}
+	#moreinfobox{
+	position:absolute;
+	width:250px;
+	height:358px;
+	background:black;
+	opacity:0;
+	transition: opacity 0.5s;
+	
+	}
+	#moreboxbtn{
+	color:white;
+	opacity:1;
+	cursor:pointer;
+	border:1px solid white;
+	width:100px;
+	height:40px;
+    margin-top:10px;
+	}
+	#btnwrap{
+	
+	z-index:200;
+	margin:auto;
+	width:100px;
+	position:absolute;
+    top:0; left:0; bottom:0; right:0;
+    height:285px;
+    margin:50% auto;
+ 
+	}
+	#btntitle{
+	margin-top:10px;
+	}
+	#slidetext{
+	position:absolute;
+	width:400px;
+	height:200px;
+	top:27%;
+	left:10%;
+	z-index:9999;
+	font-size:20pt;
+	font-weight:bold;
+	color:#bdbdbd;
+	}
 	</style>
+	<script>
+	(function($) {
+	    $(function() {
+	          $(document).on({
+	        		  mouseenter:function(e) {  				      		
+	        			$(this).find('#moreinfobox').css('opacity','0.7')
+	        		  },
+	        		  mouseleave:function(e){
+	        			$(this).find('#moreinfobox').css('opacity','0')
+	        		  }
+	        		 
+	          } ,"#rankingbox");
+	    });
+	})(jQuery);
+	(function($) {
+	    $(function() {
+	          $(document).on({
+	        		  mouseenter:function(e) {  				 
+	        		
+	        	   		  $(this).css('color','red')
+	        			  $(this).css('border-color','red')  
+	        		  
+	        		  },
+	        		  mouseleave:function(e){
+	        	 
+	        			  $(this).css('color','white')
+	        			  $(this).css('border-color','white')
+	        		  }
+	        		 
+	          } ,"#moreboxbtn");
+	    });
+	})(jQuery);
+	
 
+
+	</script>
 
   
  </head>
  <body>
+ <% Crawling megabox = new Crawling();
+ 	ArrayList<megaboxdata> slidedata = megabox.getmega();
+ 
+ 
+ 
+ 	%>
 	<%@ include file="header.jsp" %>
 	<div id=bxsilderwrapper style="margin-top:200px;">
 		<ul class="bxslider" style="z-index:50;">
-		  <li><img src="img/slide1.jpg" /></li>
-		  <li><img src="img/slide2.jpg" /></li>
-		  <li><img src="img/slide3.jpg" /></li>
-		  <li><img src="img/slide4.jpg" /></li>
+		  <li><img src=<%=slidedata.get(4).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(0).getSpan() %></div></li>
+		  <li><img src=<%=slidedata.get(5).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(1).getSpan() %></div></li>
+		  <li><img src=<%=slidedata.get(6).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(2).getSpan() %></div></li>
+		  <li><img src=<%=slidedata.get(7).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(3).getSpan() %></div></li>
 		</ul>
 		</div>
 		
@@ -77,7 +177,7 @@
 			Boxoffice movieboxoffice = new Boxoffice();
 			ArrayList<BoxOfficeDto> movieinfo= movieboxoffice.boxofficelist();
 			for(int i = 0;i<10;i++){
-			String rank = i+1+"위";
+			String rank = i+1+"";
 			String title = "title"+i;
 	    	String openday = "openday"+i;
 	    	String totalperson = "totalperson"+i;
@@ -89,17 +189,24 @@
 	    	
 		%>
 		
-		<div id =rankingbox>
-		<div id = rank><div style="padding-top:10px;"><%=rank %></div></div>
-<<<<<<< HEAD
-		<img src=<%=movieposter %> id =<%=poster%> style="width:auto;height:auto;margin-top:20px;"/>
-=======
-		<img src=<%=movieposter %> id =<%=poster%> style="width:120px;height:auto;margin-top:20px;"/>
->>>>>>> ad703298aa9d30a7329ccfc3c5d65b293fad768a
+		<div id=rankingbox>
+		<div id=rank><%=rank %></div>
+			<div id=moreinfobox>
+				<div id=btnwrap>
+					<div id=moreboxbtn>
+						<div id=btntitle>예매</div>
+					</div>
+					<div id=moreboxbtn>
+						<div id=btntitle>정보</div>
+					</div>
+				</div>
+			</div>
+		
+		<img src=<%=movieposter %> id =<%=poster%> style="width:250px;height:auto;"/>
+
 
 		<div id=movieNm><%= movieinfo.get(i).getMovieNm() %></div>
-		<div >개봉일 : <%= movieinfo.get(i).getOpenDt() %></div>
-		<div >누적 관람객 : <%= movieinfo.get(i).getAudiAcc() %></div>
+		<div id=openday>개봉일 : <%= movieinfo.get(i).getOpenDt() %></div>
 		
 		</div>
 		<%
