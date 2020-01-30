@@ -19,26 +19,24 @@ public class servlet extends HttpServlet{
 		String command = request.getParameter("command");
 		controller inter = null;
 		String viewName = "";
-
+		request.setCharacterEncoding("utf-8");
 		
 		try {
 			if(command.equals("select")){
 				inter = Commentselect.instance();
 				viewName = inter.showData(request, response);
-
 				request.getRequestDispatcher(viewName).forward(request, response);
 			} else if(command.equals("insert")){
-			//	inter = Insert.instance();
+				inter = Commentinsert.instance();
 				viewName = inter.showData(request, response);
-			
-				request.getRequestDispatcher(viewName).forward(request, response);
+				response.sendRedirect(viewName);
 			} else if(command.equals("update")){
 	//			inter = Update.instance();
 				viewName = inter.showData(request, response);
 		
-				request.getRequestDispatcher(viewName).forward(request, response);
+				response.sendRedirect(viewName);
 			}	else if(command.equals("delete")){
-		//		inter = Delete.instance();
+				inter = Commentdelete.instance();
 				viewName = inter.showData(request, response);
 	
 				request.getRequestDispatcher(viewName).forward(request, response);

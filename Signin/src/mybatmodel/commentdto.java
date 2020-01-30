@@ -5,6 +5,13 @@ public class commentdto {
 	String commentwrither;
 	String comment;
 	String day;
+	String commentnum;
+	public String getCommentnum() {
+		return commentnum;
+	}
+	public void setCommentnum(String commentnum) {
+		this.commentnum = commentnum;
+	}
 	public String getBoardnum() {
 		return boardnum;
 	}

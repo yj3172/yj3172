@@ -20,27 +20,26 @@ public class action1 {
 	public List<commentdto> selectcomment(String boardnum){
 		List<commentdto> list = null;
 		String num =boardnum;
-		System.out.println("보드넘버"+boardnum);
 		SqlSession sqlSession = factory.openSession();
-		System.out.println("보드넘버"+boardnum);
 		list = sqlSession.selectList("selectcomment",num);
 		
 		sqlSession.close();
 		return list;
 	}
 	
-	public void Insert(commentdto li){
+	public void insertcomment(commentdto li){
 		
 		SqlSession sqlSession = factory.openSession();
-		sqlSession.insert("insert",li);
+		sqlSession.insert("insertcomment",li);
 		sqlSession.commit();
 		sqlSession.close();
 		
 	}
-	public void delete(commentdto li){
+	public void deletecomment(String li){
 	//	System.out.println(li.getTitle());
+		String deletecomment = li;
 		SqlSession sqlSession = factory.openSession();
-		sqlSession.delete("delete",li);
+		sqlSession.delete("deletecomment",deletecomment);
 		sqlSession.commit();
 		sqlSession.close();
 		

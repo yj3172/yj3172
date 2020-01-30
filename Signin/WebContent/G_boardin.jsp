@@ -5,6 +5,8 @@
 <%@ page import="Dao.Dbaccess" %>
 <%@ page import ="mybatmodel.commentdto" %>
 <%@ page import ="mybatmodel.action1" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+
 
 <!doctype html>
 <html lang="en">
@@ -15,6 +17,7 @@
   <meta name="Keywords" content="">
   <meta name="Description" content="">
   <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  </head>
  <style>
  	
@@ -115,13 +118,43 @@
 	}
 	#reply{
 	background:white;
-	width:1200px;
-	height:80px;
-	
-	margin-left:40px;
-	margin-right:40px;
+	width:1180px;
+	height:100px;
+	border:solid #bdbdbd 1px;
+	margin-left:50px;
+	margin-right:50px;
 	margin-top:20px;
+	}
+	#replywriter{
+	clear:both;
+	float:left;
+	color:#bdbdbd;
+	padding-top:10px;
+	}
+	#replycomment{
+	float:left;
+	font-size:17pt;
+	}
+	#replycontent{
+	width:90%;
+	height:80%;
+	margin:0 auto;
+	padding-top:23px;
 	
+	}
+	#commentbtn{
+	color:#bdbdbd;
+	float:right;
+	margin-left:20px;
+	}
+	#changecomment{
+	width:1180px;
+	margin-left:50px;
+	margin-right:50px;
+	height:50px;
+	border:1px solid #bdbdbd;
+	float:left;
+	background-color:white;
 	}
 	
 </style>
@@ -131,6 +164,28 @@
 		if(check){
 			location.href='action.jsp?class=delete&num='+<%=request.getAttribute("num") %>
 		}
+	}
+	function commentsubmit(){
+		var session =<%=(String)session.getAttribute("id") %>
+		if(session==null){
+			alert("로그인이 필요한 서비스입니다 로그인먼저 진행해주세요")
+		}else{
+			document.getElementById("commentform").submit();
+		}
+		
+	}
+	function deletecheck(commentnum,boardnum){
+		var result = confirm("댓글을 삭제하시겠습니까?");
+		if(result){
+			var url = "del.do?command=delete&commentnum="+commentnum+"&boardnum="+boardnum
+		    location.href=url
+		}else{
+		}
+	}
+	function upinput(commentnum){
+		var html ;
+		
+		
 	}
 </script>
  <body>
@@ -163,25 +218,57 @@
  		<hr style="width:100%;opacity:0.5;">
  		<% String imgurl ="upload/"+(String)request.getAttribute("filename"); 
  		%>
- 		<div id =boardmain><div style="text-align:center; width:100%;"><img src="<%=imgurl %>" style="width:350px; height:100%;"/></div><pre>${contents}</pre></div>
+ 		<div id =boardmain><div style="text-align:center; width:100%;">
+ 			<%if((String)request.getAttribute("filename")!=null){ 
+ 			%><img src="<%=imgurl %>" style="width:350px; height:100%;"/>
+ 			<% }%>
+ 			</div><pre>${contents}</pre></div>
  		<hr style="width:100%;opacity:0.5;">
  		<%	
  			int num = (int)request.getAttribute("num");
  			String nums = ""+num;
  			action1 cmtdata = new action1();
- 			System.out.print("아티클넘버:"+num);
  			List<commentdto> comment = cmtdata.selectcomment(nums);
- 			System.out.print("리스트사이즈:"+comment.size());
+
  		%>
  		<div id =commenttitle style="float:left;">댓글(<%=comment.size() %>)</div>
- 		<div style="clear:both;float:left;"><input type=text id=comment placeholder="악성 및 비방댓글은 경고없이 삭제됩니다"><input id=cmtbtn type="button"  value="등록"/></div>
- 		
+ 		<form action="comment.do?command=insert" id="commentform" method="post" accept-charset="utf-8">
+ 			<div style="clear:both;float:left;">
+ 				<input type=text id=comment name=comment placeholder="악성 및 비방댓글은 경고없이 삭제됩니다"/>
+ 				<input type="hidden" name="boardnum" value=	${num} />
+ 				<input id=cmtbtn type="button" onclick="commentsubmit()" value="등록"/>
+ 				
+ 			
+ 			</div>
+ 		</form>
  		
  	
  		</div>
  		
  		<%for (int i=0;i<comment.size();i++){%>
- 			<div id="reply" style="clear:both;float:left;"><%=comment.get(i).getComment() %></div>
+
+ 			<div id="reply" style="float:left;">
+	 			<div id=replycontent>
+	 				<div id= replycomment><%=comment.get(i).getComment() %></div>
+	 				<%if(session.getAttribute("id")!=null){
+	 				if(session.getAttribute("id").equals(comment.get(i).getCommentwrither())){
+	 					String dellink="javascript:deletecheck("+comment.get(i).getCommentnum()+","+comment.get(i).getBoardnum()+")";
+	 					String uplink="javascript:upinput("+comment.get(i).getCommentnum()+")"; %>
+	 					<a id=commentbtn href=<%=dellink %>>삭제</a>
+	 				
+	 					<a id=commentbtn href=<%=uplink %>>수정</a>
+	 				<% }
+	 				}%>
+	 				<div id= replywriter><%=comment.get(i).getCommentwrither()%> | <%=comment.get(i).getDay() %></div>
+	 			</div>
+	 		
+ 			</div>
+ 			<div id=changecomment>
+ 				<form>
+ 				<input type="text" name=upcomment/>
+ 				<input type="button" value="댓글수정">
+ 				</form>
+ 			</div>
  			
  		<%}%>
  		

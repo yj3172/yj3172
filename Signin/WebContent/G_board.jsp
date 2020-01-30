@@ -112,9 +112,13 @@ ArrayList<Dto> li=opendata.Board();
 	}
 	#ctitle{
 	float:left;
+	text-align:left;
 	font-size:15pt;
 	font-weight:bold;
-	
+	width:180px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 	}
 	#wddiv{
 		width:100%;
