@@ -44,10 +44,10 @@ public class action1 {
 		sqlSession.close();
 		
 	}
-	public void update(commentdto li){
+	public void updatecomment(commentdto li){
 	//	System.out.println(li.getTitle());
 		SqlSession sqlSession = factory.openSession();
-		sqlSession.update("update",li);
+		sqlSession.update("updatecomment",li);
 		sqlSession.commit();
 		sqlSession.close();
 		

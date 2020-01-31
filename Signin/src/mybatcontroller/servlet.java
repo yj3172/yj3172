@@ -21,6 +21,7 @@ public class servlet extends HttpServlet{
 		String viewName = "";
 		request.setCharacterEncoding("utf-8");
 		
+		
 		try {
 			if(command.equals("select")){
 				inter = Commentselect.instance();
@@ -31,14 +32,15 @@ public class servlet extends HttpServlet{
 				viewName = inter.showData(request, response);
 				response.sendRedirect(viewName);
 			} else if(command.equals("update")){
-	//			inter = Update.instance();
-				viewName = inter.showData(request, response);
-		
-				response.sendRedirect(viewName);
+				
+				inter = Commentupdate.instance();
+				
+				viewName = inter.showData(request, response);	
+				System.out.println("¸í·É4443:"+command);
+				request.getRequestDispatcher(viewName).forward(request, response);
 			}	else if(command.equals("delete")){
 				inter = Commentdelete.instance();
 				viewName = inter.showData(request, response);
-	
 				request.getRequestDispatcher(viewName).forward(request, response);
 			}else {
 				viewName = "error.html";

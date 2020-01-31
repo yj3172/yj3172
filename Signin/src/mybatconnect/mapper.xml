@@ -6,6 +6,6 @@
 
 	<select id="selectcomment" resultType="dto">select * from boardcomment where boardnum = #{num};</select>
 	<insert id="insertcomment" parameterType="dto">insert into boardcomment(commentwrither,comment,day,boardnum) values( #{commentwrither}, #{comment},#{day},#{boardnum});</insert>
-	<update id="update" parameterType="dto">update batis set title=#{title}, tool=#{tool} where num=#{num}; </update>
+	<update id="updatecomment" parameterType="dto">update boardcomment set comment=#{comment} where commentnum=#{commentnum}; </update>
 	<delete id="deletecomment" parameterType="dto">delete from boardcomment where commentnum=#{commentnum};</delete>
 </mapper>

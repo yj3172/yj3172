@@ -142,10 +142,11 @@
 	padding-top:23px;
 	
 	}
-	#commentbtn{
+	.commentbtn{
 	color:#bdbdbd;
 	float:right;
 	margin-left:20px;
+	cursor:pointer;
 	}
 	#changecomment{
 	width:1180px;
@@ -155,6 +156,27 @@
 	border:1px solid #bdbdbd;
 	float:left;
 	background-color:white;
+	display:none;
+	}
+	#upcomment{
+	float:left;
+	margin-left:30px;
+	margin-top:6px;
+	border:1px solid #bdbdbd;
+	width:70%;
+	padding-left:20px;
+	padding-top:10px;
+	padding-bottom:10px;
+	}
+	#updatebtn{
+	flaot:left;
+	width:100px;
+	height:40px;
+	border:none;
+	background:#f45905;
+	color:white;
+	margin-top:6px;
+	cursor:pointer; 
 	}
 	
 </style>
@@ -182,11 +204,24 @@
 		}else{
 		}
 	}
-	function upinput(commentnum){
-		var html ;
-		
-		
-	}
+
+	$(document).on('click','#commentchange',function(){
+		if(!$(this).parent().parent().next().is(":visible")){
+			$(this).parent().parent().next().css('display','block');
+		}else{
+			$(this).parent().parent().next().css('display','none');
+		}
+	})
+
+	$(function(){
+		$("#accordian h3").click(function(){
+			$("#accordian ul ul").slideUp();
+			if(!$(this).next().is(":visible"))
+			{
+				$(this).next().slideDown();
+			}
+		})
+	})
 </script>
  <body>
  	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
@@ -253,10 +288,10 @@
 	 				<%if(session.getAttribute("id")!=null){
 	 				if(session.getAttribute("id").equals(comment.get(i).getCommentwrither())){
 	 					String dellink="javascript:deletecheck("+comment.get(i).getCommentnum()+","+comment.get(i).getBoardnum()+")";
-	 					String uplink="javascript:upinput("+comment.get(i).getCommentnum()+")"; %>
-	 					<a id=commentbtn href=<%=dellink %>>삭제</a>
+	 				%>
+	 					<a class=commentbtn href=<%=dellink %>>삭제</a>
 	 				
-	 					<a id=commentbtn href=<%=uplink %>>수정</a>
+	 					<a class=commentbtn id=commentchange >수정</a>
 	 				<% }
 	 				}%>
 	 				<div id= replywriter><%=comment.get(i).getCommentwrither()%> | <%=comment.get(i).getDay() %></div>
@@ -264,9 +299,11 @@
 	 		
  			</div>
  			<div id=changecomment>
- 				<form>
- 				<input type="text" name=upcomment/>
- 				<input type="button" value="댓글수정">
+ 				<form action="change.do?command=update" method="post">
+ 				<input id=upcomment type="text" placeholder="댓글수정" name=upcomment>
+ 				<input type="hidden" name=commentnum value=<%=comment.get(i).getCommentnum() %>>
+ 				<input type="hidden" name="boardnum" value=	${num} />
+ 				<input id = updatebtn type="submit" value="댓글수정">
  				</form>
  			</div>
  			
