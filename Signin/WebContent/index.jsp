@@ -86,6 +86,8 @@
 	width:100px;
 	height:40px;
     margin-top:10px;
+    position:relative;
+    top:20%;
 	}
 	#btnwrap{
 	
@@ -95,7 +97,7 @@
 	position:absolute;
     top:0; left:0; bottom:0; right:0;
     height:285px;
-    margin:50% auto;
+    margin:25% auto;
  
 	}
 	#btntitle{

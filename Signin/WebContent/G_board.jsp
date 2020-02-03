@@ -28,28 +28,6 @@ ArrayList<Dto> li=opendata.Board();
  		border-bottom:1px solid black;
  		
  	}
- 	table{
- 		border-collapse:collapse;
- 		text-align:center;
- 	}
- 	tr{
- 		border-bottom:1px solid black;
- 	}
- 	td:first-child{
- 		text-align:center;
- 	}
- 	tr:nth-child(2){
- 		width:600px;
- 	}
- 	tr:nth-child(3){
- 		width:600px;
- 	}
- 	tr:nth-child(4){
- 		width:600px;
- 	}
- 	tr:nth-child(n+2){
- 		height:200px;
- 	}
  	
  	#mypage{
  		clear:both;
@@ -286,7 +264,7 @@ ArrayList<Dto> li=opendata.Board();
  			<option values="영화제목으로검색" selected>영화제목으로검색</option>
  			<option values="작성자명으로검색" >작성자명으로검색</option>
  			<option values="작성일로검색" >작성일로검색</option>
- 			<input type="text" style="margin-top:200px;" id="ser" name="ser" placeholder="영화제목검색창" size="40"><input type=submit value="검색">
+ 			<input type="text"  id="ser" name="ser" placeholder="영화제목검색창" size="40"><input type=submit value="검색">
  			</select>
  		</form>
  		</div>
