@@ -149,7 +149,10 @@
 	})(jQuery);
 	
 
-
+	function moviemoreinfo(title){
+		
+		   location.href = "M_moviearticle?title="+title;
+	}
 	</script>
 
   
@@ -188,7 +191,7 @@
 	    	
 
 	    	String movieposter = poster.movieposter(movieinfo.get(i).getMovieNm());
-	    	
+	    	String moreinfo = "location.href =\'M_moviearticle.jsp?title="+movieinfo.get(i).getMovieNm()+"\'";
 		%>
 		
 		<div id=rankingbox>
@@ -198,7 +201,7 @@
 					<div id=moreboxbtn>
 						<div id=btntitle>예매</div>
 					</div>
-					<div id=moreboxbtn>
+					<div id=moreboxbtn  OnClick="<%=moreinfo %>" >
 						<div id=btntitle>정보</div>
 					</div>
 				</div>
