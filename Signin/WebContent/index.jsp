@@ -167,10 +167,12 @@
 	<%@ include file="header.jsp" %>
 	<div id=bxsilderwrapper style="margin-top:200px;">
 		<ul class="bxslider" style="z-index:50;">
-		  <li><img src=<%=slidedata.get(4).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(0).getSpan() %></div></li>
-		  <li><img src=<%=slidedata.get(5).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(1).getSpan() %></div></li>
-		  <li><img src=<%=slidedata.get(6).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(2).getSpan() %></div></li>
-		  <li><img src=<%=slidedata.get(7).getImg() %> style="width:1890px;"/><div id=slidetext><%=slidedata.get(3).getSpan() %></div></li>
+		<%if(slidedata.size()!=0){ %>
+		  <li><img src=<%=slidedata.get(0).getImg() %> style="width:1890px;"/></li>
+		  <li><img src=<%=slidedata.get(1).getImg() %> style="width:1890px;"/></li>
+		  <li><img src=<%=slidedata.get(2).getImg() %> style="width:1890px;"/></li>
+		  <li><img src=<%=slidedata.get(3).getImg() %> style="width:1890px;"/></li>
+		  <%} %>
 		</ul>
 		</div>
 		

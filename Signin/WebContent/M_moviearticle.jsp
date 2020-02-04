@@ -50,7 +50,7 @@ padding-bottom:5%;
 	position:relative;
 	top:50px;
 	width:90%;
-	height:auto;
+	height:800px;
 	background:#333333;
 	margin:0 auto;
 	box-shadow: 
@@ -63,7 +63,49 @@ padding-bottom:5%;
 	margin-bottom:50px;
 
 }
+#movieinfowrap{
+float:left;
 
+}
+#movieposter{
+width:300px;
+height:auto;
+float:left;
+margin:30px;
+}
+#movietitle{
+float:left;
+font-size:30pt;
+}
+#moviesubtitle{
+clear:both;
+float:left;
+padding-top:14pt;
+font-size:20pt;
+opacity:0.7;
+}
+#opendt{
+clear:both;
+float:left;
+}
+#moviedirector{
+clear:both;
+float:left;
+}
+#movieactor{
+clear:both;
+float:left;
+}
+#movieuserrating{
+clear:both;
+float:left;
+}
+#movieinfowrap div{
+padding-top:40px;
+}
+#movieinfowrap div div{
+padding-top:20px;
+}
 </style>
 
 
@@ -72,9 +114,19 @@ padding-bottom:5%;
 
 	 <div id=cm>
 	<div id = mypage>
-	<%=li.get(0).getActor() %>
-  <div id = infobox>
 	
+  <div id = infobox>
+    <img id= movieposter src=<%=li.get(0).getImglink() %>>
+	<div id=movieinfowrap> 
+		 <div id=movietitle><%=li.get(0).getTitle() %></div>
+		 <div id=moviesubtitle> <%=li.get(0).getSubtitle() %></div>
+		 <div>
+			 <div id=opendt> <%=li.get(0).getOpenday() %></div>
+			 <div id=moviedirector> 감독 : <%=li.get(0).getDirector() %></div>
+			 <div id= movieactor>배우: <%=li.get(0).getActor() %></div>
+			 <div id= movieuserrating>평점: <%=li.get(0).getUserrating() %></div>
+		 </div>
+</div>
   </div>
   </div>
   </div>
