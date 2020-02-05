@@ -48,15 +48,15 @@ public class Navermovie {
                 response.append(inputLine);
             }
             
-            System.out.println(response.toString());
+
             
             JSONParser jsonParse = new JSONParser(); //JSONParse�� json�곗�댄�곕�� �ｌ�� ���깊�� �ㅼ�� JSONObject濡� 蹂�������. 
             JSONObject jsonObj = (JSONObject) jsonParse.parse(response.toString()); //JSONObject���� PersonsArray瑜� get���� JSONArray�� ���ν����. 
             JSONArray jsonArray =(JSONArray) jsonParse.parse(jsonObj.get("items").toString());
             JSONObject jsonobj2 = (JSONObject) jsonParse.parse(jsonArray.get(0).toString());
             movie= jsonobj2.get("image").toString();
-            System.out.println(movie);
-            System.out.println("길이:"+movie.length());
+        
+    
             String code = "";
             if(movie.length()==70){
             code = movie.substring(49,55);
@@ -64,7 +64,7 @@ public class Navermovie {
             else if(movie.length()==69){
             code= movie.substring(49,54);
             }
-            System.out.println("코드:"+code);
+           
             String urlbig = "https://movie.naver.com/movie/bi/mi/photoViewPopup.nhn?movieCode="+code;
             movie = api.naverPoster(urlbig);
         } catch (Exception e) {

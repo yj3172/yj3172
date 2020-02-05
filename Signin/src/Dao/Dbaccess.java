@@ -73,7 +73,6 @@ public class Dbaccess {
 				dto.setMoviename(rs.getString("moviename"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContents(rs.getString("contents"));
-				dto.setComment(rs.getString("comment"));
 				dto.setDay(rs.getString("day"));
 				dtolist.add(dto);
 			}
@@ -108,10 +107,10 @@ public class Dbaccess {
 	
 	public void insert(ArrayList<Dto> dto) {
 		
-		String query="insert into board (writename,moviename,title,contents,comment,day,filename) values(?,?,?,?,?,?,?);";
+		String query="insert into board (writename,moviename,title,contents,day,filename) values(?,?,?,?,?,?);";
 		Date date=new Date();
 		java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-		String comments="";
+
 		try {
 			conn();
 			
@@ -120,9 +119,8 @@ public class Dbaccess {
 			pstmt.setString(2, dto.get(0).getMoviename());
 			pstmt.setString(3, dto.get(0).getTitle());
 			pstmt.setString(4, dto.get(0).getContents());
-			pstmt.setString(5, comments);
-			pstmt.setDate(6, sqlDate);
-			pstmt.setString(7, dto.get(0).getFilename());
+			pstmt.setDate(5, sqlDate);
+			pstmt.setString(6, dto.get(0).getFilename());
 		
 		
 			pstmt.executeUpdate();
@@ -151,7 +149,6 @@ public class Dbaccess {
 				dto.setMoviename(rs.getString("moviename"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContents(rs.getString("contents"));
-				dto.setComment(rs.getString("comment"));
 				dto.setDay(rs.getString("day"));
 				dto.setFilename(rs.getString("filename"));
 				dtolist.add(dto);
@@ -223,7 +220,6 @@ public class Dbaccess {
 				dto.setMoviename(rs.getString("moviename"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContents(rs.getString("contents"));
-				dto.setComment(rs.getString("comment"));
 				dto.setDay(rs.getString("day"));
 				dtolist.add(dto);
 			}
@@ -289,7 +285,6 @@ public class Dbaccess {
 				dto.setMoviename(rs.getString("moviename"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContents(rs.getString("contents"));
-				dto.setComment(rs.getString("comment"));
 				dto.setDay(rs.getString("day"));
 				dtolist.add(dto);
 				System.out.println(rs.getString("moviename"));
@@ -319,7 +314,6 @@ public class Dbaccess {
 				dto.setMoviename(rs.getString("moviename"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContents(rs.getString("contents"));
-				dto.setComment(rs.getString("comment"));
 				dto.setDay(rs.getString("day"));
 				dtolist.add(dto);
 				System.out.println(rs.getString("moviename"));

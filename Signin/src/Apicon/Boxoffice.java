@@ -106,9 +106,6 @@ public class Boxoffice {
             		
             	
             System.out.println(jsonlist);
-            System.out.println(bdto.getMovieNm());
-            System.out.println(bdto.getOpenDt());
-            System.out.println(bdto.getAudiAcc());
             	
             }
           

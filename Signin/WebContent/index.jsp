@@ -5,6 +5,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Apicon.Crawling" %>
 <%@ page import="Dto.megaboxdata" %>
+<%@ page import="Apicon.Selenium" %>
 <!doctype html>
 <html lang="en">
 <header>
@@ -114,6 +115,10 @@
 	font-weight:bold;
 	color:#bdbdbd;
 	}
+	#slideimg{
+	position:relative;
+	top:-80px;
+	}
 	</style>
 	<script>
 	(function($) {
@@ -143,7 +148,7 @@
 	        			  $(this).css('color','white')
 	        			  $(this).css('border-color','white')
 	        		  }
-	        		 
+	        
 	          } ,"#moreboxbtn");
 	    });
 	})(jQuery);
@@ -159,19 +164,17 @@
  </head>
  <body>
  <% Crawling megabox = new Crawling();
- 	ArrayList<megaboxdata> slidedata = megabox.getmega();
- 
- 
- 
+ 	Selenium se = new Selenium();
+ 	String[] li =se.crawl();
  	%>
 	<%@ include file="header.jsp" %>
 	<div id=bxsilderwrapper style="margin-top:200px;">
 		<ul class="bxslider" style="z-index:50;">
-		<%if(slidedata.size()!=0){ %>
-		  <li><img src=<%=slidedata.get(0).getImg() %> style="width:1890px;"/></li>
-		  <li><img src=<%=slidedata.get(1).getImg() %> style="width:1890px;"/></li>
-		  <li><img src=<%=slidedata.get(2).getImg() %> style="width:1890px;"/></li>
-		  <li><img src=<%=slidedata.get(3).getImg() %> style="width:1890px;"/></li>
+		<%if(li!=null){ %>
+		  <li><img id= slideimg src=<%=li[0] %> /></li>
+		  <li><img id= slideimg src=<%=li[1] %> /></li>
+		  <li><img id= slideimg src=<%=li[2] %> /></li>
+		  <li><img id= slideimg src=<%=li[3] %> /></li>
 		  <%} %>
 		</ul>
 		</div>
@@ -185,9 +188,7 @@
 			ArrayList<BoxOfficeDto> movieinfo= movieboxoffice.boxofficelist();
 			for(int i = 0;i<10;i++){
 			String rank = i+1+"";
-			String title = "title"+i;
-	    	String openday = "openday"+i;
-	    	String totalperson = "totalperson"+i;
+	
 
 	    	Navermovie poster = new Navermovie();
 	    	

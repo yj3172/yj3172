@@ -70,10 +70,6 @@ ArrayList<Dto> dto = new ArrayList<Dto>();
 		request.setAttribute("day",li.get(i).getDay());
 		request.setAttribute("num",li.get(i).getNum());
 		request.setAttribute("filename",li.get(i).getFilename());
-		if(li.get(0).getComment()!=null){
-		request.setAttribute("comments",li.get(i).getComment());
-	
-		}
 
         }
 		RequestDispatcher dispatcher = request.getRequestDispatcher("G_boardin.jsp");
@@ -110,9 +106,7 @@ else if (cl.equals("update")){
 	request.setAttribute("contents",li.get(i).getContents());
 	request.setAttribute("day",li.get(i).getDay());
 	request.setAttribute("num",li.get(i).getNum());
-	if(li.get(0).getComment()!=null){
-	request.setAttribute("comments",li.get(i).getComment());
-	}
+
 
     }
 	RequestDispatcher dispatcher = request.getRequestDispatcher("G_boardup.jsp");
@@ -145,9 +139,7 @@ else if (cl.equals("updatevalue")){
 	request.setAttribute("contents",dto.get(0).getContents());
 	request.setAttribute("day",dto.get(0).getDay());
 	request.setAttribute("num",dto.get(0).getNum());
-	if(dto.get(0).getComment()!=null){
-	request.setAttribute("comments",dto.get(0).getComment());
-	}
+
 	
     
 	RequestDispatcher dispatcher = request.getRequestDispatcher("G_boardin.jsp");

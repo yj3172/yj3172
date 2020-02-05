@@ -84,27 +84,23 @@ padding-top:14pt;
 font-size:20pt;
 opacity:0.7;
 }
-#opendt{
-clear:both;
-float:left;
-}
-#moviedirector{
-clear:both;
-float:left;
-}
-#movieactor{
-clear:both;
-float:left;
-}
-#movieuserrating{
-clear:both;
-float:left;
-}
 #movieinfowrap div{
+clear:both;
+float:left;
+}
+
+
+#movieinfowrap div:nth-child(1){
 padding-top:40px;
 }
-#movieinfowrap div div{
-padding-top:20px;
+#movieinfowrap div:nth-child(n+2){
+margin-top:20px;
+}
+#booking{
+border:1px solid #FF243E;
+background:#FF243E;
+padding:10px 30px 10px 30px;
+border-radius:5px;
 }
 </style>
 
@@ -120,12 +116,13 @@ padding-top:20px;
 	<div id=movieinfowrap> 
 		 <div id=movietitle><%=li.get(0).getTitle() %></div>
 		 <div id=moviesubtitle> <%=li.get(0).getSubtitle() %></div>
-		 <div>
-			 <div id=opendt> <%=li.get(0).getOpenday() %></div>
-			 <div id=moviedirector> 감독 : <%=li.get(0).getDirector() %></div>
-			 <div id= movieactor>배우: <%=li.get(0).getActor() %></div>
-			 <div id= movieuserrating>평점: <%=li.get(0).getUserrating() %></div>
-		 </div>
+		 
+		 <div id=opendt> <%=li.get(0).getOpenday() %></div>
+		 <div id=moviedirector> 감독 : <%=li.get(0).getDirector() %></div>
+		 <div id= movieactor>배우: <%=li.get(0).getActor() %></div>
+		 <div id= movieuserrating>평점: <%=li.get(0).getUserrating() %></div>
+		 <div id = booking>예매</div>
+		
 </div>
   </div>
   </div>

@@ -9,6 +9,7 @@ public class navermovie_article_dto {
 	String actor;
 	String userrating;
 	String openday;
+	
 	public String getTitle() {
 		return title;
 	}
