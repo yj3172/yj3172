@@ -13,6 +13,7 @@ import Eventaction.action;
 
 import Eventaction.Event_list_Action;
 import Eventaction.Event_view_Action;
+import Eventaction.Store_list_Action;
 
 
 @WebServlet("*.bo")
@@ -44,6 +45,23 @@ public class FrontController extends javax.servlet.http.HttpServlet
 				e.printStackTrace();
 			}
 		}
+		else if(command.equals("/store.bo")){
+			System.out.println("µé¾î¿È????");
+			action  = new Store_list_Action();
+				try {
+					forward=action.execute(request, response );
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if(command.equals("/storedetail.bo")){
+				action  = new Store_list_Action();
+				try {
+					forward=action.execute(request, response );
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		
 		
 		if(forward != null){

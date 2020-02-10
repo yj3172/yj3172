@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page import = "java.util.Optional" %>
 <%
-	String s ="";
-	s=(String)session.getAttribute("log");
-	if(s==null){
-	s="";
-	}
-
+	Optional<String> logcheck = Optional.ofNullable((String)session.getAttribute("log"));	
+	String s = logcheck.orElse("");
 %>
 
 
@@ -80,7 +77,7 @@
 			   	</div>
 			</ul>
 			</li>
-		<li class = menuleft><a href="S_store.jsp">스토어</a></li>
+		<li class = menuleft><a href="store.bo">스토어</a></li>
 		<li class = menuleft><a href="EventlistPro.bo">이벤트</a></li>
 		<li class = menuleft><a href="action.jsp?class=search">영화매거진</a></li>
 	</ul>

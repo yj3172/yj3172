@@ -5,6 +5,7 @@
 <%@ page import="Dao.Dbaccess" %>
 <%@ page import ="mybatmodel.commentdto" %>
 <%@ page import ="mybatmodel.action1" %>
+<%@ page import = "java.util.Optional" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 
 
@@ -229,6 +230,8 @@
 	<div id =mainwraper>
  	<div id = mypage>
  	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span><% 
+ 		Optional<String> idnull = Optional.ofNullable((String)session.getAttribute("id"));
+ 		String id = idnull.orElse("");
 		if(session.getAttribute("id")==null){	
 		}
  		else if (session.getAttribute("id").equals((String)request.getAttribute("writename"))){ 

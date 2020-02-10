@@ -10,15 +10,50 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<link href="css/style.css" rel="stylesheet">
-	<link href="css/cssmovie.css" rel="stylesheet">
+	<link href="css/style.css?ver=1" rel="stylesheet">
+	<link href="css/cssmovie.css?ver=1" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 	<script src="js/script.js"></script>
-	<script language="JavaScript" src="js/scriptmovie.js" charset="UTF-8"></script>
+	<script language="JavaScript" src="js/scriptmovie.js?ver=1" charset="UTF-8"></script>
 
  </head>
- 
+ <script>
+	$(function() {
+		$(document).on('click','#kCalendar table tbody tr td',function(){
+			var nullch = $(this).html()
+
+			if(nullch==" "){
+				
+			}else{
+			$(this).css("background","red");
+			
+			$('#kCalendar table tbody tr td').not($(this)).css("background","#333333");
+			var date = $('#date').html() + $(this).html()+"일"
+			$('#resultday').html(date)
+			}
+		})
+	})
+	
+	
+	function send(){
+		var resultmovie =  $('#resultmovie').html()
+		var resultsite =  $('#resultsite').html()
+		var resultday =  $('#resultday').html()
+		var resulttime =  $('#resulttime').html()
+		var resultadult =  $('#resultadult').html()
+		var resultteen =  $('#resultteen').html()
+		
+		if(resultmovie=='미선택'|resultsite=='미선택'||resultday=='미선택'||resulttime=='미선택'||resultadult=='미선택'){
+			alert("선택하지 않은 항목이 있습니다")
+			
+		}else
+		location.href ='B_bookingseat.jsp?resultmovie='+resultmovie+'&resultsite='+resultsite+'&resultday='+resultday+'&resulttime='+resulttime+'&resultadult='+resultadult+'&resultteen='+resultteen
+		
+		
+	}
+	
+	</script>
  
  <body>
  	<%@ include file="header.jsp" %>
@@ -128,11 +163,11 @@
 					<div class=booktitle>시간선택</div>
 					<div class=moinfotime>
 					<ul>
-						<li><a href="#">1관 13:00</a></li>
-						<li><a href="#">3관 13:30</a></li>
-						<li><a href="#">1관 16:05</a></li>
-						<li><a href="#">2관 19:00</a></li>
-						<li><a href="#">5관 22:10</a></li>				
+						<li>1관 13:00</li>
+						<li>3관 13:30</li>
+						<li>1관 16:05</li>
+						<li>2관 19:00</li>
+						<li>5관 22:10</li>				
 					</ul>
 					</div>
 				</div>
@@ -185,7 +220,7 @@
 						<ul id=result>
 							<li id = 'resultmovie'>미선택</li>
 							<li id = 'resultsite'>미선택</li>
-							<li id = 'resultday'>미구현</li>
+							<li id = 'resultday'>미선택</li>
 							<li id = 'resulttime'>미선택</li>
 							<li id = 'resultadult'>미선택</li><li id = 'resultteen'></li>
 						</ul>
@@ -212,8 +247,8 @@
 					</div>
 				</div>
 				<div OnClick="location.href ='B_movie.jsp'" style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
-				height:30px;color:white;background:orange;float:left;padding-top:10px;margin-top:30px; margin-bottom:30px;">다시 선택<hr ; width=125% style="margin-top:20px;margin-left:-20px;color:#D5D5D5;"></div>
-				<div OnClick="location.href ='#'" style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
+				height:30px;color:white;background:orange;float:left;padding-top:10px;margin-top:30px; margin-bottom:30px;">다시 선택<hr  width=125% style="margin-top:20px;margin-left:-20px;color:#D5D5D5;"></div>
+				<div OnClick='javascript:send()' style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
 				height:50px;color:white;background:#CC3D3D;float:left;padding-top:20px;">좌석선택하기</div>
 			</div>
 		</div>

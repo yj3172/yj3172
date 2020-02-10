@@ -68,7 +68,7 @@
 			$(this).css("color","white");
 			$(".moinfo2 li:nth-child(n+3)").not($(this)).css("color","black");
 			var ttr=$(this).html();
-			$('#resultteen').html(" | 학생 : "+ttr+" 명");
+			$('#resultteen').html("학생 : "+ttr+" 명");
 			teenfee=6000*ttr;
 			moviefee=adultfee+teenfee;
 			teenservicefee=500*ttr;
@@ -87,3 +87,4 @@
 			$('#resulttime').html(ttr);
 		})
 	})
+
