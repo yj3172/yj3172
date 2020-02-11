@@ -15,9 +15,14 @@
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 	<script src="js/script.js"></script>
-	<script language="JavaScript" src="js/scriptmovie.js?ver=1" charset="UTF-8"></script>
+	<script language="JavaScript" src="js/scriptmovie.js?ver=2" charset="UTF-8"></script>
 
  </head>
+ <style>
+ 	.hyphoon{
+ 	display:none;
+ 	}
+ </style>
  <script>
 	$(function() {
 		$(document).on('click','#kCalendar table tbody tr td',function(){
@@ -29,8 +34,20 @@
 			$(this).css("background","red");
 			
 			$('#kCalendar table tbody tr td').not($(this)).css("background","#333333");
-			var date = $('#date').html() + $(this).html()+"일"
-			$('#resultday').html(date)
+			
+			var date = $('#date').html() 
+			var year = date.substr(0,4)
+			var month = date.substr(6,2)
+			var day= $(this).html()
+			if(day<10){
+				day="0"+day
+			}
+			
+			
+			$('#resultday').html(day)
+			$('#resultyear').html(year)
+			$('#resultmonth').html(month)
+			$('.hyphoon').css('display','inline-block')
 			}
 		})
 	})
@@ -39,16 +56,17 @@
 	function send(){
 		var resultmovie =  $('#resultmovie').html()
 		var resultsite =  $('#resultsite').html()
-		var resultday =  $('#resultday').html()
+		var resultday = $('#resultyear').html()+$('#resultmonth').html()+ $('#resultday').html()
 		var resulttime =  $('#resulttime').html()
 		var resultadult =  $('#resultadult').html()
 		var resultteen =  $('#resultteen').html()
+		var totalfee = $('#totalfee').html()
 		
 		if(resultmovie=='미선택'|resultsite=='미선택'||resultday=='미선택'||resulttime=='미선택'||resultadult=='미선택'){
 			alert("선택하지 않은 항목이 있습니다")
 			
 		}else
-		location.href ='B_bookingseat.jsp?resultmovie='+resultmovie+'&resultsite='+resultsite+'&resultday='+resultday+'&resulttime='+resulttime+'&resultadult='+resultadult+'&resultteen='+resultteen
+		location.href ='B_bookingseat.jsp?resultmovie='+resultmovie+'&resultsite='+resultsite+'&resultday='+resultday+'&resulttime='+resulttime+'&resultadult='+resultadult+'&resultteen='+resultteen+'&totalfee='+totalfee
 		
 		
 	}
@@ -220,9 +238,10 @@
 						<ul id=result>
 							<li id = 'resultmovie'>미선택</li>
 							<li id = 'resultsite'>미선택</li>
-							<li id = 'resultday'>미선택</li>
+							<li><span id = 'resultyear'>미선택</span><span class=hyphoon >-</span><span id='resultmonth'></span><span class=hyphoon >-</span><span id='resultday'></span></li>
 							<li id = 'resulttime'>미선택</li>
-							<li id = 'resultadult'>미선택</li><li id = 'resultteen'></li>
+							<li><span>성인 :</span><span id = 'resultadult'>0</span><span> 명</span></li>
+							<li><span>학생 :</span><span id = 'resultteen'>0</span><span> 명</span></li>
 						</ul>
 					</div>
 				</div>
