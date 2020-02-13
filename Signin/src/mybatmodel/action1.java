@@ -52,4 +52,32 @@ public class action1 {
 		sqlSession.close();
 		
 	}
+	//여기까지 댓글 앞으로 티켓팅
+	public String[] noseat(ticketingvo li){
+		List<String> seat= null;
+		String seatstr="";
+		String [] seatsub = new String[10];
+		SqlSession sqlSession = factory.openSession();
+		seat = sqlSession.selectList("noseat",li);
+	
+	
+		sqlSession.close();
+		for(int i = 0 ; i<seat.size();i++) {
+			seatstr += seat.get(i);
+			
+		}
+		seatsub = seatstr.split("/");
+		System.out.println(seatsub[0]);
+		return seatsub;
+		
+	}
+	
+	public void Tickertinsert(ticketingvo li){
+		
+		SqlSession sqlSession = factory.openSession();
+		sqlSession.insert("ticketinginsert",li);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
 }

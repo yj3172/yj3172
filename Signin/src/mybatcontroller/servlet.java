@@ -18,6 +18,7 @@ public class servlet extends HttpServlet{
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command = request.getParameter("command");
 		controller inter = null;
+		System.out.println(command);
 		String viewName = "";
 		request.setCharacterEncoding("utf-8");
 		
@@ -38,8 +39,12 @@ public class servlet extends HttpServlet{
 				viewName = inter.showData(request, response);	
 				System.out.println("¸í·É4443:"+command);
 				request.getRequestDispatcher(viewName).forward(request, response);
-			}	else if(command.equals("delete")){
+			} else if(command.equals("delete")){
 				inter = Commentdelete.instance();
+				viewName = inter.showData(request, response);
+				request.getRequestDispatcher(viewName).forward(request, response);
+			} else if(command.equals("ticketinsert")){
+				inter = TicketingInsert.instance();
 				viewName = inter.showData(request, response);
 				request.getRequestDispatcher(viewName).forward(request, response);
 			}else {

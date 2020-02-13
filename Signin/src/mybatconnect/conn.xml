@@ -4,6 +4,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="mybatmodel.commentdto" alias="dto"/>
+		<typeAlias type="mybatmodel.ticketingvo" alias="ticketvo"/>
 	</typeAliases>
 
 

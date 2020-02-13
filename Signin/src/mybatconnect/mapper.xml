@@ -8,4 +8,9 @@
 	<insert id="insertcomment" parameterType="dto">insert into boardcomment(commentwrither,comment,day,boardnum) values( #{commentwrither}, #{comment},#{day},#{boardnum});</insert>
 	<update id="updatecomment" parameterType="dto">update boardcomment set comment=#{comment} where commentnum=#{commentnum}; </update>
 	<delete id="deletecomment" parameterType="dto">delete from boardcomment where commentnum=#{commentnum};</delete>
+	
+	<insert id="ticketinginsert" parameterType="ticketvo">insert into ticketing(id,moviename,cine,cinema,adult,teen,seat,day,time) values( #{id}, #{moviename},#{cine},#{cinema},#{adult},#{teen},#{seat},#{date},#{time});</insert>
+	<select id="noseat" resultType="String">select seat from ticketing where moviename = #{moviename} and  cine = #{cine} and cinema = #{cinema} and day = #{date} and time = #{time};</select>
+
+
 </mapper>

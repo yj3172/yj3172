@@ -2,6 +2,7 @@ package Apicon;
 
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,7 +12,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class Selenium {
 	 //WebDriver
-    private WebDriver driver;
+    private WebDriver driver ;
     
     //Properties
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
@@ -30,7 +31,27 @@ public class Selenium {
         chromeOptions.addArguments("--headless"); 
         chromeOptions.addArguments("--no-sandbox");
         chromeOptions.addArguments("--disable-gpu");
+        chromeOptions.addArguments("--disable-cookies");
+        chromeOptions.addArguments("--disable-plugins");
+        chromeOptions.addArguments("--disable-popups");
+        chromeOptions.addArguments("--disable-geolocation");
         chromeOptions.addArguments("--disable-dev-shm-usage");
+        chromeOptions.addArguments("--disable-notifications");
+        chromeOptions.addArguments("--disable-auto_select_certificate");
+        chromeOptions.addArguments("--disable-fullscreen");
+        chromeOptions.addArguments("--disable-mouselock");
+        chromeOptions.addArguments("--disable-media_stream");
+        chromeOptions.addArguments("--disable-media_stream_mic");
+        chromeOptions.addArguments("--disable-media_stream_camera");
+        chromeOptions.addArguments("--disable-protocol_handlers");
+        chromeOptions.addArguments("--disable-midi_sysex");
+        chromeOptions.addArguments("--disable-push_messaging");
+        chromeOptions.addArguments("--disable-ssl_cert_decisions");
+        chromeOptions.addArguments("--disable-metro_switch_to_desktop");
+        chromeOptions.addArguments("--disable-protected_media_identifier");
+        chromeOptions.addArguments("--disable-app_banner");
+        chromeOptions.addArguments("--disable-site_engagement");
+        chromeOptions.addArguments("--disable-durable_storage");
 
 
         //System Property SetUp
@@ -44,6 +65,7 @@ public class Selenium {
     public String[] crawl()  {
           String[] li = new String[4];
         try {
+     
             //get page (= 브라우저에서 url을 주소창에 넣은 후 request 한 것과 같다)
             driver.get(base_url);
             WebElement div = driver.findElement(By.className("owl-stage"));
