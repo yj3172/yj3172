@@ -10,7 +10,21 @@ public class navermovie_article_dto {
 	String userrating;
 	String openday;
 	String contents;
+	String url;
+	String code;
 	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	public String getContents() {
 		return contents;
 	}

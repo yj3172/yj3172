@@ -114,17 +114,19 @@ public class Navermovie {
        
             String code = "";
             
-            if(movie.length()==70){
-            code = movie.substring(49,55);
-            }
-            else if(movie.length()==69){
+         
+            if(movie.length()==69){
             code= movie.substring(49,54);
             }
+            else {
+                code = movie.substring(49,55);
+                }
             System.out.println("코드:"+code);
             String urlbig = "https://movie.naver.com/movie/bi/mi/photoViewPopup.nhn?movieCode="+code;
             movie = api.naverPoster(urlbig);
             String urlmovieinfo = "https://movie.naver.com/movie/bi/mi/basic.nhn?code="+code;
             movieinfo=api.navermovieinfo(urlmovieinfo);
+      
             
             article.setTitle(jsonobj2.get("title").toString());
             article.setActor(jsonobj2.get("actor").toString());
@@ -134,8 +136,9 @@ public class Navermovie {
             article.setSubtitle(jsonobj2.get("subtitle").toString());
             article.setUserrating(jsonobj2.get("userRating").toString());
             article.setContents(movieinfo);
+            article.setUrl(urlmovieinfo);
+            article.setCode(code);
             li.add(article);
-            System.out.println("액터들"+li.get(0).getActor());
             
         } catch (Exception e) {
             System.out.println(e);
