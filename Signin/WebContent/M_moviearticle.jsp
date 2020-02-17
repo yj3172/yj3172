@@ -102,7 +102,7 @@ border-radius:5px;
 }
 #movieinfo{
 clear:both;
-float:left;
+float:left;;;
 width:80%;
 margin-left:5%;
 }
