@@ -9,7 +9,14 @@ public class navermovie_article_dto {
 	String actor;
 	String userrating;
 	String openday;
+	String contents;
 	
+	public String getContents() {
+		return contents;
+	}
+	public void setContents(String contents) {
+		this.contents = contents;
+	}
 	public String getTitle() {
 		return title;
 	}

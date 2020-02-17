@@ -18,7 +18,7 @@ public class Navermovie {
 	   String clientId = "u6K2kBDy180EDXXdml56";
 	   String clientSecret = "aMrE8TymR8";
 	   String movie="" ;
-	
+	   String movieinfo="";
 
     public String movieposter(String title) {
   
@@ -111,8 +111,7 @@ public class Navermovie {
             JSONArray jsonArray =(JSONArray) jsonParse.parse(jsonObj.get("items").toString());
             JSONObject jsonobj2 = (JSONObject) jsonParse.parse(jsonArray.get(0).toString());
             movie= jsonobj2.get("image").toString();
-            System.out.println(movie);
-            System.out.println("길이:"+movie.length());
+       
             String code = "";
             
             if(movie.length()==70){
@@ -124,6 +123,8 @@ public class Navermovie {
             System.out.println("코드:"+code);
             String urlbig = "https://movie.naver.com/movie/bi/mi/photoViewPopup.nhn?movieCode="+code;
             movie = api.naverPoster(urlbig);
+            String urlmovieinfo = "https://movie.naver.com/movie/bi/mi/basic.nhn?code="+code;
+            movieinfo=api.navermovieinfo(urlmovieinfo);
             
             article.setTitle(jsonobj2.get("title").toString());
             article.setActor(jsonobj2.get("actor").toString());
@@ -132,6 +133,7 @@ public class Navermovie {
             article.setOpenday(jsonobj2.get("pubDate").toString());
             article.setSubtitle(jsonobj2.get("subtitle").toString());
             article.setUserrating(jsonobj2.get("userRating").toString());
+            article.setContents(movieinfo);
             li.add(article);
             System.out.println("액터들"+li.get(0).getActor());
             

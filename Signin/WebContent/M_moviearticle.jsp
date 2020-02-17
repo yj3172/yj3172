@@ -13,9 +13,7 @@
 	Navermovie nmn= new Navermovie();
 	
 	List<navermovie_article_dto> li = nmn.moviearticle(title);
-	if(li==null){
-		System.out.print("눌값@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-	}
+
 %>
 <!doctype html>
 <html lang="en">
@@ -102,6 +100,16 @@ background:#FF243E;
 padding:10px 30px 10px 30px;
 border-radius:5px;
 }
+#movieinfo{
+clear:both;
+float:left;
+width:80%;
+margin-left:5%;
+}
+h2{
+margin-left:5%;
+clear:both;
+float:left;}
 </style>
 
 
@@ -121,9 +129,13 @@ border-radius:5px;
 		 <div id=moviedirector> 감독 : <%=li.get(0).getDirector() %></div>
 		 <div id= movieactor>배우: <%=li.get(0).getActor() %></div>
 		 <div id= movieuserrating>평점: <%=li.get(0).getUserrating() %></div>
+		 
 		 <div id = booking>예매</div>
 		
-</div>
+		
+	</div>
+	<h2>시놉시스</h2>
+ <div id = movieinfo><%=li.get(0).getContents() %></div>
   </div>
   </div>
   </div>

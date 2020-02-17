@@ -16,7 +16,39 @@ public class Crawling {
 	public String naverPoster(String url){
 		String jpg = "";
 		Element a = null ;
-		System.out.println("蹂�寃�: "+url);
+	
+		try {
+			Document doc = Jsoup.connect(url).get();
+			a=doc.select("#targetImage").get(0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		jpg = a.getElementsByAttribute("src").attr("src");
+
+		return jpg;
+	}
+	
+	public String navermovieinfo(String url){
+		String text = "";
+		Element a = null ;
+
+		try {
+			Document doc = Jsoup.connect(url).get();
+			a=doc.select(".con_tx").get(0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		text = a.html();
+		return text;
+	}
+	public String naveractorimage(String url){
+		String jpg = "";
+		Element a = null ;
+
 		try {
 			Document doc = Jsoup.connect(url).get();
 			a=doc.select("#targetImage").get(0);
