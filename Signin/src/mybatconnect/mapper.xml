@@ -12,5 +12,8 @@
 	<insert id="ticketinginsert" parameterType="ticketvo">insert into ticketing(id,moviename,cine,cinema,adult,teen,seat,day,time) values( #{id}, #{moviename},#{cine},#{cinema},#{adult},#{teen},#{seat},#{date},#{time});</insert>
 	<select id="noseat" resultType="String">select seat from ticketing where moviename = #{moviename} and  cine = #{cine} and cinema = #{cinema} and day = #{date} and time = #{time};</select>
 
-
+	<select id="checkcinema" resultType="cinemavo">select * from cinema where doo = #{doo} and si=#{si} and sponsor =#{sponsor};</select>
+	<insert id="cinemainsert" parameterType="cinemavo">insert into cinema(doo,si,sponsor,cine,cineinfo) values( #{doo}, #{si},#{sponsor},#{cine},#{cineinfo});</insert>
+	<select id="cinemalist" resultType="cinemavo">select * from cinema where doo = #{doo};</select>
+	
 </mapper>

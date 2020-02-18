@@ -1,11 +1,13 @@
 package mybatmodel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import Dto.CinemaVo;
 import mybatconnect.map;
 
 public class action1 {
@@ -80,4 +82,30 @@ public class action1 {
 		sqlSession.close();
 		
 	}
+	public List<CinemaVo> Cinemalist(String lo){
+		
+		SqlSession sqlSession = factory.openSession();
+		String doo = lo;
+		List<CinemaVo> a = sqlSession.selectList("cinemalist",doo);//중복제거
+	
+		sqlSession.commit();
+		sqlSession.close();
+		return a;
+		
+	}
+	public void Cinemainsert(CinemaVo li){
+		
+		SqlSession sqlSession = factory.openSession();
+
+		List<CinemaVo> a = sqlSession.selectList("checkcinema",li);//중복제거
+		if(a.size()==0) {
+	
+		sqlSession.insert("cinemainsert",li);
+		
+		}
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	
 }

@@ -65,15 +65,14 @@
 		<li class = menuleft><a href="">영화관</a>
 		<ul class = submenu>
 				<div style="display:inline-block">
-			   <li><a href="#">서울/경기</a></li>
-			   <li><a href="#">충청</a></li>
-			   <li><a href="#">인천</a></li>
-			   <li><a href="#">강원</a></li>
-			   <li><a href="#">경북</a></li>
-			   <li><a href="#">경남</a></li>
-			   <li><a href="#">전남</a></li>
-			   <li><a href="#">전북</a></li>
-			   <li><a href="#">제주</a></li>
+			   <li><a href="C_cinema.jsp?locate=서울">서울</a></li>
+			   <li><a href="C_cinema.jsp?locate=경기">경기</a></li>
+			   <li><a href="C_cinema.jsp?locate=충청">충청</a></li>
+			   <li><a href="C_cinema.jsp?locate=강원">강원</a></li>
+			   <li><a href="C_cinema.jsp?locate=전라">전라</a></li>
+			   <li><a href="C_cinema.jsp?locate=경상">경상</a></li>
+			   <li><a href="C_cinema.jsp?locate=제주">제주</a></li>
+		
 			   	</div>
 			</ul>
 			</li>

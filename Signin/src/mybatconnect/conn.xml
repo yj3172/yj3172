@@ -5,6 +5,7 @@
 	<typeAliases>
 		<typeAlias type="mybatmodel.commentdto" alias="dto"/>
 		<typeAlias type="mybatmodel.ticketingvo" alias="ticketvo"/>
+		<typeAlias type="Dto.CinemaVo" alias="cinemavo"/>
 	</typeAliases>
 
 
