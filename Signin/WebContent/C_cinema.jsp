@@ -7,7 +7,7 @@
 	String where = request.getParameter("locate");
 	action1 act = new action1();
 	List<CinemaVo> li =act.Cinemalist(where);
-	System.out.println(where);
+	
 	
 %>
 <!doctype html>
@@ -32,7 +32,7 @@
 	#box1{
 	
 		width:1300px;
-		height:100%;
+		height:500px;
 		border:solid black 1px;
 
 		background-color:#f9f6f7;
@@ -45,13 +45,27 @@
 	.logo{
 	width:50px;
 	height:50px;
+	margin:0 14% 0 14%;
 	}
-	.articlewrap{
+	.article{
 	width:60%;
 	margin:auto;
 	text-align:left;
+	padding:15px 0 15px 0;
+	}
+	.cinemalist{
+	float:left;
+	width:23%;
+	margin:0 5% 0 5%;
+	height:300px;
+	color:white;
+	text-align:center;
+	background:linear-gradient(#003040, #002535);
+	overflow-y:scroll;
+	
 	
 	}
+
 
 
 
@@ -63,28 +77,69 @@
 	 <body bgcolor="#364f6b">
 	
  	<div id=box1>
- 	<h2><%=li.get(0).getDoo() %></h2>
+ 	<h2>극장정보 : <%=li.get(0).getDoo() %></h2>
+ 	<div id=imgwrap>
+ 	<img class=logo src="img/sponlogo/cgv.jpg">
+ 	<img class=logo src="img/sponlogo/mega.jpg">
+ 	<img class=logo src="img/sponlogo/lotte.jpg">
+ 	</div>
+ 	<div class=cinemalist>
  	<%for(int i=0 ; i < li.size(); i++){ 
  	String sponname=li.get(i).getSponsor();%>
- 	<div class=articlewrap>
- 	<%if(sponname.equals("CGV")){ %>
- 	<img class=logo src="img/sponlogo/cgv.jpg">
- 	<%} 
- 	else if(sponname.equals("메가박스")){ %>
- 	<img class=logo src="img/sponlogo/mega.jpg">
- 	<%} 
- 	else if(sponname.equals("롯데시네마")){ %>
- 	<img class=logo src="img/sponlogo/lotte.jpg">
- 	<%} %>
+ 		<%if(sponname.equals("CGV")){ %>
+ 	<div class=article>
+
  	
  	<%=li.get(i).getSi() %>
  	<%=li.get(i).getSponsor() %>
- 	<%=li.get(i).getCine() %>
-	<%=li.get(i).getCineinfo() %>
  	
+ 	 	
  	</div>
+ 	
+ 	
+ 	<%} %>
  	<%} %>
  	</div>
+ 	<div class=cinemalist>
+ 	<%for(int i=0 ; i < li.size(); i++){ 
+ 	String sponname=li.get(i).getSponsor();%>
+ 	 	<%if(sponname.equals("메가박스")){ %>
+ 	<div class=article>
+ 	 	
+
+
+
+ 	
+ 	<%=li.get(i).getSi() %>
+ 	<%=li.get(i).getSponsor() %>
+ 	
+ 	 
+ 	</div>
+
+ 	
+ 		<%} %>
+ 	 	<%} %>
+	 	</div>
+ 	<div class=cinemalist>
+ 	<%for(int i=0 ; i < li.size(); i++){ 
+ 	String sponname=li.get(i).getSponsor();%>
+ 		<%if(sponname.equals("롯데시네마")){ %>
+ 	
+ 	<div class=article>
+ 	 	
+ 
+
+ 	
+ 	<%=li.get(i).getSi() %>
+ 	<%=li.get(i).getSponsor() %>
+ 	
+ 	 	
+ 	</div>
+ 	<%} %>
+ 	<%} %>
+ 	</div>
+ 	</div>
+ 	
 
 
   

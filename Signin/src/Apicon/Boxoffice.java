@@ -112,6 +112,7 @@ public class Boxoffice {
         } catch (Exception e) {
             System.out.println(e);
         }
+        
         return list;
     }
 }

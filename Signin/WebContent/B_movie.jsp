@@ -1,4 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="mybatmodel.action1" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Dto.CinemaVo" %>
+
+<%
+
+	action1 act = new action1();
+	List<CinemaVo> li =act.Cinemalist();
+
+	%>
 <!doctype html>
 <html lang="en">
  <head>
@@ -11,16 +21,32 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link href="css/style.css?ver=1" rel="stylesheet">
-	<link href="css/cssmovie.css?ver=1" rel="stylesheet">
+	<link href="css/cssmovie.css?ver=2" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
 	<script src="js/script.js"></script>
-	<script language="JavaScript" src="js/scriptmovie.js?ver=2" charset="UTF-8"></script>
+	<script language="JavaScript" src="js/scriptmovie.js?ver=4" charset="UTF-8"></script>
 
  </head>
  <style>
  	.hyphoon{
  	display:none;
+ 	}
+ 	.moviet{
+ 	padding: 5px 10px 5px 10px;
+ 	margin: 5px 0 5px 0;
+ 	
+ 	}
+ 	#movietwrap{
+ 	vertical-align: middle;
+ 	display: table-cell; 
+ 	text-align:left;
+ 	
+ 	}
+ 	#readycal{
+ 	color:white;
+ 	position:relative;
+ 	top:50%;
  	}
  </style>
  <script>
@@ -84,41 +110,47 @@
 							<li>
 								<h3><span class="icon-dashboard"></span>서울/경기</h3>
 								<ul>
-									<li><a href="#">강남 롯데시네마</a></li>
-									<li><a href="#">강남 메가박스</a></li>
-									<li><a href="#">동서울 메가박스</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("서울")||li.get(i).getDoo().equals("경기")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
+									
+						
 								</ul>
 							</li>
 							<li class="active">
-								<h3><span class="icon-tasks"></span>충청</h3>
+								<h3><span class="icon-tasks"></span>충청/강원</h3>
 								<ul>
-									<li><a href="#">충청도 롯시</a></li>
-									<li><a href="#">충주 메가박스</a></li>
-									<li><a href="#">충북 CGV</a></li>
-									<li><a href="#">Recurring</a></li>
-									<li><a href="#">Settings</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("충청")||li.get(i).getDoo().equals("강원")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
 								</ul>
 							</li>
 							<li>
-								<h3><span class="icon-calendar"></span>강원</h3>
+								<h3><span class="icon-calendar"></span>전라/경상</h3>
 								<ul>
-									<li><a href="#">춘천메박</a></li>
-									<li><a href="#">원주롯시</a></li>
-									<li><a href="#">강릉 씨지브이</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("전라")||li.get(i).getDoo().equals("경상")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
 								</ul>
 							</li>
 							<li>
-								<h3><span class="icon-heart"></span>인천</h3>
+								<h3><span class="icon-heart"></span>제주</h3>
 								<ul>
-									<li><a href="#">인천시지브이</a></li>
-									<li><a href="#">인천차이나타운메박</a></li>
-									<li><a href="#">인천롯시</a></li>
-									<li><a href="#">인천롯시</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("제주")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
 								</ul>
 							</li>
 						</ul>
@@ -127,54 +159,13 @@
 			<div id =bookingsecond>
 				<div class=booktitle>영화선택</div>
 					<div id="accordian2">
-						<ul>
-							<li>
-								<h3><span class="icon-dashboard"></span>주간TOP10</h3>
-								<ul>
-									<li><a href="#">겨울왕국2</a></li>
-									<li><a href="#">포드v페라리</a></li>
-									<li><a href="#">천문:하늘에묻는다</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-							<li class="active2">
-								<h3><span class="icon-tasks"></span>최신영화</h3>
-								<ul>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-							<li>
-								<h3><span class="icon-calendar"></span>마감임박</h3>
-								<ul>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-							<li>
-								<h3><span class="icon-heart"></span>키즈</h3>
-								<ul>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-						</ul>
+						<div style="padding-top:50%;">장소를 먼저 선택해주세요</div>
 					</div>
 				</div>
 				<div id = bookingday>
 					<div class=booktitle>날짜선택</div>
 					<div id=moinfo>
-						<div id="kCalendar"></div>
+						<div id="kCalendar"><span id=readycal>영화를 먼저 선택해주세요</span></div>
 					</div>
 				</div>
 				<div id = bookingday>

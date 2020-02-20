@@ -6,7 +6,14 @@ public class CinemaVo {
 	String si;
 	String sponsor;
 	String Cineinfo;
+	String num;
  
+	public String getNum() {
+		return num;
+	}
+	public void setNum(String num) {
+		this.num = num;
+	}
 	public String getCine() {
 		return cine;
 	}

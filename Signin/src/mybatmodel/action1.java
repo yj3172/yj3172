@@ -8,7 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import Dto.CinemaVo;
+import Dto.ScheduleVo;
+import Dto.formoviejsp_vo;
 import mybatconnect.map;
+import Apicon.Navermovie;
 
 public class action1 {
 	static action1 model = new action1();
@@ -93,6 +96,17 @@ public class action1 {
 		return a;
 		
 	}
+	public List<CinemaVo> Cinemalist(){
+		
+		SqlSession sqlSession = factory.openSession();
+		
+		List<CinemaVo> a = sqlSession.selectList("cinemaall");//중복제거
+	
+		sqlSession.commit();
+		sqlSession.close();
+		return a;
+		
+	}
 	public void Cinemainsert(CinemaVo li){
 		
 		SqlSession sqlSession = factory.openSession();
@@ -106,6 +120,41 @@ public class action1 {
 		sqlSession.commit();
 		sqlSession.close();
 		
+	}
+	public void Scheduleinsert(ScheduleVo li){
+		
+		SqlSession sqlSession = factory.openSession();
+	
+		List<CinemaVo> a = sqlSession.selectList("schedulecheck",li);//중복제거
+		if(a.size()==0) {
+		sqlSession.insert("scheduleinsert",li);
+		}
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	public List<ScheduleVo> selectmovielist(String si,String sponsor){
+		List<ScheduleVo> list = null;
+		CinemaVo vo = new CinemaVo();
+		vo.setSi(si);
+		vo.setSponsor(sponsor);
+		SqlSession sqlSession = factory.openSession();
+		list = sqlSession.selectList("selectschedule_article",vo);
+		
+		sqlSession.close();
+		return list;
+	}
+	public List<ScheduleVo> selectmovielist_getdate(String si,String sponsor, String movie){
+		List<ScheduleVo> list = null;
+		formoviejsp_vo vo = new formoviejsp_vo();
+		vo.setSi(si);
+		vo.setSponsor(sponsor);
+		vo.setMovie(movie);
+		SqlSession sqlSession = factory.openSession();
+		list = sqlSession.selectList("selectschedule_article_getdate",vo);
+		
+		sqlSession.close();
+		return list;
 	}
 	
 }
