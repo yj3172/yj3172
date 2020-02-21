@@ -1,5 +1,5 @@
 /* Kurien / Kurien's Blog / http://blog.kurien.co.kr */
-/* 주석만 제거하지 않는다면, 어떤 용도로 사용하셔도 좋습니다. */
+/* 二쇱��留� ��嫄고��吏� �����ㅻ㈃, �대�� �⑸��濡� �ъ�⑺������ 醫��듬����. */
 
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 * {font-family: 'Nanum Gothic', serif;}
@@ -10,7 +10,6 @@
 #kCalendar .button {color: white;  font-size: 12px;
 					line-height: 34px;
 					margin:0;
-					
 					}
 
 #kCalendar table {width: 250px; height: 150px;}

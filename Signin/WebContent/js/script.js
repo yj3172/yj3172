@@ -1,9 +1,14 @@
 /* Kurien / Kurien's Blog / http://blog.kurien.co.kr */
 /* 주석만 제거하지 않는다면, 어떤 용도로 사용하셔도 좋습니다. */
 
-function kCalendar(id, date) {
+function kCalendar(id,obj, date) {
+	console.log(obj);
 	var kCalendar = document.getElementById(id);
+	var nowdate = $.parseJSON(JSON.stringify(obj));
+	var objdata = Array.from(obj)
+console.log(objdata);
 	
+	var objnext =obj;
 	if( typeof( date ) !== 'undefined' ) {
 		date = date.split('-');
 		date[1] = date[1] - 1;
@@ -54,9 +59,9 @@ function kCalendar(id, date) {
 	var calendar = '';
 	
 	calendar += '<div id="header">';
-	calendar += '			<span><a href="#" class="button left" onclick="kCalendar(\'' +  id + '\', \'' + prevDate + '\')"><</a></span>';
+	calendar += '			<span><a href="#" class="button left" onclick="kCalendar(\'' +  id + '\',' + objdata + ', \'' + prevDate + '\')"><</a></span>';
 	calendar += '			<span id="date">' + currentYear + '년 ' + currentMonth + '월</span>';
-	calendar += '			<span><a href="#" class="button right" onclick="kCalendar(\'' + id + '\', \'' + nextDate + '\')">></a></span>';
+	calendar += '			<span><a href="#" class="button right" onclick="kCalendar(\'' + id + '\',' + objdata + ', \'' + nextDate + '\')">></a></span>';
 	calendar += '		</div>';
 	calendar += '		<table border="0" cellspacing="0" cellpadding="0">';
 	calendar += '			<caption>' + currentYear + '년 ' + currentMonth + '월 달력</caption>';
@@ -83,7 +88,19 @@ function kCalendar(id, date) {
 				calendar += '				<td class="' + dateString[j] + ' class=i"> </td>';
 				continue;
 			}
-			calendar += '				<td class="' + dateString[j] + '">' + dateNum + '</td>';
+			var aleady = true;
+			for(var k=0;k<nowdate.length;k++){
+				var available =nowdate[k].date.split('-');
+				if(available[0]==currentYear&&available[1]==currentMonth&&available[2]==dateNum){
+					calendar += '				<td class="' + dateString[j] + '" id=available>' + dateNum + '</td>';
+					aleady=false;
+				}
+				
+			}
+			if(aleady){
+			
+			calendar += '				<td class="' + dateString[j] + ' " id=notavailable>' + dateNum + '</td>';
+			}
 		}
 		calendar += '			</tr>';
 	}

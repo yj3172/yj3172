@@ -37,7 +37,6 @@ public class servlet extends HttpServlet{
 				inter = Commentupdate.instance();
 				
 				viewName = inter.showData(request, response);	
-				System.out.println("¸í·É4443:"+command);
 				request.getRequestDispatcher(viewName).forward(request, response);
 			} else if(command.equals("delete")){
 				inter = Commentdelete.instance();

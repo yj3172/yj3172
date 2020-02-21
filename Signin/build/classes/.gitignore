@@ -1,4 +1,12 @@
+/Apicon/
 /CinemaInsert/
-/mybatmodel/
-/mybatconnect/
+/Controller/
+/Dao/
 /Dto/
+/Eventaction/
+/Eventdb/
+/Eventsvc/
+/com/
+/mybatconnect/
+/mybatcontroller/
+/mybatmodel/

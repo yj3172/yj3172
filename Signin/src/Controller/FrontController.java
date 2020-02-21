@@ -46,7 +46,6 @@ public class FrontController extends javax.servlet.http.HttpServlet
 			}
 		}
 		else if(command.equals("/store.bo")){
-			System.out.println("µé¾î¿È????");
 			action  = new Store_list_Action();
 				try {
 					forward=action.execute(request, response );

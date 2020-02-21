@@ -1,7 +1,12 @@
 package Dao;
 
+import static Eventdb.javautil.close;
+
 import java.sql.Connection;
 import java.util.Date;
+
+import org.apache.ibatis.reflection.SystemMetaObject;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -327,5 +332,42 @@ public class Dbaccess {
 		return dtolist;
 		
 	}
+	public String[] getdate(String sponsor, String si , String movie){
+		String[] articlelist =null ;
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql="SELECT date FROM schedule where cinecode=(select num from cinema where sponsor = \'"+sponsor+"\' and si= \'"+si+"\') and movie= \'"+movie+"\';";
+	
+
+		try{
+			conn();
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+			System.out.println(rs);
+			rs.last();
+			articlelist= new String[rs.getRow()];
+			rs.beforeFirst();
+			int i= 0;
+		
+			while(rs.next()){
+				
+				System.out.println(rs.getDate("date").toString());
+				articlelist[i]=rs.getDate("date").toString();
+				System.out.println(articlelist[i]+"ют╥б");
+				i++;
+			}
+
+		}catch(Exception ex){
+		}finally{
+
+			close();
+		}
+	
+	
+	return articlelist;
+	
+}
 	
 }

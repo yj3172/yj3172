@@ -12,6 +12,15 @@
   	<servlet-name>commandServlet</servlet-name>
   	<servlet-class>mybatcontroller.servlet</servlet-class>
   </servlet>
+  
+    <servlet-mapping>
+  	<servlet-name>ajaxServlet</servlet-name>
+  	<url-pattern>*.json</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>ajaxServlet</servlet-name>
+  	<servlet-class>com.ajax.Getinfo</servlet-class>
+  </servlet>
 
 
 </web-app>

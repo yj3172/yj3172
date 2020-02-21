@@ -24,8 +24,8 @@
 	<link href="css/cssmovie.css?ver=2" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-	<script src="js/script.js"></script>
-	<script language="JavaScript" src="js/scriptmovie.js?ver=4" charset="UTF-8"></script>
+	<script src="js/script.js?ver=3"></script>
+	<script language="JavaScript" src="js/scriptmovie.js?ver=5" charset="UTF-8"></script>
 
  </head>
  <style>
@@ -48,10 +48,18 @@
  	position:relative;
  	top:50%;
  	}
+ 	
+ 	#notavailable{
+ 	opacity:0.3;
+ 	}
+ 	#available{
+ 	opacity:1;
+ 	font-weight:bold;
+ 	}
  </style>
  <script>
 	$(function() {
-		$(document).on('click','#kCalendar table tbody tr td',function(){
+		$(document).on('click','#available',function(){
 			var nullch = $(this).html()
 
 			if(nullch==" "){
@@ -74,6 +82,33 @@
 			$('#resultyear').html(year)
 			$('#resultmonth').html(month)
 			$('.hyphoon').css('display','inline-block')
+			
+			var nowcinema = $('#resultsite').html();
+			var si_sponsor = nowcinema.split(" ");
+			var nowmovie = $('#resultmovie').html();
+			var date = year+"-"+month+"-"+day
+			alert(date)
+			
+			$.ajax({
+		  		  type:"post",
+						url:"getschedule.json",
+						datatype:"json",
+						data:{
+						"si" : si_sponsor[0],
+						"sponsor":si_sponsor[1],
+						"movie":nowmovie
+						
+					},
+					
+					success:nowboard,
+		  		 
+		  		  
+		  	  });function nowboard(resdata){
+		  		  
+		  		alert(resdata);
+		  	  }
+	
+			
 			}
 		})
 	})
@@ -171,13 +206,9 @@
 				<div id = bookingday>
 					<div class=booktitle>시간선택</div>
 					<div class=moinfotime>
-					<ul>
-						<li>1관 13:00</li>
-						<li>3관 13:30</li>
-						<li>1관 16:05</li>
-						<li>2관 19:00</li>
-						<li>5관 22:10</li>				
-					</ul>
+					
+						<div style="padding-top:35%;">날짜를 먼저 선택해주세요</div>				
+				
 					</div>
 				</div>
 				<div id = bookingperson>

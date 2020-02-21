@@ -61,46 +61,37 @@
 			var nowcinema = $('#resultsite').html();
 			var si_sponsor = nowcinema.split(" ");
 			var nowmovie = $('#resultmovie').html();
-			alert(nowmovie+si_sponsor[0]+si_sponsor[1])
 	
 			 $.ajax({
        		  type:"post",
-     				url:"B_movie_json.jsp",
+     				url:"getdate.json",
      				datatype:"json",
      				data:{
      					"si" : si_sponsor[0],
 						"sponsor":si_sponsor[1],
-						"movie":nowmovie,
-						"command":"getdate"
+						"movie":nowmovie
      			},
      			
-     			success:nowevent,
+     			success:getdate
        		 
        		  
-       	  });function nowevent(resdata){
-       		 var obj = $.parseJSON(resdata);
-       		 alert(resdata)
-     		 	var html="";
-     		 	var k=9;
-     		 	for(var i=0;i<obj.length;i++){
- 
-     		
-     
-     		 	html+="</div>"
-     				k++;
-     				
-     			
-       	  }
-			
+       	  });function getdate(data, textStatus, xhr){
+       		 alert(JSON.stringify(data))
+       		 var obj = $.parseJSON(JSON.stringify(data));
+       		alert(obj[0].date)
+       		 $.each(data, function(key, val){
+
+             console.log('key:' + textStatus);
+       		 });	
 		
-			kCaledar ()
+			kCaledar (obj)
 			
 		}
 	})
 	
 	
-	function kCaledar () {
-			kCalendar('kCalendar');
+	function kCaledar (obj) {
+			kCalendar('kCalendar',obj);
 		};
 
 	$(function(){
