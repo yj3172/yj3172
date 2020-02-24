@@ -2,7 +2,7 @@
 <%@ page import = "java.util.Optional" %>
 <%
 	Optional<String> logcheck = Optional.ofNullable((String)session.getAttribute("log"));	
-	String s = logcheck.orElse("");
+	String s = logcheck.orElse("not");
 %>
 
 
@@ -31,7 +31,7 @@
 		<li class = menuright>${id}님 환영합니다</li>|
 		<li class = menuright><a href="I_mypage_info.jsp?id="+${id}>마이페이지</a></li><!--여기수정-->
 	</ul>
-	<%} else if(s.equals("")) { %>
+	<%} else if(s.equals("not")) { %>
 	<ul>
 		<li class = menuright><a href="L_login.jsp">로그인</a></li>|
 		<li class = menuright><a href="L_idsignup.jsp">회원가입</a></li>|

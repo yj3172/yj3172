@@ -20,6 +20,6 @@
 	<insert id="scheduleinsert" parameterType="schedulevo">insert into schedule(cinecode,movie,cine,schedule,date) values( #{cinecode}, #{movie},#{cine},#{schedule},#{date});</insert>
 	<select id="schedulecheck" resultType="schedulevo">select * from schedule where cinecode = #{cinecode} and movie = #{movie} and date = #{date};</select>
 	
-	<select id="selectschedule_article" resultType="schedulevo">SELECT movie FROM userinfo.schedule where cinecode=(select num from cinema where sponsor =#{sponsor} and si=#{si});</select>
+	<select id="selectschedule_article" resultType="schedulevo">SELECT movie FROM userinfo.schedule where cinecode=(select num from cinema where sponsor =#{sponsor} and si=#{si}) and date>#{date};</select>
 	<select id="selectschedule_article_getdate" resultType="formovievo">SELECT date FROM userinfo.schedule where cinecode=(select num from cinema where sponsor = #{sponsor} and si= #{si}) and movie= #{movie);</select>
 </mapper>

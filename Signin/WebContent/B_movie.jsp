@@ -21,11 +21,11 @@
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<link href="css/style.css?ver=1" rel="stylesheet">
-	<link href="css/cssmovie.css?ver=2" rel="stylesheet">
+	<link href="css/cssmovie.css?ver=3" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-	<script src="js/script.js?ver=3"></script>
-	<script language="JavaScript" src="js/scriptmovie.js?ver=5" charset="UTF-8"></script>
+	<script src="js/script.js?ver=5"></script>
+	<script language="JavaScript" src="js/scriptmovie.js?ver=8" charset="UTF-8"></script>
 
  </head>
  <style>
@@ -56,6 +56,10 @@
  	opacity:1;
  	font-weight:bold;
  	}
+ 	.timetable{
+ 	padding: 5px 10px 5px 10px;
+ 	margin: 5px 0 5px 0;
+ 	}
  </style>
  <script>
 	$(function() {
@@ -83,11 +87,11 @@
 			$('#resultmonth').html(month)
 			$('.hyphoon').css('display','inline-block')
 			
-			var nowcinema = $('#resultsite').html();
-			var si_sponsor = nowcinema.split(" ");
-			var nowmovie = $('#resultmovie').html();
+			var nowcinema = $('#resultsite').html()
+			var si_sponsor = nowcinema.split(" ")
+			var nowmovie = $('#resultmovie').html()
 			var date = year+"-"+month+"-"+day
-			alert(date)
+			var command="gettime"
 			
 			$.ajax({
 		  		  type:"post",
@@ -96,16 +100,28 @@
 						data:{
 						"si" : si_sponsor[0],
 						"sponsor":si_sponsor[1],
-						"movie":nowmovie
-						
+						"movie":nowmovie,
+						"date":date,
+						"command":command
 					},
 					
 					success:nowboard,
 		  		 
 		  		  
 		  	  });function nowboard(resdata){
-		  		  
-		  		alert(resdata);
+		  		  var json = $.parseJSON(JSON.stringify(resdata));
+		  		
+		  		var cinelist = json[0].cine.split('/')
+		  		var schedule_by_cine = json[0].schedule.split('/')
+		  		var s_html="";
+		  		for(var k= 0;k<cinelist.length-1;k++){
+		  			var schedule_by_time =  schedule_by_cine[k].split('#')
+			  		for (var i= 0;i<schedule_by_time.length-1;i++){
+			  			s_html += "<div class = timetable>"+cinelist[k]+"관 "+schedule_by_time[i]+"</div>"
+			  			
+			  		}
+		  		}
+		  		$(".moinfotime").html(s_html)
 		  	  }
 	
 			
@@ -123,7 +139,7 @@
 		var resultteen =  $('#resultteen').html()
 		var totalfee = $('#totalfee').html()
 		
-		if(resultmovie=='미선택'|resultsite=='미선택'||resultday=='미선택'||resulttime=='미선택'||resultadult=='미선택'){
+		if(resultmovie=='미선택'||resultsite=='미선택'||resultday=='미선택'||resulttime=='미선택'||(resultadult=='0'&&resultteen=='0')){
 			alert("선택하지 않은 항목이 있습니다")
 			
 		}else
@@ -249,7 +265,7 @@
 					<div class=booktitle>선택한영화정보
 					</div>
 					<div class=moinfocheck>
-					<img src="img/poster1.jpg" style="width:auto;height:180px;float:left;margin-top:20px;margin-left:20px;"/>
+					<img id =poster src="img/none.png" style="width:120px;height:auto;float:left;margin-top:20px;margin-left:20px;border:1px solid white;"/>
 						<ul>
 							<li>영화</li>
 							<li>극장</li>
@@ -260,7 +276,7 @@
 						<ul id=result>
 							<li id = 'resultmovie'>미선택</li>
 							<li id = 'resultsite'>미선택</li>
-							<li><span id = 'resultyear'>미선택</span><span class=hyphoon >-</span><span id='resultmonth'></span><span class=hyphoon >-</span><span id='resultday'></span></li>
+							<li id = 'resultdate'><span id = 'resultyear'>미선택</span><span class=hyphoon >-</span><span id='resultmonth'></span><span class=hyphoon >-</span><span id='resultday'></span></li>
 							<li id = 'resulttime'>미선택</li>
 							<li><span>성인 :</span><span id = 'resultadult'>0</span><span> 명</span></li>
 							<li><span>학생 :</span><span id = 'resultteen'>0</span><span> 명</span></li>

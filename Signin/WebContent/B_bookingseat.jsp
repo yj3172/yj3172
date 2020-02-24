@@ -18,9 +18,21 @@
 	String resultadult = personadult.orElse("없음");
 	String totalfee = request.getParameter("totalfee");
 	String resultteen = personteen.orElse("10대 선택 없음");
+	String [] si_spinsor = resultsite.split(" ");
+	String si =si_spinsor[0];
+	String sponsor= si_spinsor[1];
 	
 	String cine = resulttime.substring(0,1);
 	String time = resulttime.substring(3);
+	
+	Dbaccess db = new Dbaccess();
+	String cineinfo = db.getcineinfo(sponsor, si, cine);
+	String engrow = cineinfo.substring(0,1);
+	char ch_engrow = engrow.charAt(0);
+	String matrow = cineinfo.substring(1);
+	int in_matrow = Integer.parseInt(matrow);
+	
+	
 %>
 
 <!doctype html>
@@ -66,6 +78,7 @@
 		padding-bottom:80px;
 		padding-top:80px;
 		float:left;
+		overflow:auto;
 	}
 	#seat{
 		width:35px;
@@ -210,7 +223,7 @@
 	margin-right:40px;
 
 	}
-	#seatlist ul:nth-child(5) li{
+	#seatlist ul:nth-child(5n) li{
 	margin-top:40px;
 	
 	}
@@ -258,7 +271,7 @@
 </style>
 <script>
 $(document).on("click","#seat",function(){
-	var max = $("#maxperson").val()
+	var max = Number($("#maxperson").val())
 	var count = $("#nowperson").val()
 	var isred = $(this).css("background-color")
 	var command=$("#choiceseat").val()
@@ -266,7 +279,7 @@ $(document).on("click","#seat",function(){
 	if(isred=='rgb(255, 0, 0)'){
 		$(this).css("background-color","white")
 		$(this).css("color","black")
-		var nowperson = Number(count)-1
+		var nowperson = Number(count)-Number(1)
 		$("#nowperson").val(nowperson)
 		var delId = "'"+$(this).val()+"'"
 		var deleteobj = document.getElementById($(this).val())
@@ -279,9 +292,9 @@ $(document).on("click","#seat",function(){
 
 		$(this).css("background-color","red")
 		$(this).css("color","white")
-		nowperson = Number(count)+1
+		nowperson = Number(count)+Number(1)
 		$("#nowperson").val(nowperson)
-	
+		
 			command+="<div id="+$(this).html()+" class=seatinfo>"+$(this).html()+"</div>"
 		
 		$('#choiceseat').append(command)
@@ -298,17 +311,7 @@ $(document).on("click","#seat",function(){
 	}
 
 })
-function buy(){
-	var buynow = confirm('정말 구매하시겠습니까?')
-	
-	if(buynow==true){
-		
-		$('#ticketing').submit()
-		
-	}
-	
-	
-}
+
 
 </script>
 
@@ -316,6 +319,23 @@ function buy(){
  <body>
  	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
  	<%@ include file="header.jsp" %>
+ 	<script>
+ 	function buy(){
+ 		var buynow = confirm('정말 구매하시겠습니까?')
+ 		var log = "<%=s%>"
+		if(log=="not"){
+			alert("로그인이 필요한 메뉴입니다")
+		}else{
+	 		if(buynow==true){
+	 			
+	 			$('#ticketing').submit()
+	 			
+	 		}
+		}
+ 		
+ 		
+ 	}
+ 	</script>
  		<%String resultperson = Integer.parseInt(resultadult)+Integer.parseInt(resultteen)+""; %>
 			 <input id =maxperson type="hidden" value=<%=resultperson %>>
 			  <input id =nowperson type="hidden" value='0'>
@@ -338,12 +358,12 @@ function buy(){
  			<div id=seattable>
 		 		<div id=screen>S C R E E N</div>
 		 		<div id= seatlist>
-		 		<% for(char a='A';a<='H';a++){
+		 		<% for(char a='A';a<=ch_engrow;a++){
 		 			
 		 			%><ul id=seatrow>
 		 			<li><div id=engrow><%=Character.toString(a) %></div></li><%
 		 				
-		 			for(int i = 1;i<16;i++){
+		 			for(int i = 1;i<in_matrow;i++){
 		 				String seat = Character.toString(a)+i+"";
 		 				boolean checkdiv =true;
 		 					for(int k=0; k<notallowedseat.length;k++)	{

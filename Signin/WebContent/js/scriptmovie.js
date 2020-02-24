@@ -47,12 +47,23 @@
 					}
 				 	html+="</div>"
 				 	$("#accordian2").html(html)
+				 	$('#resulttime').html('미선택');
+					$('#resultyear').html('미선택');
+					$('#resultmovie').html('미선택');
+					
+					$('#resultmonth').html('');
+					$('#resultday').html('');
+					$('.hyphoon').css('display','none');
+					
+					$('.moinfotime').html("<div style=\"padding-top:35%;\">날짜를 먼저 선택해주세요</div>	")
+					$('#moinfo').html("<div id=\"kCalendar\"><span id=readycal>영화를 먼저 선택해주세요</span></div>	")
+					$('#poster').attr('src','img/none.png');
 		  	  }
 		})
 	})
 	//영화선택>>날짜선택
-	$(function(){
-		$(document).on('click','#movietwrap div',function(){
+	$(function getday(){
+		$(document).on('click','#movietwrap div',function (){
 			$(this).css("background","red");
 			$("#movietwrap div").not($(this)).css("background","#333333");
 			var ttr=$(this).html();
@@ -61,7 +72,8 @@
 			var nowcinema = $('#resultsite').html();
 			var si_sponsor = nowcinema.split(" ");
 			var nowmovie = $('#resultmovie').html();
-	
+			var command="getdate";
+			
 			 $.ajax({
        		  type:"post",
      				url:"getdate.json",
@@ -69,24 +81,34 @@
      				data:{
      					"si" : si_sponsor[0],
 						"sponsor":si_sponsor[1],
-						"movie":nowmovie
+						"movie":nowmovie,
+						"command":command
      			},
      			
      			success:getdate
        		 
        		  
        	  });function getdate(data, textStatus, xhr){
-       		 alert(JSON.stringify(data))
+       	
        		 var obj = $.parseJSON(JSON.stringify(data));
-       		alert(obj[0].date)
+ 
        		 $.each(data, function(key, val){
 
              console.log('key:' + textStatus);
        		 });	
 		
 			kCaledar (obj)
+			$('#poster').attr("src",obj[obj.length-1].poster);
+			$('#resulttime').html('미선택');
+			$('#resultyear').html('미선택');
+			$('#resultmonth').html('');
+			$('#resultday').html('');
+			$('.hyphoon').css('display','none');
 			
-		}
+			$('.moinfotime').html("<div style=\"padding-top:35%;\">날짜를 먼저 선택해주세요</div>	")
+			
+       	  }
+		
 	})
 	
 	
@@ -131,9 +153,9 @@
 		})
 	})
 	$(function(){
-		$(".moinfotime ul li").click(function(){
+		$(document).on('click','.timetable',function(){
 			$(this).css("background","red");
-			$(".moinfotime ul li").not($(this)).css("background","#333333");
+			$(".timetable").not($(this)).css("background","#333333");
 			var ttr=$(this).html();
 			$('#resulttime').html(ttr);
 		})

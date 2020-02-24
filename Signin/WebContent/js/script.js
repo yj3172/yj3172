@@ -27,6 +27,7 @@ console.log(objdata);
 	
 	date.setDate(1);
 	var currentDay = date.getDay();
+
 	//이번달 1일의 요일은 출력. 0은 일요일 6은 토요일
 	
 	var dateString = new Array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat');
@@ -89,9 +90,9 @@ console.log(objdata);
 				continue;
 			}
 			var aleady = true;
-			for(var k=0;k<nowdate.length;k++){
+			for(var k=0;k<nowdate.length-1;k++){
 				var available =nowdate[k].date.split('-');
-				if(available[0]==currentYear&&available[1]==currentMonth&&available[2]==dateNum){
+				if((available[0]==currentYear&&available[1]==currentMonth&&available[2]==dateNum)&&currentDate<=dateNum){
 					calendar += '				<td class="' + dateString[j] + '" id=available>' + dateNum + '</td>';
 					aleady=false;
 				}

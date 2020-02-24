@@ -1,6 +1,7 @@
 package mybatmodel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -134,10 +135,28 @@ public class action1 {
 		
 	}
 	public List<ScheduleVo> selectmovielist(String si,String sponsor){
+		Calendar cal = Calendar.getInstance();
+		 
+		//현재 년도, 월, 일
+		int year = cal.get ( cal.YEAR );
+		int month = cal.get ( cal.MONTH ) + 1 ;
+		int date = cal.get ( cal.DATE ) ;
+		int ranresource = 0;
+		String s_month = month+"";
+		String s_date = date+"";
+		if(month<10) {
+			s_month="0"+month;
+		}
+		if(date<10) {
+			s_date ="0"+date;
+		}
+		
+		String day = year+""+s_month+s_date;
 		List<ScheduleVo> list = null;
 		CinemaVo vo = new CinemaVo();
 		vo.setSi(si);
 		vo.setSponsor(sponsor);
+		vo.setDate(day);
 		SqlSession sqlSession = factory.openSession();
 		list = sqlSession.selectList("selectschedule_article",vo);
 		

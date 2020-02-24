@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 
 import Dto.Dto;
+import Dto.ScheduleVo;
 
 public class Dbaccess {
 
@@ -368,6 +369,76 @@ public class Dbaccess {
 	
 	return articlelist;
 	
-}
+	}
+	public ArrayList<ScheduleVo> gettime(String sponsor, String si , String movie, String date){
+		ArrayList<ScheduleVo> articlelist = new ArrayList<ScheduleVo>() ;
+		
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql="SELECT cine,schedule FROM schedule where cinecode=(select num from cinema where sponsor = \'"+sponsor+"\' and si= \'"+si+"\') and movie= \'"+movie+"\' and date=\'"+date+"\';";
+	
+
+		try{
+			conn();
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+
+		
+		
+			while(rs.next()){
+				ScheduleVo article = new ScheduleVo();
+				
+				article.setCine(rs.getString("cine"));
+				article.setSchedule(rs.getString("schedule"));
+				articlelist.add(article);
+				
+			}
+
+		}catch(Exception ex){
+		}finally{
+
+			close();
+		}
+	
+	
+	return articlelist;
+	
+	}
+	public String getcineinfo(String sponsor, String si , String cine){
+		String cineinfo = null;
+		String return_cineinfo = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql="SELECT cineinfo FROM cinema  where sponsor = \'"+sponsor+"\' and si= \'"+si+"\';";
+	
+
+		try{
+			conn();
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+
+		
+		
+			while(rs.next()){
+
+				
+				cineinfo = rs.getString("cineinfo");
+				
+			}
+
+		}catch(Exception ex){
+		}finally{
+
+			close();
+		}
+		String [] cinelist = cineinfo.split("/");
+		 return_cineinfo= cinelist[Integer.parseInt(cine)-1];
+	
+	
+	return return_cineinfo;
+	
+	}
 	
 }
