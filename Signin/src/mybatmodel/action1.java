@@ -175,5 +175,17 @@ public class action1 {
 		sqlSession.close();
 		return list;
 	}
+	public List<ScheduleVo> movielist(){
+		
+		SqlSession sqlSession = factory.openSession();
+		
+		List<ScheduleVo> a = sqlSession.selectList("movieall");//중복제거
+	
+		sqlSession.commit();
+		sqlSession.close();
+		return a;
+		
+	}
+	
 	
 }

@@ -17,6 +17,8 @@
 	<select id="cinemalist" resultType="cinemavo">select * from cinema where doo = #{doo};</select>
 	<select id="cinemaall" resultType="cinemavo">select * from cinema;</select>
 	
+	<select id="movieall" resultType="schedulevo">select distinct(movie) from schedule;</select>
+	
 	<insert id="scheduleinsert" parameterType="schedulevo">insert into schedule(cinecode,movie,cine,schedule,date) values( #{cinecode}, #{movie},#{cine},#{schedule},#{date});</insert>
 	<select id="schedulecheck" resultType="schedulevo">select * from schedule where cinecode = #{cinecode} and movie = #{movie} and date = #{date};</select>
 	

@@ -190,6 +190,7 @@
 
 	    	String movieposter = poster.movieposter(movieinfo.get(i).getMovieNm());
 	    	String moreinfo = "location.href =\'M_moviearticle.jsp?title="+movieinfo.get(i).getMovieNm()+"\'";
+	    	String bookingurl = "location.href =\'B_movie.jsp?which=movie&title="+movieinfo.get(i).getMovieNm()+"\'";
 		%>
 		
 		<div id=rankingbox>
@@ -197,7 +198,7 @@
 			<div id=moreinfobox>
 				<div id=btnwrap>
 					<div id=moreboxbtn>
-						<div id=btntitle>예매</div>
+						<div id=btntitle OnClick="<%=bookingurl %>">예매</div>
 					</div>
 					<div id=moreboxbtn OnClick="<%=moreinfo %>">
 						<div id=btntitle>정보</div>

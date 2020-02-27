@@ -44,12 +44,11 @@
 	<nav>
 		<div id=headermenu>
 	<ul class = headermenu>
-		<li class = menuleft><a href="B_movie.jsp">예매</a>
+		<li class = menuleft><a href="">예매</a>
 			<ul class = submenu>
 				<div style="display:inline-block">
-			   <li><a href="#">영화먼저검색</a></li>
-			   <li><a href="#">날짜먼저검색</a></li>
-			   <li><a href="#">극장먼저검색</a></li>
+			   <li><a href="B_movie.jsp?which=movie">영화먼저검색</a></li>
+			   <li><a href="B_movie.jsp?which=cinema">극장먼저검색</a></li>
 			   </div>
 			</ul>
 			</li>

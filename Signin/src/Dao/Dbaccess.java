@@ -15,8 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
-
+import Dto.CinemaVo;
 import Dto.Dto;
 import Dto.ScheduleVo;
 
@@ -436,6 +435,39 @@ public class Dbaccess {
 		String [] cinelist = cineinfo.split("/");
 		 return_cineinfo= cinelist[Integer.parseInt(cine)-1];
 	
+	
+	return return_cineinfo;
+	
+	}
+	public ArrayList<CinemaVo> getcine(String movie){
+		ArrayList<CinemaVo> return_cineinfo = new ArrayList<CinemaVo>();
+		Statement stmt = null;
+		ResultSet rs = null;
+		String sql="SELECT doo,si,sponsor FROM userinfo.cinema where num in (select cinecode from schedule where movie='"+movie+"' and date = date(now()));";
+	
+
+		try{
+			conn();
+			stmt = conn.createStatement();
+			
+			rs = stmt.executeQuery(sql);
+
+		
+			while(rs.next()){
+					CinemaVo article = new CinemaVo();
+					article.setDoo(rs.getString("doo"));
+					article.setSi(rs.getString("si"));
+					article.setSponsor(rs.getString("sponsor"));
+					return_cineinfo.add(article);
+				
+				
+			}
+
+		}catch(Exception ex){
+		}finally{
+
+			close();
+		}
 	
 	return return_cineinfo;
 	

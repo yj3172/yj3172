@@ -5,11 +5,6 @@
 <%@ page import="Apicon.Navermovie" %>
 <%
 	
-	String y ="";
-	y=request.getParameter("fail");
-	if(y==null){
-	y="";
-	}
 	
 	String title=request.getParameter("title") ;
 	Navermovie nmn= new Navermovie();
@@ -148,8 +143,12 @@ float:left;
 		 <div id=moviedirector> 감독 : <%=li.get(0).getDirector() %></div>
 		 <div id= movieactor>배우: <%=li.get(0).getActor() %></div>
 		 <div id= movieuserrating>평점: <%=li.get(0).getUserrating() %></div>
-		 
-		 <div id = booking onclick="javascript:getmore()">예매</div>
+		<%
+		String movie = li.get(0).getTitle().substring(3);
+		String movie2 = movie.substring(0,movie.length()-4);
+		String bookingurl = "location.href =\'B_movie.jsp?which=movie&title="+movie2+"\'"; 
+		%>
+		 <div id = booking onclick="<%=bookingurl%>">예매</div>
 		
 		
 	</div>

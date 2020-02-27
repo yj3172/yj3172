@@ -117,7 +117,7 @@
  		<div><div id=titletext>시간</div><span id=contentstext><%=nowticket.getCine() %>관 <%=nowticket.getTime() %></span></div>
  		</div>
  		<hr>
- 		<input type="button" value="다른티켓 예매" id="booking" onclick="location.href='B_movie.jsp'">
+ 		<input type="button" value="다른티켓 예매" id="booking" onclick="location.href='B_movie.jsp?which=movie'">
 		<input type="button" value="메인으로" id="main"onclick="location.href='index.jsp'" >
 		</div>
 		

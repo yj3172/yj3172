@@ -14,6 +14,7 @@ import org.json.simple.JSONObject;
 import Apicon.Navermovie;
 import Dao.Ajaxdao;
 import Dao.Dbaccess;
+import Dto.CinemaVo;
 import Dto.ScheduleVo;
 import Dto.formoviejsp_vo;
 
@@ -62,6 +63,24 @@ public class Getinfo extends HttpServlet{
 			}
 			
 			
+		}else if (command.equals("getcine")) {		
+
+			ArrayList<CinemaVo> list = da.getcine(movie);
+			Navermovie na = new Navermovie();
+			String poster=na.movieposter(movie);
+			for(int i=0;i<list.size();i++) {
+				JSONObject j_obj = new JSONObject();
+				j_obj.put("doo", list.get(i).getDoo());
+				j_obj.put("si", list.get(i).getSi());
+				j_obj.put("sponsor", list.get(i).getSponsor());
+				
+				j_array.add(j_obj);			
+			}
+			JSONObject j_obj = new JSONObject();
+			j_obj.put("poster", poster);
+			j_array.add(j_obj);
+			
+			
 		}
 		
 		 response.setContentType("application/json");
@@ -70,7 +89,7 @@ public class Getinfo extends HttpServlet{
              //ajax로 리턴해주는 부분
 			 if(command.equals("getdate")) {
 				 response.getWriter().write(json);
-			 }else if(command.equals("gettime")) {
+			 }else if(command.equals("gettime")||command.equals("getcine")) {
 				 response.getWriter().write(j_array.toString());
 			 }
 			 
