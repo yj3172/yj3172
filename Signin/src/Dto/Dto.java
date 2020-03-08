@@ -7,9 +7,9 @@ public class Dto {
 	String contents;
 	String title;
 	String day;
-	String comment;
 	int num;
 	String filename;
+	
 	
 	public String getFilename() {
 		return filename;
@@ -53,12 +53,7 @@ public class Dto {
 	public void setDay(String day) {
 		this.day = day;
 	}
-	public String getComment() {
-		return comment;
-	}
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+
 	
 
 }

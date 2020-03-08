@@ -3,8 +3,13 @@
 <%@ page import="Dto.Dto" %>
 <%@ page import="Dao.Dbaccess" %>
 <%
+Dbaccess opendata = new Dbaccess();
 String s11 = (String)request.getAttribute("try");
 System.out.println(s11);
+ArrayList<Dto> li=opendata.Board();
+		Dbaccess boarddb = new Dbaccess();
+		int totalarticle = boarddb.boardcount();
+		
 		%>
 <!doctype html>
 <html lang="en">
@@ -15,34 +20,13 @@ System.out.println(s11);
   <meta name="Keywords" content="">
   <meta name="Description" content="">
   <title>Document</title>
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
  </head>
  <style>
  	#title{
  		background:#bdbdbd;
  		border-bottom:1px solid black;
  		
- 	}
- 	table{
- 		border-collapse:collapse;
- 		text-align:center;
- 	}
- 	tr{
- 		border-bottom:1px solid black;
- 	}
- 	td:first-child{
- 		text-align:center;
- 	}
- 	tr:nth-child(2){
- 		width:600px;
- 	}
- 	tr:nth-child(3){
- 		width:600px;
- 	}
- 	tr:nth-child(4){
- 		width:600px;
- 	}
- 	tr:nth-child(n+2){
- 		height:200px;
  	}
  	
  	#mypage{
@@ -94,7 +78,7 @@ System.out.println(s11);
 	#ctext{
 		position:relative;
 		width:90%;
-		height:200px;
+		height:90px;
 		margin-left:auto;
 		margin-right:auto;
 		margin-top:20px;
@@ -106,9 +90,13 @@ System.out.println(s11);
 	}
 	#ctitle{
 	float:left;
+	text-align:left;
 	font-size:15pt;
 	font-weight:bold;
-	
+	width:180px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
 	}
 	#wddiv{
 		width:100%;
@@ -145,8 +133,51 @@ System.out.println(s11);
 		cursor:pointer;
 		font-size:10pt;
 	}
+	#fixedboard{
+		width:1260px;
+		height:1200px;
+	
+	}
 
 </style>
+	<script>
+	function paging(pagenumber){
+		var firstarticle = 9*(pagenumber-1)
+
+		var str="";
+		$.ajax({
+  		  type:"post",
+				url:"G_board_json.jsp",
+				datatype:"json",
+				data:{
+				"firstnum" : firstarticle
+			},
+			
+			success:nowboard,
+  		 
+  		  
+  	  });function nowboard(resdata){
+
+  		 var obj = $.parseJSON(resdata);
+		 	var html="";
+	
+		 
+		 	for(var i=0;i<obj.length;i++){
+		 	html+="<a id=linktext href="+obj[i].url+"><div id =contentswrap><div id = contents>";
+		 	html+="<div id =img><img src="+obj[i].imglink+" ></div><div id =ctext>";
+			html+="<div id =cmovie>[ "+obj[i].moviename+" ]</div>";
+			html+="<div id =ctitle>"+obj[i].title+"</div>"	;
+			html+="<div id =wddiv><div id =cwrite>"+obj[i].writename+"</div>";
+			html+="<div id =cday>"+obj[i].day+"<br></div></div>";
+			html+="</div></div></div></a>";
+			}
+		 	$("#tablewrap").html(html)
+  	  }
+		
+		
+	
+	}
+	</script>
  <body>
  	<jsp:useBean id="data" class="Dao.Dbaccess"></jsp:useBean>
  	<%@ include file="header.jsp" %>
@@ -154,17 +185,22 @@ System.out.println(s11);
  	<div id = mypage>
  	<div id =titletext>영화 매거진<span id=subtitletext>| 다양한 영화정보를 공유하세요</span>
  	<input id=wbtn type="button" onclick="location.href='G_write.jsp'" value="글쓰기"/></div>
- 	
+ 	<input type="hidden" id = lastnum/>
  	<hr style="width:90%;color:#bdbdbd;">
+ 	<div id = fixedboard>
  	<div id=tablewrap>
  	
  	
  		
  		<%
- 		ArrayList<Dto> li=(ArrayList<Dto>)request.getAttribute("group");
+ 		
  		String img="";
 		for(int i=0;i<li.size();i++){
 			String url= "action.jsp?class=boardin&num="+Integer.toString(li.get(i).getNum());
+			if(i>8){
+				
+			}
+			else{
 			if(li.get(i).getMoviename().equals("1917")){
 				img = "1917.jpg";
 			}
@@ -193,18 +229,42 @@ System.out.println(s11);
 			</div>
 			</div>
 			</div></a>
-			<%
 			
-		}
-	
-	%></div>
+			<%}
+			}	%>	
+		</div>
+		</div>
+		<%
+			int totalpage = totalarticle/9;
+			int beforepage= totalpage-2;
+			int nextpage = totalpage+2;
+			int paging = 5;
+			for	(int i=beforepage;i<nextpage+1;i++){
+				if(i<1){
+					
+				}
+				else if(i-1>totalpage){
+					
+				}
+				else{
+					String scripturl="javascript:paging("+i+")";
+				%><span><a  href=<%=scripturl %> style="color:black;margin:3px;"><%=i%></a></span><%
+				}
+				
+				
+			}
+		
+		
+		%>
+			
+		
  	<div>
  		<form method="post" action="action.jsp?class=search">
  		 	<select size="1">
  			<option values="영화제목으로검색" selected>영화제목으로검색</option>
  			<option values="작성자명으로검색" >작성자명으로검색</option>
  			<option values="작성일로검색" >작성일로검색</option>
- 			<input type="text" style="margin-top:200px;" id="ser" name="ser" placeholder="영화제목검색창" size="40"><input type=submit value="검색">
+ 			<input type="text"  id="ser" name="ser" placeholder="영화제목검색창" size="40"><input type=submit value="검색">
  			</select>
  		</form>
  		</div>

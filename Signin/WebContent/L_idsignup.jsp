@@ -150,7 +150,7 @@ var sign = document.getElementById('sign');
 	<input type="submit" id ="sign" name=signin value="다음단계"  style = "width:500px;height:40px;background-color:#BDBDBD;" disabled="disabled" > 
 
   </div>
-  	<div class=notice style="margin-bottom:180px;">Note : It is our responsibillity to protect your privacy and we 
+  	<div class=notice style="margin-bottom:280px;">Note : It is our responsibillity to protect your privacy and we 
 	gurantee that your data will be completely confidential.</div>
 	
   </center>

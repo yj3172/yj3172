@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page import = "java.util.Optional" %>
 <%
-	String s ="";
-	s=(String)session.getAttribute("log");
-	if(s==null){
-	s="";
-	}
-
+	Optional<String> logcheck = Optional.ofNullable((String)session.getAttribute("log"));	
+	String s = logcheck.orElse("not");
 %>
 
 
@@ -34,7 +31,7 @@
 		<li class = menuright>${id}님 환영합니다</li>|
 		<li class = menuright><a href="I_mypage_info.jsp?id="+${id}>마이페이지</a></li><!--여기수정-->
 	</ul>
-	<%} else if(s.equals("")) { %>
+	<%} else if(s.equals("not")) { %>
 	<ul>
 		<li class = menuright><a href="L_login.jsp">로그인</a></li>|
 		<li class = menuright><a href="L_idsignup.jsp">회원가입</a></li>|
@@ -47,12 +44,11 @@
 	<nav>
 		<div id=headermenu>
 	<ul class = headermenu>
-		<li class = menuleft><a href="B_movie.jsp">예매</a>
+		<li class = menuleft><a href="">예매</a>
 			<ul class = submenu>
 				<div style="display:inline-block">
-			   <li><a href="#">영화먼저검색</a></li>
-			   <li><a href="#">날짜먼저검색</a></li>
-			   <li><a href="#">극장먼저검색</a></li>
+			   <li><a href="B_movie.jsp?which=movie">영화먼저검색</a></li>
+			   <li><a href="B_movie.jsp?which=cinema">극장먼저검색</a></li>
 			   </div>
 			</ul>
 			</li>
@@ -68,19 +64,18 @@
 		<li class = menuleft><a href="">영화관</a>
 		<ul class = submenu>
 				<div style="display:inline-block">
-			   <li><a href="#">서울/경기</a></li>
-			   <li><a href="#">충청</a></li>
-			   <li><a href="#">인천</a></li>
-			   <li><a href="#">강원</a></li>
-			   <li><a href="#">경북</a></li>
-			   <li><a href="#">경남</a></li>
-			   <li><a href="#">전남</a></li>
-			   <li><a href="#">전북</a></li>
-			   <li><a href="#">제주</a></li>
+			   <li><a href="C_cinema.jsp?locate=서울">서울</a></li>
+			   <li><a href="C_cinema.jsp?locate=경기">경기</a></li>
+			   <li><a href="C_cinema.jsp?locate=충청">충청</a></li>
+			   <li><a href="C_cinema.jsp?locate=강원">강원</a></li>
+			   <li><a href="C_cinema.jsp?locate=전라">전라</a></li>
+			   <li><a href="C_cinema.jsp?locate=경상">경상</a></li>
+			   <li><a href="C_cinema.jsp?locate=제주">제주</a></li>
+		
 			   	</div>
 			</ul>
 			</li>
-		<li class = menuleft><a href="S_store.jsp">스토어</a></li>
+		<li class = menuleft><a href="store.bo">스토어</a></li>
 		<li class = menuleft><a href="EventlistPro.bo">이벤트</a></li>
 		<li class = menuleft><a href="action.jsp?class=search">영화매거진</a></li>
 	</ul>

@@ -27,10 +27,10 @@ public class Eventdao {
 	}
 
 	public static Eventdao getInstance(){
-		if(EventDao == null){
+		if(EventDao == null){ 
 			EventDao = new Eventdao();
 		}
-		return EventDao;
+		return EventDao; 
 	}
 
 	public void setConnection(Connection con){

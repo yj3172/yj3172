@@ -3,6 +3,9 @@
 <%@ page import="Apicon.Boxoffice" %>
 <%@ page import="Dto.BoxOfficeDto" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="Apicon.Crawling" %>
+<%@ page import="Dto.megaboxdata" %>
+<%@ page import="Apicon.Selenium" %>
 <!doctype html>
 <html lang="en">
 <header>
@@ -84,6 +87,8 @@
 	width:100px;
 	height:40px;
     margin-top:10px;
+    position:relative;
+    top:20%;
 	}
 	#btnwrap{
 	
@@ -93,11 +98,26 @@
 	position:absolute;
     top:0; left:0; bottom:0; right:0;
     height:285px;
-    margin:50% auto;
+    margin:25% auto;
  
 	}
 	#btntitle{
 	margin-top:10px;
+	}
+	#slidetext{
+	position:absolute;
+	width:400px;
+	height:200px;
+	top:27%;
+	left:10%;
+	z-index:9999;
+	font-size:20pt;
+	font-weight:bold;
+	color:#bdbdbd;
+	}
+	#slideimg{
+	position:relative;
+	top:-80px;
 	}
 	</style>
 	<script>
@@ -128,13 +148,16 @@
 	        			  $(this).css('color','white')
 	        			  $(this).css('border-color','white')
 	        		  }
-	        		 
+	        
 	          } ,"#moreboxbtn");
 	    });
 	})(jQuery);
 	
 
-
+	function moviemoreinfo(title){
+		
+		   location.href = "M_moviearticle?title="+title;
+	}
 	</script>
 
   
@@ -143,10 +166,10 @@
 	<%@ include file="header.jsp" %>
 	<div id=bxsilderwrapper style="margin-top:200px;">
 		<ul class="bxslider" style="z-index:50;">
-		  <li><img src="img/slide1.jpg" /></li>
-		  <li><img src="img/slide2.jpg" /></li>
-		  <li><img src="img/slide3.jpg" /></li>
-		  <li><img src="img/slide4.jpg" /></li>
+			<li><img id= slideimg src="img/main0.jpg" /></li>
+			<li><img id= slideimg src="img/main1.jpg" /></li>
+			<li><img id= slideimg src="img/main2.jpg" /></li>
+			<li><img id= slideimg src="img/main3.jpg" /></li>
 		</ul>
 		</div>
 		
@@ -159,15 +182,14 @@
 			ArrayList<BoxOfficeDto> movieinfo= movieboxoffice.boxofficelist();
 			for(int i = 0;i<10;i++){
 			String rank = i+1+"";
-			String title = "title"+i;
-	    	String openday = "openday"+i;
-	    	String totalperson = "totalperson"+i;
+	
 
 	    	Navermovie poster = new Navermovie();
 	    	
 
 	    	String movieposter = poster.movieposter(movieinfo.get(i).getMovieNm());
-	    	
+	    	String bookingurl = "location.href =\'B_movie.jsp?which=movie&title="+movieinfo.get(i).getMovieNm()+"\'";
+	    	String moreinfo = "location.href =\'M_moviearticle.jsp?title="+movieinfo.get(i).getMovieNm()+"\'";
 		%>
 		
 		<div id=rankingbox>
@@ -175,9 +197,9 @@
 			<div id=moreinfobox>
 				<div id=btnwrap>
 					<div id=moreboxbtn>
-						<div id=btntitle>예매</div>
+						<div id=btntitle OnClick="<%=bookingurl %>">예매</div>
 					</div>
-					<div id=moreboxbtn>
+					<div id=moreboxbtn  OnClick="<%=moreinfo %>" >
 						<div id=btntitle>정보</div>
 					</div>
 				</div>

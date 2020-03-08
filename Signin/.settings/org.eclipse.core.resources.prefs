@@ -1,2 +1,7 @@
 eclipse.preferences.version=1
+encoding//WebContent/css/style.css=UTF-8
+encoding//src/Apicon/Boxoffice.java=UTF-8
+encoding//src/Apicon/Crawling.java=UTF-8
+encoding//src/Apicon/Navermovie.java=UTF-8
+encoding//src/Dao/Ajaxdao.java=UTF-8
 encoding/<project>=UTF-8

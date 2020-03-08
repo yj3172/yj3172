@@ -28,6 +28,7 @@ public class Boxoffice {
         	int monthint = cal.get ( cal.MONTH ) + 1 ;
         	int dateint = cal.get ( cal.DATE ) - 1;
         	String month="";
+        	String date="";
         	if(dateint==0){
         		monthint = monthint-1;
         		if(monthint==2){
@@ -54,9 +55,14 @@ public class Boxoffice {
         		}else{
         		month=Integer.toString(monthint);
         		}
+        	if(dateint<10){
+        		date="0"+Integer.toString(dateint);
+        	}else {
+        		date=Integer.toString(dateint);
+        	}
         	String year=Integer.toString(yearint);
         	
-        	String date=Integer.toString(dateint);
+       
         	
         	String mTime = year+month+date; 
      
@@ -82,8 +88,8 @@ public class Boxoffice {
             
             System.out.println(response.toString());
             
-            JSONParser jsonParse = new JSONParser(); //JSONParse에 json데이터를 넣어 파싱한 다음 JSONObject로 변환한다. 
-            JSONObject jsonObj = (JSONObject) jsonParse.parse(response.toString()); //JSONObject에서 PersonsArray를 get하여 JSONArray에 저장한다. 
+            JSONParser jsonParse = new JSONParser(); //JSONParse�� json�곗�댄�곕�� �ｌ�� ���깊�� �ㅼ�� JSONObject濡� 蹂�������. 
+            JSONObject jsonObj = (JSONObject) jsonParse.parse(response.toString()); //JSONObject���� PersonsArray瑜� get���� JSONArray�� ���ν����. 
             
             JSONObject jsonObj2 =(JSONObject) jsonParse.parse(jsonObj.get("boxOfficeResult").toString());
             
@@ -100,15 +106,13 @@ public class Boxoffice {
             		
             	
             System.out.println(jsonlist);
-            System.out.println(bdto.getMovieNm());
-            System.out.println(bdto.getOpenDt());
-            System.out.println(bdto.getAudiAcc());
             	
             }
           
         } catch (Exception e) {
             System.out.println(e);
         }
+        
         return list;
     }
 }

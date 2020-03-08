@@ -89,8 +89,7 @@ margin:0 5px;
 	<input type="button" id ="sign" name=signin value="로그인" onclick=signup() style = "width:250px;height:40px;cursor:pointer;"> 
 
   </div>
-  	<div class=notice style="margin-bottom:180px;">Note : It is our responsibillity to protect your privacy and we 
-	gurantee that your data will be completely confidential.</div>
+  	<div class=notice style="margin-bottom:320px;"></div>
 	 
   </center>
   <%@ include file="../footer.jsp" %>

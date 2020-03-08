@@ -6,7 +6,7 @@ public class Event_list_pagination_vo {
 		private int totalnum ;		//아티클의(데이터) 총 숫자
 		
 		public int getPagingsize() {
-			return pagingsize;
+			return pagingsize; 
 		}
 		public void setPagingsize(int pagingsize) {
 			this.pagingsize = pagingsize;

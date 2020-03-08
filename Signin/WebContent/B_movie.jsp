@@ -1,4 +1,26 @@
+<%@ page import="org.apache.jasper.tagplugins.jstl.core.Catch"%>
+<%@ page import="Dto.ScheduleVo"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="mybatmodel.action1" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Dto.CinemaVo" %>
+<%@ page import="java.util.Optional" %>
+
+<%
+	String which = request.getParameter("which");
+	Optional<String> titlecheck = Optional.ofNullable(request.getParameter("title"));	
+	String title = titlecheck.orElse("none");
+	action1 act = new action1();
+	List<CinemaVo> li =null;
+	List<ScheduleVo> li2 =null;
+	if(which.equals("cinema")){
+	li =act.Cinemalist();
+	}else if (which.equals("movie")){
+	li2 = act.movielist();
+	}
+	String url = "location.href ='B_movie.jsp?which="+which+"'";
+	System.out.println(title);
+	%>
 <!doctype html>
 <html lang="en">
  <head>
@@ -10,130 +32,350 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Document</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<link href="css/style.css" rel="stylesheet">
-	<link href="css/cssmovie.css" rel="stylesheet">
+	<link href="css/style.css?ver=1" rel="stylesheet">
+	<link href="css/cssmovie.css?ver=4" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-	<script src="js/script.js"></script>
-	<script language="JavaScript" src="js/scriptmovie.js" charset="UTF-8"></script>
+	<script src="js/script.js?ver=5"></script>
+	<script language="JavaScript" src="js/scriptmovie.js?ver=9" charset="UTF-8"></script>
 
  </head>
+ <style>
+ 	.hyphoon{
+ 	display:none;
+ 	}
+ 	.moviet{
+ 	padding: 5px 10px 5px 10px;
+ 	margin: 5px 0 5px 0;
+ 	
+ 	}
+ 	#movietwrap{
+ 	vertical-align: middle;
+ 	display: table-cell; 
+ 	text-align:left;
+ 	
+ 	}
+ 	#readycal{
+ 	color:white;
+ 	position:relative;
+ 	top:50%;
+ 	}
+ 	
+ 	#notavailable{
+ 	opacity:0.3;
+ 	}
+ 	#available{
+ 	opacity:1;
+ 	font-weight:bold;
+ 	}
+ 	.timetable{
+ 	padding: 5px 10px 5px 10px;
+ 	margin: 5px 0 5px 0;
+ 	}
+ </style>
+ <script>
+	$(function() {
+		$(document).on('click','#available',function(){
+			var nullch = $(this).html()
+
+			if(nullch==" "){
+				
+			}else{
+			$(this).css("background","red");
+			
+			$('#kCalendar table tbody tr td').not($(this)).css("background","#333333");
+			
+			var date = $('#date').html() 
+			var year = date.substr(0,4)
+			var month = date.substr(6,2)
+			var day= $(this).html()
+			if(day<10){
+				day="0"+day
+			}
+			
+			
+			$('#resultday').html(day)
+			$('#resultyear').html(year)
+			$('#resultmonth').html(month)
+			$('.hyphoon').css('display','inline-block')
+			
+			var nowcinema = $('#resultsite').html()
+			var si_sponsor = nowcinema.split(" ")
+			var nowmovie = $('#resultmovie').html()
+			var date = year+"-"+month+"-"+day
+			var command="gettime"
+			
+			$.ajax({
+		  		  type:"post",
+						url:"getschedule.json",
+						datatype:"json",
+						data:{
+						"si" : si_sponsor[0],
+						"sponsor":si_sponsor[1],
+						"movie":nowmovie,
+						"date":date,
+						"command":command
+					},
+					
+					success:nowboard,
+		  		 
+		  		  
+		  	  });function nowboard(resdata){
+		  		  var json = $.parseJSON(JSON.stringify(resdata));
+		  		
+		  		var cinelist = json[0].cine.split('/')
+		  		var schedule_by_cine = json[0].schedule.split('/')
+		  		var s_html="";
+		  		for(var k= 0;k<cinelist.length-1;k++){
+		  			var schedule_by_time =  schedule_by_cine[k].split('#')
+			  		for (var i= 0;i<schedule_by_time.length-1;i++){
+			  			s_html += "<div class = timetable>"+cinelist[k]+"관 "+schedule_by_time[i]+"</div>"
+			  			
+			  		}
+		  		}
+		  		$(".moinfotime").html(s_html)
+		  	  }
+	
+			
+			}
+		})
+	})
+	
+	
+	function send(){
+		var resultmovie =  $('#resultmovie').html()
+		var resultsite =  $('#resultsite').html()
+		var resultday = $('#resultyear').html()+$('#resultmonth').html()+ $('#resultday').html()
+		var resulttime =  $('#resulttime').html()
+		var resultadult =  $('#resultadult').html()
+		var resultteen =  $('#resultteen').html()
+		var totalfee = $('#totalfee').html()
+		
+		if(resultmovie=='미선택'||resultsite=='미선택'||resultday=='미선택'||resulttime=='미선택'||(resultadult=='0'&&resultteen=='0')){
+			alert("선택하지 않은 항목이 있습니다")
+			
+		}else
+		location.href ='B_bookingseat.jsp?resultmovie='+resultmovie+'&resultsite='+resultsite+'&resultday='+resultday+'&resulttime='+resulttime+'&resultadult='+resultadult+'&resultteen='+resultteen+'&totalfee='+totalfee
+		
+		
+	}
+	<%if(title!="none"){ %>
+	window.onload=function(){
+		autochoose();
+	};
+	function autochoose(){
+
+		$('div[name="<%=title%>"]').css("background","red");
+		var ttr=$('div[name="<%=title%>"]').html();
+		$('#resultmovie').html(ttr);
+		
+		var nowcinema = $('#resultsite').html();
+		var si_sponsor = nowcinema.split(" ");
+		var nowmovie = $('#resultmovie').html();
+		var command="getcine";
+		
+		 $.ajax({
+   		  type:"post",
+ 				url:"getdate.json",
+ 				datatype:"json",
+ 				data:{
+					"movie":nowmovie,
+					"command":command
+ 			},
+ 			
+ 			success:getcine
+   		 
+   		  
+   	  });function getcine(data, textStatus, xhr){
+
+   		 var li = $.parseJSON(JSON.stringify(data));
+   		  var html ="";
+
+   html+="		<ul>"
+   html+="			<li>"
+   html+="		<h3><span class=\"icon-dashboard\"></span>서울/경기</h3>"
+   html+="				<ul>"
+	  
+	   for(var i= 0;i<li.length;i++){ 
+				if(li[i].doo=='서울'||li[i].doo=='경기'){
+				
+			 html+=	"<li><a>"+li[i].si+" "+li[i].sponsor+"</a></li>"
+				
+				}
+			}
+
+   
  
+	
+   html+="				</ul>"
+   html+="		</li>"
+   html+="	<li>"
+   html+="<h3><span class=\"icon-tasks\"></span>충청/강원</h3>"
+   html+="		<ul>"
+	   
+	   for(var i= 0;i<li.length;i++){ 
+			if(li[i].doo=='충청'||li[i].doo=='강원'){
+			
+		 html+=	"<li><a>"+li[i].si+" "+li[i].sponsor+"</a></li>"
+			
+			}
+		}
+   html+="				</ul>"
+   html+="		</li>"
+   html+="	<li>"
+   html+="  <h3><span class=\"icon-calendar\"></span>전라/경상</h3>"
+   html+="		<ul>"
+		   
+		   for(var i= 0;i<li.length;i++){ 
+				if(li[i].doo=='전라'||li[i].doo=='경상'){
+				
+			 html+=	"<li><a>"+li[i].si+" "+li[i].sponsor+"</a></li>"
+				
+				}
+			}
+   html+="				</ul>"
+   html+="		</li>"
+   html+="	<li>"
+   html+="  <h3><span class=\"icon-heart\"></span>제주</h3>"
+   html+="		<ul>"
+		   
+		   for(var i= 0;i<li.length;i++){ 
+				if(li[i].doo=='제주'){
+				
+			 html+=	"<li><a>"+li[i].si+" "+li[i].sponsor+"</a></li>"
+				
+				}
+			}
+   html+="				</ul>"
+   html+="		</li>"
+   html+="</ul>"
+
+
+		$('#accordian2').html(html);
+		$('#poster').attr("src",li[li.length-1].poster);
+		$('#resulttime').html('미선택');
+		$('#resultyear').html('미선택');
+		$('#resultmonth').html('');
+		$('#resultday').html('');
+		$('.hyphoon').css('display','none');
+		
+		$('.moinfotime').html("<div style=\"padding-top:35%;\">날짜를 먼저 선택해주세요</div>	")
+		
+   	  }
+
+		
+		
+	}
+	
+	
+	<%}%>
+	</script>
  
  <body>
  	<%@ include file="header.jsp" %>
 	<div id =mainwrapper>
 		<div id =bookingbox>
 			<div id =bookingfirst>
+			<%if(which.equals("cinema")){ %>
 				<div class=booktitle>극장선택</div>
-				<div id="accordian">
+				<div id="accordian">				
 						<ul>
 							<li>
 								<h3><span class="icon-dashboard"></span>서울/경기</h3>
 								<ul>
-									<li><a href="#">강남 롯데시네마</a></li>
-									<li><a href="#">강남 메가박스</a></li>
-									<li><a href="#">동서울 메가박스</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
-									<li><a href="#">일산 CGV</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("서울")||li.get(i).getDoo().equals("경기")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
+									
+						
 								</ul>
 							</li>
 							<li class="active">
-								<h3><span class="icon-tasks"></span>충청</h3>
+								<h3><span class="icon-tasks"></span>충청/강원</h3>
 								<ul>
-									<li><a href="#">충청도 롯시</a></li>
-									<li><a href="#">충주 메가박스</a></li>
-									<li><a href="#">충북 CGV</a></li>
-									<li><a href="#">Recurring</a></li>
-									<li><a href="#">Settings</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("충청")||li.get(i).getDoo().equals("강원")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
 								</ul>
 							</li>
 							<li>
-								<h3><span class="icon-calendar"></span>강원</h3>
+								<h3><span class="icon-calendar"></span>전라/경상</h3>
 								<ul>
-									<li><a href="#">춘천메박</a></li>
-									<li><a href="#">원주롯시</a></li>
-									<li><a href="#">강릉 씨지브이</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("전라")||li.get(i).getDoo().equals("경상")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
 								</ul>
 							</li>
 							<li>
-								<h3><span class="icon-heart"></span>인천</h3>
+								<h3><span class="icon-heart"></span>제주</h3>
 								<ul>
-									<li><a href="#">인천시지브이</a></li>
-									<li><a href="#">인천차이나타운메박</a></li>
-									<li><a href="#">인천롯시</a></li>
-									<li><a href="#">인천롯시</a></li>
+									<%for(int i= 0;i<li.size();i++){ 
+										if(li.get(i).getDoo().equals("제주")){
+									%>
+									<li><a><%=li.get(i).getSi() %> <%=li.get(i).getSponsor() %></a></li>
+									
+									<%}} %>
 								</ul>
 							</li>
 						</ul>
+					
 					</div>
+			
+			
+			<%} else if(which.equals("movie")){ %>
+				<div class=booktitle>영화선택</div>
+					<div id="accordian">
+					<div id = movietwrap>
+						<ul>
+									<%for(int i= 0;i<li2.size();i++){ 
+									%>
+									<div id = moviefirst class =moviet name="<%=li2.get(i).getMovie() %>"><%=li2.get(i).getMovie() %></div>
+									
+									<%} %>
+						</ul>
+					</div>
+					</div>
+				
+			<%}%>
+			
 			</div>
+			
 			<div id =bookingsecond>
+			<%if(which.equals("cinema")){ %>
 				<div class=booktitle>영화선택</div>
 					<div id="accordian2">
-						<ul>
-							<li>
-								<h3><span class="icon-dashboard"></span>주간TOP10</h3>
-								<ul>
-									<li><a href="#">겨울왕국2</a></li>
-									<li><a href="#">포드v페라리</a></li>
-									<li><a href="#">천문:하늘에묻는다</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-							<li class="active2">
-								<h3><span class="icon-tasks"></span>최신영화</h3>
-								<ul>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-							<li>
-								<h3><span class="icon-calendar"></span>마감임박</h3>
-								<ul>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-							<li>
-								<h3><span class="icon-heart"></span>키즈</h3>
-								<ul>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-									<li><a href="#">영화</a></li>
-								</ul>
-							</li>
-						</ul>
+						<div style="padding-top:50%;">장소를 먼저 선택해주세요</div>
 					</div>
-				</div>
+			</div>
+			<% } else if(which.equals("movie")){ %>
+				<div class=booktitle>극장선택</div>
+					<div id="accordian2">
+						<div style="padding-top:50%;">영화를 먼저 선택해주세요</div>
+					</div>
+					</div>
+					<%}%>
+			
 				<div id = bookingday>
 					<div class=booktitle>날짜선택</div>
 					<div id=moinfo>
-						<div id="kCalendar"></div>
+						<div id="kCalendar"><span id=readycal>영화를 먼저 선택해주세요</span></div>
 					</div>
 				</div>
 				<div id = bookingday>
 					<div class=booktitle>시간선택</div>
 					<div class=moinfotime>
-					<ul>
-						<li><a href="#">1관 13:00</a></li>
-						<li><a href="#">3관 13:30</a></li>
-						<li><a href="#">1관 16:05</a></li>
-						<li><a href="#">2관 19:00</a></li>
-						<li><a href="#">5관 22:10</a></li>				
-					</ul>
+					
+						<div style="padding-top:35%;">날짜를 먼저 선택해주세요</div>				
+				
 					</div>
 				</div>
 				<div id = bookingperson>
@@ -174,7 +416,7 @@
 					<div class=booktitle>선택한영화정보
 					</div>
 					<div class=moinfocheck>
-					<img src="img/poster1.jpg" style="width:auto;height:180px;float:left;margin-top:20px;margin-left:20px;"/>
+					<img id =poster src="img/none.png" style="width:120px;height:auto;float:left;margin-top:20px;margin-left:20px;border:1px solid white;"/>
 						<ul>
 							<li>영화</li>
 							<li>극장</li>
@@ -185,9 +427,10 @@
 						<ul id=result>
 							<li id = 'resultmovie'>미선택</li>
 							<li id = 'resultsite'>미선택</li>
-							<li id = 'resultday'>미구현</li>
+							<li id = 'resultdate'><span id = 'resultyear'>미선택</span><span class=hyphoon >-</span><span id='resultmonth'></span><span class=hyphoon >-</span><span id='resultday'></span></li>
 							<li id = 'resulttime'>미선택</li>
-							<li id = 'resultadult'>미선택</li><li id = 'resultteen'></li>
+							<li><span>성인 :</span><span id = 'resultadult'>0</span><span> 명</span></li>
+							<li><span>학생 :</span><span id = 'resultteen'>0</span><span> 명</span></li>
 						</ul>
 					</div>
 				</div>
@@ -211,9 +454,9 @@
 						</ul>
 					</div>
 				</div>
-				<div OnClick="location.href ='B_movie.jsp'" style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
-				height:30px;color:white;background:orange;float:left;padding-top:10px;margin-top:30px; margin-bottom:30px;">다시 선택<hr ; width=125% style="margin-top:20px;margin-left:-20px;color:#D5D5D5;"></div>
-				<div OnClick="location.href ='#'" style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
+				<div OnClick="<%=url %>" style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
+				height:30px;color:white;background:orange;float:left;padding-top:10px;margin-top:30px; margin-bottom:30px;">다시 선택<hr  width=125% style="margin-top:20px;margin-left:-20px;color:#D5D5D5;"></div>
+				<div OnClick='javascript:send()' style="margin-left:20px;cursor:pointer;width:150px;border-radius:10px;
 				height:50px;color:white;background:#CC3D3D;float:left;padding-top:20px;">좌석선택하기</div>
 			</div>
 		</div>

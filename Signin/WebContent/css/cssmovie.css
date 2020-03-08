@@ -266,6 +266,8 @@
 		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
 		0 0 200px 1px rgba(255, 255, 255, 0.5);
 	margin-top:15px;
+	color:white;
+	overflow:auto;
 	}
 	.moinfocheck{
 	width:90%;
@@ -332,6 +334,7 @@
 	}
 
 	#accordian {
+	overflow:auto;
 	background: #333333;
 	width: 250px;
 	height:300px;
@@ -341,6 +344,7 @@
 		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
 		0 0 200px 1px rgba(255, 255, 255, 0.5);
 	}
+	
 
 	/* 메뉴 스타일 */
 	#accordian h3 {
@@ -407,6 +411,7 @@
 	height:300px;
 	margin: 15px auto 0 auto;
 	color: white;
+	display: table;
 	box-shadow: 
 		0 5px 15px 1px rgba(0, 0, 0, 0.6), 
 		0 0 200px 1px rgba(255, 255, 255, 0.5);

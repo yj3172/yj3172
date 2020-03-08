@@ -106,6 +106,7 @@ float:left;
  <body bgcolor="#364f6b">
 	 <%@ include file="header.jsp" %>
 	 <%@ include file="I_mypage_submenu.jsp" %>
+	  <%@ include file="chat.jsp" %>
 	<form name="delete_form" method="post" action="I_update_info.jsp">
 	 <div id=cm>
 	<div id = mypage>
