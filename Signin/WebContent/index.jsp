@@ -163,13 +163,26 @@
   
  </head>
  <body>
+ <% Crawling megabox = new Crawling();
+ 	Selenium se = new Selenium();
+ 	String[] li =se.crawl();
+ 	%>
 	<%@ include file="header.jsp" %>
 	<div id=bxsilderwrapper style="margin-top:200px;">
 		<ul class="bxslider" style="z-index:50;">
+<<<<<<< HEAD
 			<li><img id= slideimg src="img/main0.jpg" /></li>
 			<li><img id= slideimg src="img/main1.jpg" /></li>
 			<li><img id= slideimg src="img/main2.jpg" /></li>
 			<li><img id= slideimg src="img/main3.jpg" /></li>
+=======
+		<%if(li!=null){ %>
+		  <li><img id= slideimg src=<%=li[0] %> /></li>
+		  <li><img id= slideimg src=<%=li[1] %> /></li>
+		  <li><img id= slideimg src=<%=li[2] %> /></li>
+		  <li><img id= slideimg src=<%=li[3] %> /></li>
+		  <%} %>
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
 		</ul>
 		</div>
 		

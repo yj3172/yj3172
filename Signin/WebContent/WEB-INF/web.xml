@@ -21,6 +21,7 @@
   	<servlet-name>ajaxServlet</servlet-name>
   	<servlet-class>com.ajax.Getinfo</servlet-class>
   </servlet>
+<<<<<<< HEAD
  <servlet>
 	<display-name>DWR Servlet</display-name>
 	<servlet-name>dwr-invoker</servlet-name>  
@@ -34,5 +35,8 @@
 	<servlet-name>dwr-invoker</servlet-name>
 	<url-pattern>/dwr/*</url-pattern>
 </servlet-mapping>
+=======
+
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
 
 </web-app>

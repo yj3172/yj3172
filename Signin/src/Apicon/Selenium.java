@@ -1,12 +1,15 @@
 package Apicon;
 
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+=======
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -29,7 +32,11 @@ public class Selenium {
     public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
     public static final String WEB_DRIVER_PATH = "D:\\selenium\\chromedriver_win32\\chromedriver.exe";
     
+<<<<<<< HEAD
     //Å©ï¿½Ñ¸ï¿½ ï¿½ï¿½ URL
+=======
+    //Å©·Ñ¸µ ÇÒ URL
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
     private String base_url ;
     
     public Selenium() {
@@ -61,6 +68,7 @@ public class Selenium {
     }
     public String[] crawl()  {
           String[] li = new String[4];
+<<<<<<< HEAD
         try {
      
             //get page (= ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ urlï¿½ï¿½ ï¿½Ö¼ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ request ï¿½ï¿½ ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½)
@@ -70,6 +78,18 @@ public class Selenium {
 
 
         
+=======
+          JavascriptExecutor js = (JavascriptExecutor)driver;
+        try {
+     
+            //get page (= ºê¶ó¿ìÀú¿¡¼­ urlÀ» ÁÖ¼ÒÃ¢¿¡ ³ÖÀº ÈÄ request ÇÑ °Í°ú °°´Ù)
+        	FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver);
+        	fluentWait.withTimeout(Duration.ofMinutes(10));        // FluentWait ÀÎ½ºÅÏ½º°¡ Á¶°ÇÀ» ±â´Ù¸®´Â ÃÖ´ë ½Ã°£ (10ºÐ ¼³Á¤)
+        	fluentWait.pollingEvery(Duration.ofSeconds(10));
+
+
+        	ÃâÃ³: https://pasudo123.tistory.com/101 [Contact 1997]
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
             driver.get(base_url);
             
            
@@ -78,7 +98,10 @@ public class Selenium {
             for(int i=0;i<=posts.size();i++) {
             	li[i]=posts.get(i).getAttribute("src");
             	System.out.println(i+":"+li[i].toString());
+<<<<<<< HEAD
             	saveImage(li[i].toString(),i);
+=======
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
             }
         } catch (Exception e) {
             
@@ -90,6 +113,7 @@ public class Selenium {
         }
         return li;
     }
+<<<<<<< HEAD
     private void saveImage(String strUrl, int files) throws IOException {
     	 
         URL url = null;
@@ -134,4 +158,6 @@ public class Selenium {
  
         }
     }
+=======
+>>>>>>> 91014054ab160c797efcd70b841189f7af4a5a67
 }
